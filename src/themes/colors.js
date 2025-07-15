@@ -1,0 +1,86 @@
+//App colors
+const LightColor = {
+  light: 'light',
+  backgroundColor: '#FFFFFF',
+  textColor: '#09101D',
+  textRevertColor: '#FFFFFF',
+  btnColor3: '#FFFFFF',
+  inputBg: '#FAFAFA',
+  dark3: '#E7FAF4',
+  iconColor: '#9E9E9E',
+  bColor: '#EEEEEE',
+  btnColor: '#101010',
+  imageBg: '#F3F3F3',
+  primary4: '#404040',
+  inactive: '#9E9E9E',
+  primaryLightBtn: '#12D18E',
+};
+
+const DarkColor = {
+  dark: 'dark',
+  backgroundColor: '#181A20',
+  textColor: '#FFFFFF',
+  textRevertColor: '#212121',
+  btnColor3: '#1F222A',
+  inputBg: '#1F222A',
+  dark3: '#35383F',
+  iconColor: '#616161',
+  bColor: '#35383F',
+  btnColor: '#FFFFFF',
+  imageBg: '#35383F',
+  primary4: '#E0E0E0',
+  inactive: '#404040',
+  primaryLightBtn: '#FFFFFF',
+};
+
+// Common colors
+export const commonColor = {
+  white: '#FFFFFF',
+  black: '#000000',
+  primary: '#12D18E',
+  grayScale: '#FAFAFA',
+  grayScale1: '#F5F5F5',
+  grayScale2: '#EEEEEE',
+  grayScale3: '#E0E0E0',
+  grayScale4: '#BDBDBD',
+  grayScale5: '#9E9E9E',
+  grayScale6: '#757575',
+  grayScale7: '#616161',
+  grayScale8: '#424242',
+  dark2: '#1F222A',
+  primaryTransparent: '#E7FAF4',
+  placeHolderColor: '#9E9E9E',
+  borderColor: '#35383F',
+  inputFocusColor: '#E7FAF4',
+  tranparent: '#00000000',
+  darkBg: '#181A20',
+  redColor: '#F75555',
+  lightRed: '#FF5C74',
+  lightGray: '#7575751F',
+  orange: '#FB9400',
+  blue: '#7210FF',
+  modalBg: '#00000099',
+  disabledColor: '#3062C8',
+  alertColor: '#F75555',
+  transparentSilver: '#10101014',
+  downColor1: '#F44336',
+  downColor2: '#F75555',
+  upColor1: '#41DAA5',
+  upColor2: '#12D18E',
+  darkPrimary: '#1ED760',
+  yellow: '#FFC107',
+  lightRedColor: '#FFB9B9',
+  primary2: '#A0EDD2',
+};
+
+export const colors = {
+  light: {
+    ...LightColor,
+    ...commonColor,
+  },
+
+  dark: {
+    ...DarkColor,
+    ...commonColor,
+  },
+};
