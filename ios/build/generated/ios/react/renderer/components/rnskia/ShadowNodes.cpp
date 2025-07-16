@@ -12,7 +12,6 @@
 
 namespace facebook::react {
 
-extern const char SkiaDomViewComponentName[] = "SkiaDomView";
 extern const char SkiaPictureViewComponentName[] = "SkiaPictureView";
 
 } // namespace facebook::react

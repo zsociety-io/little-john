@@ -17,15 +17,16 @@ namespace facebook::react {
 RNSFullWindowOverlayProps::RNSFullWindowOverlayProps(
     const PropsParserContext &context,
     const RNSFullWindowOverlayProps &sourceProps,
-    const RawProps &rawProps): ViewProps(context, sourceProps, rawProps)
+    const RawProps &rawProps): ViewProps(context, sourceProps, rawProps),
 
-    
+    accessibilityContainerViewIsModal(convertRawProp(context, rawProps, "accessibilityContainerViewIsModal", sourceProps.accessibilityContainerViewIsModal, {true}))
       {}
 RNSModalScreenProps::RNSModalScreenProps(
     const PropsParserContext &context,
     const RNSModalScreenProps &sourceProps,
     const RawProps &rawProps): ViewProps(context, sourceProps, rawProps),
 
+    screenId(convertRawProp(context, rawProps, "screenId", sourceProps.screenId, {""})),
     sheetAllowedDetents(convertRawProp(context, rawProps, "sheetAllowedDetents", sourceProps.sheetAllowedDetents, {})),
     sheetLargestUndimmedDetent(convertRawProp(context, rawProps, "sheetLargestUndimmedDetent", sourceProps.sheetLargestUndimmedDetent, {-1})),
     sheetGrabberVisible(convertRawProp(context, rawProps, "sheetGrabberVisible", sourceProps.sheetGrabberVisible, {false})),
@@ -84,6 +85,7 @@ RNSScreenProps::RNSScreenProps(
     const RNSScreenProps &sourceProps,
     const RawProps &rawProps): ViewProps(context, sourceProps, rawProps),
 
+    screenId(convertRawProp(context, rawProps, "screenId", sourceProps.screenId, {""})),
     sheetAllowedDetents(convertRawProp(context, rawProps, "sheetAllowedDetents", sourceProps.sheetAllowedDetents, {})),
     sheetLargestUndimmedDetent(convertRawProp(context, rawProps, "sheetLargestUndimmedDetent", sourceProps.sheetLargestUndimmedDetent, {-1})),
     sheetGrabberVisible(convertRawProp(context, rawProps, "sheetGrabberVisible", sourceProps.sheetGrabberVisible, {false})),

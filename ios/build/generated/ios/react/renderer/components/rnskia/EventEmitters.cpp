@@ -13,5 +13,4 @@
 
 namespace facebook::react {
 
-
 } // namespace facebook::react

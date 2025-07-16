@@ -16,7 +16,6 @@ namespace facebook::react {
 
 void rnskia_registerComponentDescriptorsFromCodegen(
   std::shared_ptr<const ComponentDescriptorProviderRegistry> registry) {
-registry->add(concreteComponentDescriptorProvider<SkiaDomViewComponentDescriptor>());
 registry->add(concreteComponentDescriptorProvider<SkiaPictureViewComponentDescriptor>());
 }
 

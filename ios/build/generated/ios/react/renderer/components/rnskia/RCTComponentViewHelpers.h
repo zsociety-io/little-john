@@ -13,10 +13,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol RCTSkiaDomViewViewProtocol <NSObject>
-
-@end
-
 @protocol RCTSkiaPictureViewViewProtocol <NSObject>
 
 @end

@@ -18,17 +18,6 @@
 
 namespace facebook::react {
 
-JSI_EXPORT extern const char SkiaDomViewComponentName[];
-
-/*
- * `ShadowNode` for <SkiaDomView> component.
- */
-using SkiaDomViewShadowNode = ConcreteViewShadowNode<
-    SkiaDomViewComponentName,
-    SkiaDomViewProps,
-    SkiaDomViewEventEmitter,
-    SkiaDomViewState>;
-
 JSI_EXPORT extern const char SkiaPictureViewComponentName[];
 
 /*

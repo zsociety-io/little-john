@@ -16,7 +16,6 @@
 
 namespace facebook::react {
 
-using SkiaDomViewComponentDescriptor = ConcreteComponentDescriptor<SkiaDomViewShadowNode>;
 using SkiaPictureViewComponentDescriptor = ConcreteComponentDescriptor<SkiaPictureViewShadowNode>;
 
 void rnskia_registerComponentDescriptorsFromCodegen(

@@ -14,18 +14,6 @@
 
 namespace facebook::react {
 
-class SkiaDomViewState {
-public:
-  SkiaDomViewState() = default;
-
-#ifdef ANDROID
-  SkiaDomViewState(SkiaDomViewState const &previousState, folly::dynamic data){};
-  folly::dynamic getDynamic() const {
-    return {};
-  };
-#endif
-};
-
 class SkiaPictureViewState {
 public:
   SkiaPictureViewState() = default;

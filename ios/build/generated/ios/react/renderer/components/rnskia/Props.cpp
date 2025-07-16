@@ -14,19 +14,13 @@
 
 namespace facebook::react {
 
-SkiaDomViewProps::SkiaDomViewProps(
-    const PropsParserContext &context,
-    const SkiaDomViewProps &sourceProps,
-    const RawProps &rawProps): ViewProps(context, sourceProps, rawProps),
-
-    debug(convertRawProp(context, rawProps, "debug", sourceProps.debug, {false}))
-      {}
 SkiaPictureViewProps::SkiaPictureViewProps(
     const PropsParserContext &context,
     const SkiaPictureViewProps &sourceProps,
     const RawProps &rawProps): ViewProps(context, sourceProps, rawProps),
 
-    debug(convertRawProp(context, rawProps, "debug", sourceProps.debug, {false}))
+    debug(convertRawProp(context, rawProps, "debug", sourceProps.debug, {false})),
+    opaque(convertRawProp(context, rawProps, "opaque", sourceProps.opaque, {false}))
       {}
 
 } // namespace facebook::react

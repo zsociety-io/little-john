@@ -13,13 +13,6 @@
 
 
 namespace facebook::react {
-class SkiaDomViewEventEmitter : public ViewEventEmitter {
- public:
-  using ViewEventEmitter::ViewEventEmitter;
-
-  
-  
-};
 class SkiaPictureViewEventEmitter : public ViewEventEmitter {
  public:
   using ViewEventEmitter::ViewEventEmitter;

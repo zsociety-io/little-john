@@ -14,16 +14,6 @@
 
 namespace facebook::react {
 
-class SkiaDomViewProps final : public ViewProps {
- public:
-  SkiaDomViewProps() = default;
-  SkiaDomViewProps(const PropsParserContext& context, const SkiaDomViewProps &sourceProps, const RawProps &rawProps);
-
-#pragma mark - Props
-
-  bool debug{false};
-};
-
 class SkiaPictureViewProps final : public ViewProps {
  public:
   SkiaPictureViewProps() = default;
@@ -32,6 +22,7 @@ class SkiaPictureViewProps final : public ViewProps {
 #pragma mark - Props
 
   bool debug{false};
+  bool opaque{false};
 };
 
 } // namespace facebook::react
