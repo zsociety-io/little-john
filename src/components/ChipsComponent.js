@@ -1,13 +1,13 @@
-import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
+import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 // Local import
 import CText from './common/CText';
-import {styles} from '../themes';
-import {moderateScale} from '../common/constants';
+import { styles } from '../themes';
+import { moderateScale } from '../common/constants';
 
-const ChipsComponent = ({data}) => {
+const ChipsComponent = ({ data }) => {
   const colors = useSelector(state => state.theme.theme);
   const [selectedChips, setSelectedChips] = useState([]);
 
@@ -19,21 +19,30 @@ const ChipsComponent = ({data}) => {
     }
   };
 
-  const RenderChips = ({item}) => {
+  const RenderChips = ({ item }) => {
     return (
       <TouchableOpacity
         onPress={() => onPressChips(item)}
         style={[
           localStyles.chipsContainer,
-          {borderColor: colors.primary},
-          selectedChips.includes(item) && {backgroundColor: colors.primary},
-        ]}>
-        <CText
-          type={'s16'}
-          color={selectedChips.includes(item) ? colors.white : colors.primary}>
-          {item}
-        </CText>
-      </TouchableOpacity>
+          { borderColor: colors.primary },
+          selectedChips.includes(item) && { backgroundColor: colors.primary },
+        ]}
+      >
+        <TouchableOpacity
+          onPress={() => onPressChips(item)}
+          style={[
+            localStyles.chipsContainer,
+            { borderColor: colors.primary },
+            selectedChips.includes(item) && { backgroundColor: colors.primary },
+          ]}>
+          <CText
+            type={'s16'}
+            color={selectedChips.includes(item) ? colors.white : colors.primary}>
+            {item}
+          </CText>
+        </TouchableOpacity>
+      </TouchableOpacity >
     );
   };
 

@@ -20,7 +20,7 @@ export default {
   orContinueWith: 'or continue with',
   signWithPassword: 'Sign in with password',
   dontHaveAccount: 'Don’t have an account?',
-  signUp: 'Sign up',
+  signUp: 'Connect Wallet',
   createYourAccount: 'Create Your Account',
   email: 'Email',
   password: 'Password',
