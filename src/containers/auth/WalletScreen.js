@@ -11,16 +11,20 @@ import CButton from '../../components/common/CButton';
 import strings from '../../i18n/strings';
 import { StackNav } from '../../navigation/NavigationKeys';
 
+import {
+  transact,
+  Web3MobileWallet,
+} from "@solana-mobile/mobile-wallet-adapter-protocol-web3js";
+
 const WalletScreen = ({ navigation }) => {
   const [name, setName] = useState('');
 
   const onChangeText = val => setName(val);
-
   const onPressContinue = () => navigation.navigate(StackNav.GenderScreen);
 
   return (
     <CSafeAreaView>
-      <SubHeader status={1} />
+      <SubHeader status={1} nothing />
       <KeyBoardAvoidWrapper contentContainerStyle={styles.rootContainer}>
         <CText type={'B30'}>{strings.question1}</CText>
         <CInput

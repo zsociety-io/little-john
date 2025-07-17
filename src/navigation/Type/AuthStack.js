@@ -10,7 +10,6 @@ export default function AuthStack() {
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
       initialRouteName={StackNav.WalletScreen}>
-
       <Stack.Screen
         name={StackNav.WalletScreen}
         component={StackRoute.WalletScreen}
