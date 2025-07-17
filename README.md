@@ -13,6 +13,28 @@ To start Metro, run the following command from the _root_ of your React Native p
 ```bash
 # using npm
 npm start
+S C:\Users\Adrien\Desktop\ADRIEN\Github\little-john> npm run android
+
+> InvestApp@0.0.1 android
+> react-native run-android
+
+info A dev server is already running for this project on port 8081.
+'"adb"' n'est pas reconnu en tant que commande interne
+ou externe, un programme ex�cutable ou un fichier de commandes.
+info Launching emulator...
+error Failed to launch emulator. Reason: No emulators found as an output of `emulator -list-avds`.
+warn Please launch an emulator manually or connect a device. Otherwise app may fail to launch.
+info Installing the app...
+
+info 💡 Tip: Make sure that you have set up your development environment correctly, by running npx react-native doctor. To read more about doctor command visit: https://github.com/react-native-community/cli/blob/main/packages/cli-doctor/README.md#doctor 
+
+
+ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation.
+error Failed to install the app. Command failed with exit code 9009: gradlew.bat app:installDebug -PreactNativeDevServerPort=8081 ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH. Please set the JAVA_HOME variable in your environment to match the location of your Java installation.
+info Run CLI with --verbose flag for more details.
 
 # OR using Yarn
 yarn start

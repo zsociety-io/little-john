@@ -1,26 +1,26 @@
 {
-  "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest",
-  "reactNativePath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native",
+  "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john",
+  "reactNativePath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native",
   "reactNativeVersion": "0.76",
   "dependencies": {
     "@react-native-async-storage/async-storage": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-async-storage/async-storage",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-async-storage\\async-storage",
       "name": "@react-native-async-storage/async-storage",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-async-storage/async-storage/RNCAsyncStorage.podspec",
-          "version": "2.1.0",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-async-storage\\async-storage\\RNCAsyncStorage.podspec",
+          "version": "2.2.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-async-storage/async-storage/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-async-storage\\async-storage\\android",
           "packageImportPath": "import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;",
           "packageInstance": "new AsyncStoragePackage()",
           "buildTypes": [],
           "libraryName": "rnasyncstorage",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -29,23 +29,23 @@
       }
     },
     "@react-native-clipboard/clipboard": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-clipboard/clipboard",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-clipboard\\clipboard",
       "name": "@react-native-clipboard/clipboard",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-clipboard/clipboard/RNCClipboard.podspec",
-          "version": "1.15.0",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-clipboard\\clipboard\\RNCClipboard.podspec",
+          "version": "1.16.3",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-clipboard/clipboard/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-clipboard\\clipboard\\android",
           "packageImportPath": "import com.reactnativecommunity.clipboard.ClipboardPackage;",
           "packageInstance": "new ClipboardPackage()",
           "buildTypes": [],
           "libraryName": "rnclipboard",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-clipboard/clipboard/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/@react-native-clipboard/clipboard/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -54,23 +54,23 @@
       }
     },
     "@react-native-community/datetimepicker": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-community/datetimepicker",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-community\\datetimepicker",
       "name": "@react-native-community/datetimepicker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec",
-          "version": "8.2.0",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-community\\datetimepicker\\RNDateTimePicker.podspec",
+          "version": "8.4.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-community/datetimepicker/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-community\\datetimepicker\\android",
           "packageImportPath": "import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;",
           "packageInstance": "new RNDateTimePickerPackage()",
           "buildTypes": [],
           "libraryName": "RNDateTimePickerCGen",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -79,22 +79,22 @@
       }
     },
     "@react-native-community/masked-view": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-community/masked-view",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-community\\masked-view",
       "name": "@react-native-community/masked-view",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-community/masked-view/RNCMaskedView.podspec",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-community\\masked-view\\RNCMaskedView.podspec",
           "version": "0.1.11",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-community/masked-view/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@react-native-community\\masked-view\\android",
           "packageImportPath": "import org.reactnative.maskedview.RNCMaskedViewPackage;",
           "packageInstance": "new RNCMaskedViewPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@react-native-community/masked-view/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/@react-native-community/masked-view/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -103,17 +103,17 @@
       }
     },
     "@shopify/flash-list": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@shopify/flash-list",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@shopify\\flash-list",
       "name": "@shopify/flash-list",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@shopify/flash-list/RNFlashList.podspec",
-          "version": "1.7.2",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@shopify\\flash-list\\RNFlashList.podspec",
+          "version": "1.8.3",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@shopify/flash-list/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@shopify\\flash-list\\android",
           "packageImportPath": "import com.shopify.reactnative.flash_list.ReactNativeFlashListPackage;",
           "packageInstance": "new ReactNativeFlashListPackage()",
           "buildTypes": [],
@@ -122,7 +122,7 @@
             "AutoLayoutViewComponentDescriptor",
             "CellContainerComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@shopify/flash-list/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/@shopify/flash-list/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -131,26 +131,25 @@
       }
     },
     "@shopify/react-native-skia": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@shopify/react-native-skia",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@shopify\\react-native-skia",
       "name": "@shopify/react-native-skia",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@shopify/react-native-skia/react-native-skia.podspec",
-          "version": "1.5.10",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@shopify\\react-native-skia\\react-native-skia.podspec",
+          "version": "1.12.4",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@shopify/react-native-skia/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\@shopify\\react-native-skia\\android",
           "packageImportPath": "import com.shopify.reactnative.skia.RNSkiaPackage;",
           "packageInstance": "new RNSkiaPackage()",
           "buildTypes": [],
           "libraryName": "rnskia",
           "componentDescriptors": [
-            "SkiaDomViewComponentDescriptor",
             "SkiaPictureViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/@shopify/react-native-skia/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/@shopify/react-native-skia/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -159,22 +158,22 @@
       }
     },
     "react-native-device-info": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-device-info",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-device-info",
       "name": "react-native-device-info",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-device-info/RNDeviceInfo.podspec",
-          "version": "14.0.1",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-device-info\\RNDeviceInfo.podspec",
+          "version": "14.0.4",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-device-info/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-device-info\\android",
           "packageImportPath": "import com.learnium.RNDeviceInfo.RNDeviceInfo;",
           "packageInstance": "new RNDeviceInfo()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-device-info/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-device-info/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -183,17 +182,17 @@
       }
     },
     "react-native-gesture-handler": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-gesture-handler",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-gesture-handler",
       "name": "react-native-gesture-handler",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-gesture-handler/RNGestureHandler.podspec",
-          "version": "2.21.2",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-gesture-handler\\RNGestureHandler.podspec",
+          "version": "2.27.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-gesture-handler/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-gesture-handler\\android",
           "packageImportPath": "import com.swmansion.gesturehandler.RNGestureHandlerPackage;",
           "packageInstance": "new RNGestureHandlerPackage()",
           "buildTypes": [],
@@ -202,7 +201,7 @@
             "RNGestureHandlerButtonComponentDescriptor",
             "RNGestureHandlerRootViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -211,22 +210,22 @@
       }
     },
     "react-native-image-crop-picker": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-image-crop-picker",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-image-crop-picker",
       "name": "react-native-image-crop-picker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-image-crop-picker/RNImageCropPicker.podspec",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-image-crop-picker\\RNImageCropPicker.podspec",
           "version": "0.41.6",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-image-crop-picker/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-image-crop-picker\\android",
           "packageImportPath": "import com.reactnative.ivpusic.imagepicker.PickerPackage;",
           "packageInstance": "new PickerPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-image-crop-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-image-crop-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -235,23 +234,23 @@
       }
     },
     "react-native-image-picker": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-image-picker",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-image-picker",
       "name": "react-native-image-picker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-image-picker/react-native-image-picker.podspec",
-          "version": "7.1.3",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-image-picker\\react-native-image-picker.podspec",
+          "version": "7.2.3",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-image-picker/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-image-picker\\android",
           "packageImportPath": "import com.imagepicker.ImagePickerPackage;",
           "packageInstance": "new ImagePickerPackage()",
           "buildTypes": [],
           "libraryName": "RNImagePickerSpec",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -260,22 +259,22 @@
       }
     },
     "react-native-localization": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-localization",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-localization",
       "name": "react-native-localization",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-localization/ReactNativeLocalization.podspec",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-localization\\ReactNativeLocalization.podspec",
           "version": "2.3.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-localization/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-localization\\android",
           "packageImportPath": "import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;",
           "packageInstance": "new ReactNativeLocalizationPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-localization/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-localization/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -284,23 +283,23 @@
       }
     },
     "react-native-reanimated": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-reanimated",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-reanimated",
       "name": "react-native-reanimated",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-reanimated/RNReanimated.podspec",
-          "version": "3.16.3",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-reanimated\\RNReanimated.podspec",
+          "version": "3.18.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-reanimated/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-reanimated\\android",
           "packageImportPath": "import com.swmansion.reanimated.ReanimatedPackage;",
           "packageInstance": "new ReanimatedPackage()",
           "buildTypes": [],
           "libraryName": "rnreanimated",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-reanimated/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-reanimated/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -309,17 +308,17 @@
       }
     },
     "react-native-safe-area-context": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-safe-area-context",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-safe-area-context",
       "name": "react-native-safe-area-context",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-safe-area-context/react-native-safe-area-context.podspec",
-          "version": "4.14.0",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-safe-area-context\\react-native-safe-area-context.podspec",
+          "version": "4.14.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-safe-area-context/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-safe-area-context\\android",
           "packageImportPath": "import com.th3rdwave.safeareacontext.SafeAreaContextPackage;",
           "packageInstance": "new SafeAreaContextPackage()",
           "buildTypes": [],
@@ -328,7 +327,7 @@
             "RNCSafeAreaProviderComponentDescriptor",
             "RNCSafeAreaViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -337,17 +336,17 @@
       }
     },
     "react-native-screens": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-screens",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-screens",
       "name": "react-native-screens",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-screens/RNScreens.podspec",
-          "version": "4.3.0",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-screens\\RNScreens.podspec",
+          "version": "4.12.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-screens/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-screens\\android",
           "packageImportPath": "import com.swmansion.rnscreens.RNScreensPackage;",
           "packageInstance": "new RNScreensPackage()",
           "buildTypes": [],
@@ -365,7 +364,7 @@
             "RNSScreenContentWrapperComponentDescriptor",
             "RNSModalScreenComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -374,22 +373,22 @@
       }
     },
     "react-native-splash-screen": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-splash-screen",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-splash-screen",
       "name": "react-native-splash-screen",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-splash-screen/react-native-splash-screen.podspec",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-splash-screen\\react-native-splash-screen.podspec",
           "version": "3.3.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-splash-screen/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-splash-screen\\android",
           "packageImportPath": "import org.devio.rn.splashscreen.SplashScreenReactPackage;",
           "packageInstance": "new SplashScreenReactPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-splash-screen/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-splash-screen/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -398,17 +397,17 @@
       }
     },
     "react-native-svg": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-svg",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-svg",
       "name": "react-native-svg",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-svg/RNSVG.podspec",
-          "version": "15.9.0",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-svg\\RNSVG.podspec",
+          "version": "15.12.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-svg/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-svg\\android",
           "packageImportPath": "import com.horcrux.svg.SvgPackage;",
           "packageInstance": "new SvgPackage()",
           "buildTypes": [],
@@ -444,7 +443,7 @@
             "RNSVGTSpanComponentDescriptor",
             "RNSVGUseComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -453,23 +452,23 @@
       }
     },
     "react-native-vector-icons": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-vector-icons",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-vector-icons",
       "name": "react-native-vector-icons",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-vector-icons/RNVectorIcons.podspec",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-vector-icons\\RNVectorIcons.podspec",
           "version": "10.2.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-vector-icons/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-vector-icons\\android",
           "packageImportPath": "import com.oblador.vectoricons.VectorIconsPackage;",
           "packageInstance": "new VectorIconsPackage()",
           "buildTypes": [],
           "libraryName": "RNVectorIconsSpec",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -478,22 +477,22 @@
       }
     },
     "react-native-video": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-video",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-video",
       "name": "react-native-video",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-video/react-native-video.podspec",
-          "version": "6.8.2",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-video\\react-native-video.podspec",
+          "version": "6.16.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-video/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-video\\android",
           "packageImportPath": "import com.brentvatne.react.ReactVideoPackage;",
           "packageInstance": "new ReactVideoPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-video/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-video/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -502,17 +501,17 @@
       }
     },
     "react-native-webview": {
-      "root": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-webview",
+      "root": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-webview",
       "name": "react-native-webview",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-webview/react-native-webview.podspec",
-          "version": "13.12.4",
+          "podspecPath": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-webview\\react-native-webview.podspec",
+          "version": "13.15.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-webview/android",
+          "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\node_modules\\react-native-webview\\android",
           "packageImportPath": "import com.reactnativecommunity.webview.RNCWebViewPackage;",
           "packageInstance": "new RNCWebViewPackage()",
           "buildTypes": [],
@@ -520,7 +519,7 @@
           "componentDescriptors": [
             "RNCWebViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/node_modules/react-native-webview/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/Adrien/Desktop/ADRIEN/Github/little-john/node_modules/react-native-webview/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -686,7 +685,7 @@
         {
           "name": "--path <path>",
           "description": "Path to the React Native project root.",
-          "default": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest"
+          "default": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john"
         },
         {
           "name": "--platform <string>",
@@ -738,7 +737,7 @@
         {
           "name": "--terminal <string>",
           "description": "Launches the Metro Bundler in a new window using the specified terminal path.",
-          "default": "vscode"
+          "default": "cmd.exe"
         },
         {
           "name": "--binary-path <string>",
@@ -898,7 +897,7 @@
         {
           "name": "--terminal <string>",
           "description": "Launches the Metro Bundler in a new window using the specified terminal path.",
-          "default": "vscode"
+          "default": "cmd.exe"
         },
         {
           "name": "--appId <string>",
@@ -975,7 +974,7 @@
   ],
   "project": {
     "ios": {
-      "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/ios",
+      "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\ios",
       "xcodeProject": {
         "name": "InvestApp.xcworkspace",
         "path": ".",
@@ -985,7 +984,7 @@
       "assets": []
     },
     "android": {
-      "sourceDir": "/Users/admin6/Documents/Adobe/Rn/Invest-Rn/Invest_Mobile_App/Invest/android",
+      "sourceDir": "C:\\Users\\Adrien\\Desktop\\ADRIEN\\Github\\little-john\\android",
       "appName": "app",
       "packageName": "com.investapp",
       "applicationId": "com.investapp",
