@@ -10,17 +10,35 @@ import CInput from '../../components/common/CInput';
 import CButton from '../../components/common/CButton';
 import strings from '../../i18n/strings';
 import { StackNav } from '../../navigation/NavigationKeys';
+import images from '../../assets/images';
 
-import {
-  transact,
-  Web3MobileWallet,
-} from "@solana-mobile/mobile-wallet-adapter-protocol-web3js";
+import { transact, Web3MobileWallet } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
+
+export const APP_IDENTITY = {
+  name: 'Little John',
+  uri: 'https://zsociety.io/little-john',
+  icon: "favicon.ico",
+};
+
 
 const WalletScreen = ({ navigation }) => {
   const [name, setName] = useState('');
 
   const onChangeText = val => setName(val);
-  const onPressContinue = () => navigation.navigate(StackNav.GenderScreen);
+
+  const onPressContinue = async () => {
+    const authorizationResult = await transact(async (wallet) => {
+      const authorizationResult = await wallet.authorize({
+        cluster: 'solana:devnet',
+        identity: APP_IDENTITY,
+      });
+
+      /* After approval, signing requests are available in the session. */
+      return authorizationResult;
+    });
+
+    console.log("Connected to: " + authorizationResult.accounts[0].address)
+  };
 
   return (
     <CSafeAreaView>

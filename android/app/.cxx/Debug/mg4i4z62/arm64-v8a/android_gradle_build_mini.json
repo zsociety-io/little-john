@@ -5,6 +5,7 @@
     "/Users/palong/solana/invest/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/palong/solana/invest/node_modules/@shopify/flash-list/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/palong/solana/invest/node_modules/@shopify/react-native-skia/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/palong/solana/invest/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/palong/solana/invest/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/palong/solana/invest/node_modules/react-native-reanimated/android/build/generated/source/codegen/jni/CMakeLists.txt",
@@ -30,6 +31,11 @@
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
+    "react_codegen_SolanaMobileWalletAdapter::@3f2db36c7d2aae804b20": {
+      "artifactName": "react_codegen_SolanaMobileWalletAdapter",
+      "abi": "arm64-v8a",
+      "runtimeFiles": []
+    },
     "react_codegen_RNVectorIconsSpec::@479809fae146501fd34d": {
       "artifactName": "react_codegen_RNVectorIconsSpec",
       "abi": "arm64-v8a",

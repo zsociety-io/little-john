@@ -16,6 +16,9 @@
 /Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/rnskia_autolinked_build/CMakeFiles/react_codegen_rnskia.dir
 /Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/rnskia_autolinked_build/CMakeFiles/edit_cache.dir
 /Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/rnskia_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/SolanaMobileWalletAdapter_autolinked_build/CMakeFiles/react_codegen_SolanaMobileWalletAdapter.dir
+/Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/SolanaMobileWalletAdapter_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/SolanaMobileWalletAdapter_autolinked_build/CMakeFiles/rebuild_cache.dir
 /Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/rngesturehandler_codegen_autolinked_build/CMakeFiles/react_codegen_rngesturehandler_codegen.dir
 /Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/rngesturehandler_codegen_autolinked_build/CMakeFiles/edit_cache.dir
 /Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/armeabi-v7a/rngesturehandler_codegen_autolinked_build/CMakeFiles/rebuild_cache.dir

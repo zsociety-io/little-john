@@ -137,6 +137,31 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   file(TOUCH_NOCREATE "/Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/x86_64/CMakeFiles/cmake.verify_globs")
 endif()
 
+# react_codegen_SRCS at /Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/*.cpp")
+set(OLD_GLOB
+  "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/SolanaMobileWalletAdapter-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/x86_64/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at /Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/react/renderer/components/SolanaMobileWalletAdapter/*.cpp")
+set(OLD_GLOB
+  "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/react/renderer/components/SolanaMobileWalletAdapter/ComponentDescriptors.cpp"
+  "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/react/renderer/components/SolanaMobileWalletAdapter/EventEmitters.cpp"
+  "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/react/renderer/components/SolanaMobileWalletAdapter/Props.cpp"
+  "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/react/renderer/components/SolanaMobileWalletAdapter/ShadowNodes.cpp"
+  "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/react/renderer/components/SolanaMobileWalletAdapter/SolanaMobileWalletAdapterJSI-generated.cpp"
+  "/Users/palong/solana/invest/node_modules/@solana-mobile/mobile-wallet-adapter-protocol/android/build/generated/source/codegen/jni/react/renderer/components/SolanaMobileWalletAdapter/States.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/Users/palong/solana/invest/android/app/.cxx/Debug/mg4i4z62/x86_64/CMakeFiles/cmake.verify_globs")
+endif()
+
 # react_codegen_SRCS at /Users/palong/solana/invest/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/palong/solana/invest/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/*.cpp")
 set(OLD_GLOB
