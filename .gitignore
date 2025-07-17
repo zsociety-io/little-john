@@ -73,5 +73,11 @@ coverage/
 *.swp
 .idea/
 
+<<<<<<< HEAD
 android/app/.cxx/*
 android/app/.cxx
+=======
+#cxx
+android/app/.cxx/
+
+>>>>>>> origin/main

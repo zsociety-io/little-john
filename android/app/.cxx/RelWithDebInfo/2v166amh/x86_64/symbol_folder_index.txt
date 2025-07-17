@@ -1,1 +1,0 @@
-/Users/palong/solana/invest/android/app/build/intermediates/cxx/RelWithDebInfo/2v166amh/obj/x86_64
