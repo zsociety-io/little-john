@@ -72,3 +72,6 @@ fastlane/test_output
 coverage/
 *.swp
 .idea/
+
+android/app/.cxx/*
+android/app/.cxx
