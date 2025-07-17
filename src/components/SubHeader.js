@@ -1,14 +1,14 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 // Custom Imports
-import {styles} from '../themes';
-import {deviceWidth, getHeight, moderateScale} from '../common/constants';
+import { styles } from '../themes';
+import { deviceWidth, getHeight, moderateScale } from '../common/constants';
 
-function SubHeader({status}) {
+function SubHeader({ status, nothing }) {
   const colors = useSelector(state => state.theme.theme);
   const navigation = useNavigation();
   const goBack = () => navigation.goBack();
@@ -22,30 +22,32 @@ function SubHeader({status}) {
           color={colors.textColor}
         />
       </TouchableOpacity>
-      <View
-        style={[
-          localStyles.OuterContainer,
-          {
-            backgroundColor: colors.dark ? colors.dark3 : colors.grayScale2,
-          },
-        ]}>
+      {!nothing && (<>
         <View
           style={[
-            localStyles.InnerContainer,
+            localStyles.OuterContainer,
             {
-              width: status === 0 ? 0 : (deviceWidth / 2) * (status / 19),
-              backgroundColor: colors.primary,
+              backgroundColor: colors.dark ? colors.dark3 : colors.grayScale2,
             },
-          ]}
-        />
-      </View>
-      <View style={styles.pr10} onPress={goBack}>
-        <Ionicons
-          name="arrow-back-outline"
-          size={moderateScale(26)}
-          color={colors.textRevertColor}
-        />
-      </View>
+          ]}>
+          <View
+            style={[
+              localStyles.InnerContainer,
+              {
+                width: status === 0 ? 0 : (deviceWidth / 2) * (status / 19),
+                backgroundColor: colors.primary,
+              },
+            ]}
+          />
+        </View>
+        <View style={styles.pr10} onPress={goBack}>
+          <Ionicons
+            name="arrow-back-outline"
+            size={moderateScale(26)}
+            color={colors.textRevertColor}
+          />
+        </View>
+      </>)}
     </View>
   );
 }

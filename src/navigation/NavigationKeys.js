@@ -12,6 +12,7 @@ export const StackNav = {
   Splash: 'Splash',
   Connect: 'Connect',
   onBoarding: 'onBoarding',
+  WalletScreen: 'WalletScreen',
   NameScreen: 'NameScreen',
   GenderScreen: 'GenderScreen',
   BirthdayScreen: 'BirthdayScreen',

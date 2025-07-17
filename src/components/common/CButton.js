@@ -1,11 +1,11 @@
 //Library Imports
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import {useSelector} from 'react-redux';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 
 //Local Imports
-import {getHeight, moderateScale} from '../../common/constants';
-import {styles} from '../../themes';
+import { getHeight, moderateScale } from '../../common/constants';
+import { styles } from '../../themes';
 import CText from './CText';
 
 export default function CButton({
@@ -19,9 +19,11 @@ export default function CButton({
   frontIcon = null,
   bgColor = null,
   children,
+  disabled = false, // <-- add disabled prop
   ...props
 }) {
   const colors = useSelector(state => state.theme.theme);
+
   return (
     <TouchableOpacity
       style={[
@@ -29,10 +31,12 @@ export default function CButton({
         styles.rowCenter,
         containerStyle,
         bgColor
-          ? {backgroundColor: bgColor}
-          : {backgroundColor: colors.primary},
+          ? { backgroundColor: bgColor }
+          : { backgroundColor: colors.primary },
+        disabled && { opacity: 0.5 }, // <-- visual feedback when disabled
       ]}
       onPress={onPress}
+      disabled={disabled} // <-- functionality
       {...props}>
       {frontIcon}
       <CText type={type} style={style} color={color ? color : colors.white}>

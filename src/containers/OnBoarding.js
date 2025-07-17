@@ -1,33 +1,35 @@
-import React, {useState, useRef, useCallback} from 'react';
-import {StyleSheet, FlatList, Image, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, { useState, useRef, useCallback } from 'react';
+import { StyleSheet, FlatList, Image, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 //Local Imports
-import {deviceWidth, getHeight, moderateScale} from '../common/constants';
+import { deviceWidth, getHeight, moderateScale } from '../common/constants';
 import CButton from '../components/common/CButton';
 import CSafeAreaView from '../components/common/CSafeAreaView';
 import strings from '../i18n/strings';
-import {styles} from '../themes';
+import { styles } from '../themes';
 import CText from '../components/common/CText';
 import images from '../assets/images';
-import {Google_Icon} from '../assets/svgs';
-import {StackNav} from '../navigation/NavigationKeys';
+import { Google_Icon } from '../assets/svgs';
+import { StackNav } from '../navigation/NavigationKeys';
 
-const OnBoarding = ({navigation}) => {
+import { Text } from 'react-native';
+
+const OnBoarding = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef(null);
 
   const OnBoardingSlide = [
     {
-      headerText: 'Welcome to Otrade 👋',
+      headerText: 'Your on-chain broker',
+      text: 'Invest in stocks, ETFs, bonds and commodities with your Solana wallet.\n\nBoost the yield of your assets with the power of DeFi !',
+      img: colors.dark ? images.onBordingDark1 : images.onBordingLight1,
+    },/*
+    {
+      headerText: 'Welcome 👋',
       text: 'The best app to invest in international stocks with as little as $1.00',
       img: images.onBording,
-    },
-    {
-      headerText: 'Get Better Returns 🚀',
-      text: 'Invest in the world’s top leading brands & unlock amazing returns of invesment.',
-      img: colors.dark ? images.onBordingDark1 : images.onBordingLight1,
     },
     {
       headerText: 'Start with Just $1.00 💰',
@@ -53,7 +55,7 @@ const OnBoarding = ({navigation}) => {
       headerText: 'Backed by Real Shares 🌏',
       text: 'All your trades are fully backed by real shares all the times.',
       img: colors.dark ? images.onBordingDark6 : images.onBordingLight6,
-    },
+    },*/
   ];
 
   const onPressSignUp = () => {
@@ -64,13 +66,13 @@ const OnBoarding = ({navigation}) => {
     navigation.navigate(StackNav.EmailScreen);
   };
 
-  const _onViewableItemsChanged = useCallback(({viewableItems}) => {
+  const _onViewableItemsChanged = useCallback(({ viewableItems }) => {
     setCurrentIndex(viewableItems[0]?.index);
   }, []);
-  const _viewabilityConfig = {itemVisiblePercentThreshold: 50};
+  const _viewabilityConfig = { itemVisiblePercentThreshold: 50 };
 
   const RenderOnboardingItem = useCallback(
-    ({item, index}) => {
+    ({ item, index }) => {
       return (
         <View key={index} style={localStyles.renderItemContainer}>
           <Image
@@ -78,7 +80,7 @@ const OnBoarding = ({navigation}) => {
             resizeMode="contain"
             style={localStyles.imageStyle}
           />
-          <View style={{height: '25%', ...styles.center}}>
+          <View style={{ height: '25%', ...styles.center }}>
             <CText
               numberOfLines={1}
               style={styles.mv10}
@@ -96,12 +98,38 @@ const OnBoarding = ({navigation}) => {
     [OnBoardingSlide],
   );
 
+  const index = 1;
+  const item = OnBoardingSlide[0];
   return (
     <CSafeAreaView style={styles.flex}>
+      {/*
+      <>
+        <View key={index} style={localStyles.renderItemContainer}>
+          <Image
+            source={item.img}
+            resizeMode="contain"
+            style={localStyles.imageStyle}
+          />
+          <View style={{ height: '25%', ...styles.center }}>
+            <CText
+              numberOfLines={1}
+              style={styles.mv10}
+              type={'B32'}
+              align={'center'}>
+              {item.headerText}
+            </CText>
+            <CText type={'m18'} align={'center'}>
+              {item.text}
+            </CText>
+          </View>
+        </View>
+      </>
+      */}
       <FlatList
         data={OnBoardingSlide}
         ref={slideRef}
-        renderItem={({item, index}) => (
+        scrollEnabled={false}
+        renderItem={({ item, index }) => (
           <RenderOnboardingItem item={item} index={index} />
         )}
         keyExtractor={(item, index) => index.toString()}
@@ -112,6 +140,7 @@ const OnBoarding = ({navigation}) => {
         viewabilityConfig={_viewabilityConfig}
         pagingEnabled
       />
+      {/*
       <View style={styles.rowCenter}>
         {OnBoardingSlide.map((_, index) => (
           <View
@@ -130,6 +159,9 @@ const OnBoarding = ({navigation}) => {
           />
         ))}
       </View>
+      */}
+
+
       <CButton
         title={strings.continueWithGoogle}
         bgColor={colors.btnColor3}
@@ -137,6 +169,7 @@ const OnBoarding = ({navigation}) => {
         color={colors.textColor}
         frontIcon={<Google_Icon />}
         style={styles.ml10}
+        disabled
         containerStyle={[
           localStyles.submitButton,
           {
@@ -145,12 +178,14 @@ const OnBoarding = ({navigation}) => {
           },
         ]}
       />
+
       <CButton
         title={strings.signUp}
         containerStyle={localStyles.submitButton}
         type={'S16'}
         onPress={onPressSignUp}
       />
+      {/*
       <CButton
         type={'S16'}
         title={strings.signIn}
@@ -160,6 +195,7 @@ const OnBoarding = ({navigation}) => {
         containerStyle={localStyles.submitButton}
         onPress={onPressSignIn}
       />
+      */}
     </CSafeAreaView>
   );
 };

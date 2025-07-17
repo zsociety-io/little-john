@@ -5,8 +5,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {FlashList} from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
+import { FlashList } from '@shopify/flash-list';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Local Imports
@@ -17,8 +17,8 @@ import {
   NotificationHomeIcon,
   WhiteAppLogo,
 } from '../../../assets/svgs';
-import {getHeight, moderateScale} from '../../../common/constants';
-import {styles} from '../../../themes';
+import { getHeight, moderateScale } from '../../../common/constants';
+import { styles } from '../../../themes';
 import CText from '../../../components/common/CText';
 import strings from '../../../i18n/strings';
 import StockDetailComponent from '../../../components/StockDetailComponent';
@@ -28,19 +28,19 @@ import {
   topStockData,
 } from '../../../api/constant';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
 
-const renderFirstItem = ({item, index}) => <StockDetailComponent item={item} />;
+const renderFirstItem = ({ item, index }) => <StockDetailComponent item={item} />;
 
-const renderWishlistItem = ({item, index}) => (
+const renderWishlistItem = ({ item, index }) => (
   <StockDetailComponent item={item} isMyWhishList={true} />
 );
 
-const renderListedStock = ({item, index}) => (
+const renderListedStock = ({ item, index }) => (
   <DiscoverStockComponent item={item} />
 );
 
-export default HomeTab = ({navigation}) => {
+export default HomeTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
 
   const onPressWishList = () => navigation.navigate(StackNav.MyWishlist);
@@ -73,7 +73,7 @@ export default HomeTab = ({navigation}) => {
     );
   };
 
-  const SubHeader = ({title, style, onPress}) => {
+  const SubHeader = ({ title, style, onPress }) => {
     return (
       <View style={[localStyles.myWishlistContainer, style]}>
         <CText type={'b20'}>{title}</CText>
@@ -130,7 +130,7 @@ export default HomeTab = ({navigation}) => {
           data={topStockData}
           renderItem={renderFirstItem}
           horizontal
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.id.toString()}
           estimatedItemSize={1}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.pt25}
@@ -140,7 +140,7 @@ export default HomeTab = ({navigation}) => {
           data={myWishlistStockData}
           renderItem={renderWishlistItem}
           horizontal
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.id.toString()}
           estimatedItemSize={1}
           showsHorizontalScrollIndicator={false}
         />
@@ -158,7 +158,7 @@ export default HomeTab = ({navigation}) => {
       <FlashList
         data={myStockData}
         renderItem={renderListedStock}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={10}
         ListHeaderComponent={RenderHeaderComponent}

@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Area, Chart, Line, Tooltip} from 'react-native-responsive-linechart';
-import {FlashList} from '@shopify/flash-list';
-import {VictoryCandlestick} from 'victory-native';
+import { Area, Chart, Line, Tooltip } from 'react-native-responsive-linechart';
+import { FlashList } from '@shopify/flash-list';
+import { VictoryCandlestick } from 'victory-native';
 
 // Local Imports
 import {
@@ -29,8 +29,8 @@ import {
   TotalReturnsIcon,
   UpIcon,
 } from '../../../assets/svgs';
-import {deviceWidth, getHeight, moderateScale} from '../../../common/constants';
-import {commonColor, styles} from '../../../themes';
+import { deviceWidth, getHeight, moderateScale } from '../../../common/constants';
+import { commonColor, styles } from '../../../themes';
 import CHeader from '../../../components/common/CHeader';
 import images from '../../../assets/images';
 import CText from '../../../components/common/CText';
@@ -49,7 +49,7 @@ import CButton from '../../../components/common/CButton';
 import strings from '../../../i18n/strings';
 import SpotMarketComponent from '../../../components/SpotMarketComponent';
 import ChipsComponent from '../../../components/ChipsComponent';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
 import NewsComponent from '../../../components/NewsComponent';
 
 const RightIcon = memo(() => {
@@ -65,7 +65,7 @@ const RightIcon = memo(() => {
   );
 });
 
-const LeftIcon = memo(({colors, onPressBack}) => {
+const LeftIcon = memo(({ colors, onPressBack }) => {
   return (
     <TouchableOpacity onPress={onPressBack}>
       <Ionicons
@@ -77,7 +77,7 @@ const LeftIcon = memo(({colors, onPressBack}) => {
   );
 });
 
-const SubHeader = memo(({title, style, isHide = false, colors, onPress}) => {
+const SubHeader = memo(({ title, style, isHide = false, colors, onPress }) => {
   return (
     <View style={[localStyles.myWishlistContainer, style]}>
       <CText type={'b20'}>{title}</CText>
@@ -95,7 +95,7 @@ const SubHeader = memo(({title, style, isHide = false, colors, onPress}) => {
   );
 });
 
-const PeopleAlsoBought = memo(({item, colors, onPressStock}) => {
+const PeopleAlsoBought = memo(({ item, colors, onPressStock }) => {
   return (
     <TouchableOpacity
       onPress={() => onPressStock(item)}
@@ -104,7 +104,7 @@ const PeopleAlsoBought = memo(({item, colors, onPressStock}) => {
         source={item?.image}
         style={[
           localStyles.topStockImageStyle,
-          {borderColor: item?.status ? colors.primary : colors.alertColor},
+          { borderColor: item?.status ? colors.primary : colors.alertColor },
         ]}
       />
       <CText
@@ -127,7 +127,7 @@ const PeopleAlsoBought = memo(({item, colors, onPressStock}) => {
   );
 });
 
-const RenderStockTime = ({item, selectedTime, colors, onPressTimeFunction}) => {
+const RenderStockTime = ({ item, selectedTime, colors, onPressTimeFunction }) => {
   return (
     <TouchableOpacity
       onPress={() => onPressTimeFunction(item)}
@@ -148,11 +148,11 @@ const RenderStockTime = ({item, selectedTime, colors, onPressTimeFunction}) => {
 };
 
 const EPSComponent = memo(props => {
-  const {value1, value2, status, position, colors, subTextColor} = props;
+  const { value1, value2, status, position, colors, subTextColor } = props;
   return (
     <View>
       <View
-        style={[localStyles.earningInnerContainer, {justifyContent: position}]}>
+        style={[localStyles.earningInnerContainer, { justifyContent: position }]}>
         <View style={localStyles.epsRowCenter}>
           <View
             style={[
@@ -170,7 +170,7 @@ const EPSComponent = memo(props => {
           <View
             style={[
               localStyles.statusContainer,
-              {backgroundColor: status ? colors.primary : colors.alertColor},
+              { backgroundColor: status ? colors.primary : colors.alertColor },
             ]}
           />
           <CText type="s14">{value2}</CText>
@@ -230,7 +230,7 @@ const SubCategory = props => {
 };
 
 const PredicationComponent = memo(props => {
-  const {title, percentage, color, colors} = props;
+  const { title, percentage, color, colors } = props;
   return (
     <View style={styles.rowStart}>
       <View
@@ -387,13 +387,13 @@ const HeaderComponent = memo(props => {
               style={localStyles.chartStyle}
               data={data?.data}
               padding={styles.p5}
-              xDomain={{min: 0, max: data?.xMax}}
-              yDomain={{min: 0, max: 20}}>
+              xDomain={{ min: 0, max: data?.xMax }}
+              yDomain={{ min: 0, max: 20 }}>
               <Area
                 smoothing="cubic-spline"
                 theme={{
                   gradient: {
-                    from: {color: colors.white},
+                    from: { color: colors.white },
                     to: {
                       color: colors.white,
                       opacity: 0.01,
@@ -411,23 +411,23 @@ const HeaderComponent = memo(props => {
                   },
                 }}
                 tooltipComponent={
-                  <Tooltip theme={{formatter: ({y}) => y.toFixed(2)}} />
+                  <Tooltip theme={{ formatter: ({ y }) => y.toFixed(2) }} />
                 }
               />
             </Chart>
           </Animated.View>
         ) : (
           <Animated.View
-            style={[localStyles.chartStyle, {opacity: chartOpacity}]}>
+            style={[localStyles.chartStyle, { opacity: chartOpacity }]}>
             <VictoryCandlestick
               style={{
                 height: getHeight(270),
                 width: deviceWidth,
               }}
-              maxDomain={{y: 100, x: 25}}
-              minDomain={{y: 10, x: 0}}
+              maxDomain={{ y: 100, x: 25 }}
+              minDomain={{ y: 10, x: 0 }}
               candleRatio={1}
-              candleColors={{positive: '#000', negative: '#c43a31'}}
+              candleColors={{ positive: '#000', negative: '#c43a31' }}
               data={sampleDataDates}
             />
           </Animated.View>
@@ -525,6 +525,7 @@ const FooterComponent = memo(props => {
   return (
     <View>
       <CDivider style={styles.mh20} />
+
       <CText
         type="s16"
         align={'center'}
@@ -590,6 +591,9 @@ const FooterComponent = memo(props => {
           {'more risk than the market as a whole.'}
         </CText>
       </CText>
+
+
+
       <SubHeader
         title={strings.earningsShare}
         style={styles.mb10}
@@ -635,6 +639,7 @@ const FooterComponent = memo(props => {
           'The company reported results on Dec 25, 2022 and missed market expectations.'
         }
       </CText>
+
       <SubHeader
         title={strings.news}
         style={styles.mb5}
@@ -666,6 +671,8 @@ const FooterComponent = memo(props => {
       <View style={styles.ph20}>
         <ChipsComponent data={characteristicsData} />
       </View>
+
+
       <SubHeader
         title={strings.peopleAlsoBought}
         style={styles.mt25}
@@ -700,8 +707,8 @@ const FooterComponent = memo(props => {
   );
 });
 
-export default function StockDetailScreen({navigation, route}) {
-  const {item} = route.params;
+export default function StockDetailScreen({ navigation, route }) {
+  const { item } = route.params;
   const colors = useSelector(state => state.theme.theme);
   const [selectedTime, setSelectedTime] = useState('1D');
   const [isCandle, setIsCandle] = useState(false);
@@ -726,7 +733,7 @@ export default function StockDetailScreen({navigation, route}) {
   }, [colors]);
 
   const onPressStock = useCallback(item => {
-    return navigation.replace(StackNav.StockDetailScreen, {item});
+    return navigation.replace(StackNav.StockDetailScreen, { item });
   }, []);
 
   const onPressTimeFunction = useCallback(
@@ -749,12 +756,12 @@ export default function StockDetailScreen({navigation, route}) {
   }, []);
 
   const onPressBuy = () =>
-    navigation.navigate(StackNav.BuySell, {item: {...item, isBuy: true}});
+    navigation.navigate(StackNav.BuySell, { item: { ...item, isBuy: true } });
 
   const onPressSell = () =>
-    navigation.navigate(StackNav.BuySell, {item: {...item, isBuy: false}});
+    navigation.navigate(StackNav.BuySell, { item: { ...item, isBuy: false } });
 
-  const renderStockTime = ({item, index}) => {
+  const renderStockTime = ({ item, index }) => {
     return (
       <RenderStockTime
         item={item}
@@ -765,7 +772,7 @@ export default function StockDetailScreen({navigation, route}) {
     );
   };
 
-  const renderPeopleAlsoBought = ({item}) => {
+  const renderPeopleAlsoBought = ({ item }) => {
     return (
       <PeopleAlsoBought
         item={item}
@@ -775,11 +782,11 @@ export default function StockDetailScreen({navigation, route}) {
     );
   };
 
-  const renderNewsComponent = ({item, index}) => {
+  const renderNewsComponent = ({ item, index }) => {
     return <NewsComponent item={item} />;
   };
 
-  const renderSpotMarketStats = ({item, index}) => {
+  const renderSpotMarketStats = ({ item, index }) => {
     return <SpotMarketComponent item={item} />;
   };
 

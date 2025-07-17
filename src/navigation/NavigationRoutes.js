@@ -10,6 +10,7 @@ import Splash from '../containers/auth/Splash';
 import OnBoarding from '../containers/OnBoarding';
 import TabBar from './Type/TabBarNavigation';
 import NameScreen from '../containers/auth/NameScreen';
+import WalletScreen from '../containers/auth/WalletScreen';
 import GenderScreen from '../containers/auth/GenderScreen';
 import BirthdayScreen from '../containers/auth/BirthdayScreen';
 import BirthPlaceScreen from '../containers/auth/BirthPlaceScreen';
@@ -79,6 +80,7 @@ export const StackRoute = {
   Splash,
   OnBoarding,
   TabBar,
+  WalletScreen,
   NameScreen,
   GenderScreen,
   BirthdayScreen,
