@@ -2080,7 +2080,7 @@
     "@solana/wallet-standard-core" "^1.1.2"
     "@solana/wallet-standard-wallet-adapter" "^1.1.4"
 
-"@solana/web3.js@^1.58.0", "@solana/web3.js@^1.98.0":
+"@solana/web3.js@^1.58.0", "@solana/web3.js@^1.98.0", "@solana/web3.js@^1.98.2":
   version "1.98.2"
   resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.98.2.tgz"
   integrity sha512-BqVwEG+TaG2yCkBMbD3C4hdpustR4FpuUFRPUmqRZYYlPI9Hg4XMWxHWOWRzHE9Lkc9NDjzXFX7lDXSgzC7R1A==
@@ -7110,6 +7110,13 @@ react-native-actions-sheet@^0.9.7:
   resolved "https://registry.npmjs.org/react-native-actions-sheet/-/react-native-actions-sheet-0.9.7.tgz"
   integrity sha512-rjUwxUr5dxbdSLDtLDUFAdSlFxpNSpJsbXLhHkBzEBMxEMPUhRT3zqbvKqsPj0JUkjwuRligxrhbIJZkg/6ZDw==
 
+react-native-animatable@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/react-native-animatable/-/react-native-animatable-1.4.0.tgz"
+  integrity sha512-DZwaDVWm2NBvBxf7I0wXKXLKb/TxDnkV53sWhCvei1pRyTX3MVFpkvdYBknNBqPrxYuAIlPxEp7gJOidIauUkw==
+  dependencies:
+    prop-types "^15.8.1"
+
 react-native-countdown-component@^2.7.1:
   version "2.7.1"
   resolved "https://registry.npmjs.org/react-native-countdown-component/-/react-native-countdown-component-2.7.1.tgz"
@@ -7192,6 +7199,13 @@ react-native-modal-datetime-picker@^18.0.0:
   integrity sha512-0jdvhhraZQlRACwr7pM6vmZ2kxgzJ4CpnmV6J3TVA6MrXMXK6Zo/upRBKkRp0+fTOiKuNblzesA2U59rYo6SGA==
   dependencies:
     prop-types "^15.7.2"
+
+react-native-modal@^14.0.0-rc.1:
+  version "14.0.0-rc.1"
+  resolved "https://registry.npmjs.org/react-native-modal/-/react-native-modal-14.0.0-rc.1.tgz"
+  integrity sha512-v5pvGyx1FlmBzdHyPqBsYQyS2mIJhVmuXyNo5EarIzxicKhuoul6XasXMviGcXboEUT0dTYWs88/VendojPiVw==
+  dependencies:
+    react-native-animatable "1.4.0"
 
 "react-native-pager-view@>= 6.0.0":
   version "6.8.1"
@@ -7326,7 +7340,7 @@ react-native-webview@^13.12.4, react-native-webview@>=13:
     escape-string-regexp "^4.0.0"
     invariant "2.2.4"
 
-react-native@*, "react-native@^0.0.0-0 || >=0.65 <1.0", "react-native@>= 0.30.0", "react-native@>= 0.61.5", react-native@>=0.40.0, react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.59.0, "react-native@>=0.64 <0.78.0", react-native@>=0.65.0, react-native@>0.64, react-native@>0.69, react-native@0.76.3:
+react-native@*, "react-native@^0.0.0-0 || >=0.65 <1.0", "react-native@>= 0.30.0", "react-native@>= 0.61.5", react-native@>=0.40.0, react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.59.0, "react-native@>=0.64 <0.78.0", react-native@>=0.65.0, react-native@>=0.70.0, react-native@>0.64, react-native@>0.69, react-native@0.76.3:
   version "0.76.3"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.76.3.tgz"
   integrity sha512-0TUhgmlouRNf6yuDIIAdbQl0g1VsONgCMsLs7Et64hjj5VLMCA7np+4dMrZvGZ3wRNqzgeyT9oWJsUm49AcwSQ==

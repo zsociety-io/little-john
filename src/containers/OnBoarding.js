@@ -11,14 +11,44 @@ import { styles } from '../themes';
 import CText from '../components/common/CText';
 import images from '../assets/images';
 import { Google_Icon } from '../assets/svgs';
-import { StackNav } from '../navigation/NavigationKeys';
+import { StackNav, TabNav } from '../navigation/NavigationKeys';
 
-import { Text } from 'react-native';
+import { transact, Web3MobileWallet } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
+import { PublicKey } from '@solana/web3.js';
+import bs58 from 'bs58';
+import { Buffer } from "buffer";
+
+export const APP_IDENTITY = {
+  name: 'Little John',
+  uri: 'https://zsociety.io/little-john',
+  icon: "favicon.ico",
+};
+
 
 const OnBoarding = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef(null);
+
+  const onPressSignUp = async () => {
+    const authorizationResult = await transact(async (wallet) => {
+      const authorizationResult = await wallet.authorize({
+        cluster: 'solana:devnet',
+        identity: APP_IDENTITY,
+      });
+
+      /* After approval, signing requests are available in the session. */
+      return authorizationResult;
+    });
+    try {
+      const base64Address = authorizationResult.accounts[0].address;
+      const publicKey = new PublicKey(bs58.encode(Buffer.from(base64Address, 'base64')));
+      console.log("PublicKey:", publicKey.toBase58());
+      navigation.navigate(StackNav.TabBar);
+    } catch (e) {
+      console.log("err: " + e)
+    }
+  };
 
   const OnBoardingSlide = [
     {
@@ -57,10 +87,6 @@ const OnBoarding = ({ navigation }) => {
       img: colors.dark ? images.onBordingDark6 : images.onBordingLight6,
     },*/
   ];
-
-  const onPressSignUp = () => {
-    navigation.navigate(StackNav.Auth);
-  };
 
   const onPressSignIn = () => {
     navigation.navigate(StackNav.EmailScreen);

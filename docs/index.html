@@ -132,13 +132,14 @@
 			For Setup React-native configuration in android <a target="_blank"
 				href="https://www.facebook.com/rnlab.io/videos/498816687651963">https://www.facebook.com/rnlab.io/videos/498816687651963</a>
 		</p>
- 
+
 		</p>
 
 		<!-- B) Directory Structure -->
 
 		<h3 id="directoryStructure"><strong>B) Directory Structure</strong> - <a href="#toc">top</a></h3>
-		<p>After importing project successfully and Open the project folder in textEditor(ex. Visual Studio) and you will
+		<p>After importing project successfully and Open the project folder in textEditor(ex. Visual Studio) and you
+			will
 			get project structure like below image</p>
 		<img src="assets/images/directory_structure.png" width="400px" alt="HTML Structure" />
 		<br />
@@ -176,7 +177,7 @@
 			</li>
 			<li>
 				<b>themes</b><br />
-				Contain all styles  of app
+				Contain all styles of app
 			</li>
 			<li>
 				<b>utils</b><br />
@@ -188,15 +189,15 @@
 			</li>
 		</ul>
 
-<!-- C) App Configurations -->
+		<!-- C) App Configurations -->
 
 		<h3 id="appconfigration"><strong>C) App Configurations</strong> - <a href="#toc">top</a></h3>
 		<p>
-		<b>Package.json Configurations</b><br />
-		If you want to see all configurations you can check package.json file in root directory.
+			<b>Package.json Configurations</b><br />
+			If you want to see all configurations you can check package.json file in root directory.
 		<pre>
 {
-  "name": "InvestApp",
+  "name": "LittleJohn",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -280,99 +281,101 @@
 			  
 </pre>
 
-<!-- D) Customize App -->
+		<!-- D) Customize App -->
 
-<h3 id="customizeapp"><strong>D) Customize App</strong> - <a href="#toc">top</a></h3>
-<!-- Change App name -->
-<p>
-	<h4> <b>Change App name</b></h4>
-</p>
-<p>
-	<b>1. Change App Name in IOS</b>
-	<p>Go to the app > Project > Project from TARGETS > General category > Bundle Identifier</p>
-</p>
-<img src="assets/images/ios_App_name.png" width="800px" alt="HTML Structure" />
-<br />
-<br />
-<br />
-<p>
-	<b>2. Change App Name in Android</b>
-	<p>Go to the App > res > values > strings.xml</p>
-</p>
-<img src="assets/images/android_App_name.png" width="800px" alt="HTML Structure" />
-<br />
-<br />
-<br />
-<p>
-	<b>3. Change App Package Name</b>
-			<p>
+		<h3 id="customizeapp"><strong>D) Customize App</strong> - <a href="#toc">top</a></h3>
+		<!-- Change App name -->
+		<p>
+		<h4> <b>Change App name</b></h4>
+		</p>
+		<p>
+			<b>1. Change App Name in IOS</b>
+		<p>Go to the app > Project > Project from TARGETS > General category > Bundle Identifier</p>
+		</p>
+		<img src="assets/images/ios_App_name.png" width="800px" alt="HTML Structure" />
+		<br />
+		<br />
+		<br />
+		<p>
+			<b>2. Change App Name in Android</b>
+		<p>Go to the App > res > values > strings.xml</p>
+		</p>
+		<img src="assets/images/android_App_name.png" width="800px" alt="HTML Structure" />
+		<br />
+		<br />
+		<br />
+		<p>
+			<b>3. Change App Package Name</b>
+		<p>
 			Please follow this link steps : <a target="_blank"
 				href="https://www.npmjs.com/package/react-native-rename">https://www.npmjs.com/package/react-native-rename</a>
 		</p>
-</p>
-<br />
+		</p>
+		<br />
 
-<!-- Change App icon -->
-<p>
-	<h4> <b>Change App icon</b></h4>
-</p>
-<p>
-	<b>1. Change app icon in iOS</b>
-	<p>Required minimum app icon 1024 * 1024 .png file You can convert it as per iOS app require from 
-		<a target="_blank" href="https://makeappicon.com/">https://makeappicon.com/</a> It convert all size icon which is require for app
-	</p>
-	<p>Go to the app > project > Assets > AppIcon > Replace all icon as per it's size</p>
-</p>
-<img src="assets/images/ios_app_icon.png" width="800px" alt="HTML Structure" />
-<br />
-<br />
-<br />
-<p>
-	<b>2. Change app icon in Android</b>
-	<p>Place your app icon inside <b>mipmap</b> folder -> <b>app\res\mipmap\</b></p>
-	<p>Icon of the name should be <b>"ic_launcher.png"</b> </p>
-</p>
-<img src="assets/images/android_app_icon.png" width="800px" alt="HTML Structure" />
-
-
-
-
-<!-- Change App Splash Screen -->
-<br />
-<p>
-	<h4> <b>Change App Splash Screen</b></h4>
-</p>
-<p>
-	<b>1. Replace Splash Screen Logo of Android</b>
-	<p>Go to the android > app > src > main > res > drawable</p>
-</p>
-<img src="assets/images/splash_android.png" width="400px" alt="HTML Structure" />
-<br />
-<br />
-<br />
-<p>
-	<b>2. Replace Splash Screen Background color Android</b>
-	<p>Go to the android > app > src > main > res > layout > launch_screen.xml</p>
-</p>
-<img src="assets/images/Splash_Background_color_android.png" width="800px" alt="HTML Structure" />
-<br />
-<br />
-<br />
-<p>
-	<b>3. Replace Splash Screen Logo And Background Fro Ios</b>
-</p>
-<img src="assets/images/ios_spalash_screen.png" width="800px" alt="HTML Structure" />
-<br />
-<br />
-<br />
-<p>
-	And other change in splash screen to follow this link : <br />
-	<a target="_blank" href="https://medium.com/handlebar-labs/how-to-add-a-splash-screen-to-a-react-native-app-ios-and-android-30a3cec835ae">https://medium.com/handlebar-labs/how-to-add-a-splash-screen-to-a-react-native-app-ios-and-android-30a3cec835ae</a>
-</p>
+		<!-- Change App icon -->
+		<p>
+		<h4> <b>Change App icon</b></h4>
+		</p>
+		<p>
+			<b>1. Change app icon in iOS</b>
+		<p>Required minimum app icon 1024 * 1024 .png file You can convert it as per iOS app require from
+			<a target="_blank" href="https://makeappicon.com/">https://makeappicon.com/</a> It convert all size icon
+			which is require for app
+		</p>
+		<p>Go to the app > project > Assets > AppIcon > Replace all icon as per it's size</p>
+		</p>
+		<img src="assets/images/ios_app_icon.png" width="800px" alt="HTML Structure" />
+		<br />
+		<br />
+		<br />
+		<p>
+			<b>2. Change app icon in Android</b>
+		<p>Place your app icon inside <b>mipmap</b> folder -> <b>app\res\mipmap\</b></p>
+		<p>Icon of the name should be <b>"ic_launcher.png"</b> </p>
+		</p>
+		<img src="assets/images/android_app_icon.png" width="800px" alt="HTML Structure" />
 
 
 
-<!-- E) Components -->
+
+		<!-- Change App Splash Screen -->
+		<br />
+		<p>
+		<h4> <b>Change App Splash Screen</b></h4>
+		</p>
+		<p>
+			<b>1. Replace Splash Screen Logo of Android</b>
+		<p>Go to the android > app > src > main > res > drawable</p>
+		</p>
+		<img src="assets/images/splash_android.png" width="400px" alt="HTML Structure" />
+		<br />
+		<br />
+		<br />
+		<p>
+			<b>2. Replace Splash Screen Background color Android</b>
+		<p>Go to the android > app > src > main > res > layout > launch_screen.xml</p>
+		</p>
+		<img src="assets/images/Splash_Background_color_android.png" width="800px" alt="HTML Structure" />
+		<br />
+		<br />
+		<br />
+		<p>
+			<b>3. Replace Splash Screen Logo And Background Fro Ios</b>
+		</p>
+		<img src="assets/images/ios_spalash_screen.png" width="800px" alt="HTML Structure" />
+		<br />
+		<br />
+		<br />
+		<p>
+			And other change in splash screen to follow this link : <br />
+			<a target="_blank"
+				href="https://medium.com/handlebar-labs/how-to-add-a-splash-screen-to-a-react-native-app-ios-and-android-30a3cec835ae">https://medium.com/handlebar-labs/how-to-add-a-splash-screen-to-a-react-native-app-ios-and-android-30a3cec835ae</a>
+		</p>
+
+
+
+		<!-- E) Components -->
 
 		<h3 id="components"><strong>E) Components</strong> - <a href="#toc">top</a></h3>
 		<p>
@@ -438,11 +441,12 @@ export const NewsListScreen = () => {
   };
 		</pre>
 
-<!-- G) Theme -->
+		<!-- G) Theme -->
 
 		<h3 id="theme"><strong>G) Theme</strong> - <a href="#toc">top</a></h3>
 		<p>
-			You can define theme variables in "themes/colors.js" file.You need to define colors for light and dark mode separately.
+			You can define theme variables in "themes/colors.js" file.You need to define colors for light and dark mode
+			separately.
 		</p>
 		<b>colors.js;</b>
 		<pre>
@@ -567,25 +571,21 @@ export const colors = {
 
 		<h3 id="changeLog"><strong>I) Change Logs</strong> - <a href="#toc">top</a></h3>
 		<br />
-		</pre
-  >
-  Version 1.0.1 (4/12/2024):
-  <pre>
+		</pre>
+		Version 1.0.1 (4/12/2024):
+		<pre>
 	1. Update React Native version to latest 0.76.3
 	2. Update All the packages dependency to its latest version
-</pre
-  >
-</pre
-  >
-  Version 1.0.0 (3/10/2023):
-  <pre>
+</pre>
+		</pre>
+		Version 1.0.0 (3/10/2023):
+		<pre>
 1. Uploaded Invest item
-</pre
-  >
+</pre>
 
 		<hr class="space">
 
-		
+
 	</div>
 	<!-- end div .container -->
 </body>

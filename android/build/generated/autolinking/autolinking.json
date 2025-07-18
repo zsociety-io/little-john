@@ -1006,8 +1006,8 @@
     "android": {
       "sourceDir": "/Users/palong/solana/invest/android",
       "appName": "app",
-      "packageName": "com.investapp",
-      "applicationId": "com.investapp",
+      "packageName": "com.littlejohn",
+      "applicationId": "com.littlejohn",
       "mainActivity": ".MainActivity",
       "assets": []
     }

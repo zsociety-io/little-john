@@ -13,6 +13,11 @@ import { StackNav } from '../../navigation/NavigationKeys';
 import images from '../../assets/images';
 
 import { transact, Web3MobileWallet } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
+import { PublicKey } from '@solana/web3.js';
+import bs58 from 'bs58';
+
+import { TabNav } from '../../navigation/NavigationKeys';
+
 
 export const APP_IDENTITY = {
   name: 'Little John',
@@ -32,12 +37,13 @@ const WalletScreen = ({ navigation }) => {
         cluster: 'solana:devnet',
         identity: APP_IDENTITY,
       });
+      const base64Address = authorizationResult.accounts[0].address;
+      const publicKey = new PublicKey(bs58.encode(Buffer.from(base64Address, 'base64')));
+      console.log("PublicKey:", publicKey.toBase58());
 
-      /* After approval, signing requests are available in the session. */
+      navigation.navigate(TabNav.HomeTab);
       return authorizationResult;
     });
-
-    console.log("Connected to: " + authorizationResult.accounts[0].address)
   };
 
   return (

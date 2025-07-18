@@ -1,4 +1,4 @@
-package com.investapp
+package com.littlejohn
 
 import android.app.Application
 import com.facebook.react.PackageList
