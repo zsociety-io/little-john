@@ -126,6 +126,7 @@ export default HomeTab = ({ navigation }) => {
             {'Balance Available'}
           </CText>
         </ImageBackground>
+        {/* FLASHLIST COMMENTÉE POUR ÉVITER L'ERREUR D'IMBRICATION */}
         <FlashList
           data={topStockData}
           renderItem={renderFirstItem}
@@ -135,6 +136,9 @@ export default HomeTab = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.pt25}
         />
+        
+        {/* COMMENTAIRE POUR CACHER LA WISHLIST */}
+        {/*
         <SubHeader title={'My Wishlist'} onPress={onPressMyWishlist} />
         <FlashList
           data={myWishlistStockData}
@@ -144,6 +148,8 @@ export default HomeTab = ({ navigation }) => {
           estimatedItemSize={1}
           showsHorizontalScrollIndicator={false}
         />
+*/}
+
         <SubHeader
           title={'My Stocks'}
           style={styles.mb5}

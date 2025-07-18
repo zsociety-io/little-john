@@ -14,8 +14,10 @@ export default function StockDetailComponent({isMyWhishList = false, item}) {
   const colors = useSelector(state => state.theme.theme);
   const navigation = useNavigation();
 
-  const onPressItem = () =>
-    navigation.navigate(StackNav.StockDetailScreen, {item});
+  const onPressItem = () => {
+    console.log('Navigation temporairement désactivée:', item?.stockName);
+    // navigation.navigate(StackNav.StockDetailScreen, {item});
+  };
 
   return (
     <TouchableOpacity
