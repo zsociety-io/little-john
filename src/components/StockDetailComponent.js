@@ -1,22 +1,21 @@
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Area, Chart, Line} from 'react-native-responsive-linechart';
-import {useSelector} from 'react-redux';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Area, Chart, Line } from 'react-native-responsive-linechart';
+import { useSelector } from 'react-redux';
 
 // Local Imports
 import React from 'react';
 import CText from './common/CText';
-import {styles} from '../themes';
-import {getHeight, moderateScale} from '../common/constants';
-import {useNavigation} from '@react-navigation/native';
-import {StackNav} from '../navigation/NavigationKeys';
+import { styles } from '../themes';
+import { getHeight, moderateScale } from '../common/constants';
+import { useNavigation } from '@react-navigation/native';
+import { StackNav } from '../navigation/NavigationKeys';
 
-export default function StockDetailComponent({isMyWhishList = false, item}) {
+export default function StockDetailComponent({ isMyWhishList = false, item }) {
   const colors = useSelector(state => state.theme.theme);
   const navigation = useNavigation();
 
   const onPressItem = () => {
-    console.log('Navigation temporairement désactivée:', item?.stockName);
-    // navigation.navigate(StackNav.StockDetailScreen, {item});
+    navigation.navigate(StackNav.StockDetailScreen, { item });
   };
 
   return (
@@ -56,8 +55,8 @@ export default function StockDetailComponent({isMyWhishList = false, item}) {
           },
         ]}
         data={item?.data}
-        xDomain={{min: -2, max: 10}}
-        yDomain={{min: 0, max: 20}}>
+        xDomain={{ min: -2, max: 10 }}
+        yDomain={{ min: 0, max: 20 }}>
         <Area
           theme={{
             gradient: {
