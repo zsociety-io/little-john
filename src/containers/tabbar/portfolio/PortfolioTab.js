@@ -233,8 +233,8 @@ const HeaderComponent = memo(props => {
       <SubCategory
         title1={'Cash Available'}
         value1={'$23,087.39'}
-        title2={'Pending Buys'}
-        value2={'$9,739.36'}
+        title2={'Staked Ratio'}
+        value2={'73.4%'}
         icon1={<SharesIcon />}
         icon2={<AvgCostIcon />}
         subTextColor={subTextColor}
