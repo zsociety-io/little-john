@@ -126,7 +126,11 @@ export default HomeTab = ({ navigation }) => {
             {'Balance Available'}
           </CText>
         </ImageBackground>
+
         {/* FLASHLIST COMMENTÉE POUR ÉVITER L'ERREUR D'IMBRICATION */}
+        <View style={[localStyles.marketContainer]}>
+          <CText type={'b20'}>{"Market Data"}</CText>
+        </View>
         <FlashList
           removeClippedSubviews={false}
           data={topStockData}
@@ -135,15 +139,13 @@ export default HomeTab = ({ navigation }) => {
           keyExtractor={(item) => item.id.toString()}
           estimatedItemSize={1}
           showsHorizontalScrollIndicator={false}
-          removeClippedSubviews={false} // ← AJOUTÉ
-          contentContainerStyle={styles.pt25}
         />
 
         {/* COMMENTAIRE POUR CACHER LA WISHLIST */}
         {/*
         <SubHeader title={'My Wishlist'} onPress={onPressMyWishlist} />
         <FlashList
-removeClippedSubviews={false}
+        removeClippedSubviews={false}
           data={myWishlistStockData}
           renderItem={renderWishlistItem}
           horizontal
@@ -194,5 +196,10 @@ const localStyles = StyleSheet.create({
     ...styles.rowSpaceBetween,
     ...styles.ph20,
     ...styles.mv20,
+  },
+  marketContainer: {
+    ...styles.ph20,
+    ...styles.mv20,
+    ...styles.pt5,
   },
 });
