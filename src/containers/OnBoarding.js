@@ -155,6 +155,7 @@ const OnBoarding = ({ navigation }) => {
         onViewableItemsChanged={_onViewableItemsChanged}
         viewabilityConfig={_viewabilityConfig}
         pagingEnabled
+        removeClippedSubviews={false}
       />
       {/*
       <View style={styles.rowCenter}>

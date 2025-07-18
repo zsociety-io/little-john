@@ -208,6 +208,7 @@ export default AccountTab = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={localStyles.root}
         ListHeaderComponent={renderHeaderComponent}
+        removeClippedSubviews={false}
       />
       <LogOut
         SheetRef={LogOutSheetRef}
