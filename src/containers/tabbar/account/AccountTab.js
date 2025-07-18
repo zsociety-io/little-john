@@ -7,32 +7,37 @@ import {
   View,
   FlatList,
 } from 'react-native';
-import React, {createRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { createRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Local import
 import strings from '../../../i18n/strings';
-import {AppLogoLight, EditDark} from '../../../assets/svgs';
-import {colors, styles} from '../../../themes';
-import {ACCESS_TOKEN, moderateScale, THEME} from '../../../common/constants';
+import { AppLogoLight, EditDark } from '../../../assets/svgs';
+import { colors, styles } from '../../../themes';
+import { ACCESS_TOKEN, moderateScale, THEME } from '../../../common/constants';
 import images from '../../../assets/images';
-import {ProfileSetting} from '../../../api/constant';
-import {changeThemeAction} from '../../../redux/action/themeAction';
-import {setAsyncStorageData} from '../../../utils/helpers';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { ProfileSetting } from '../../../api/constant';
+import { changeThemeAction } from '../../../redux/action/themeAction';
+import { setAsyncStorageData } from '../../../utils/helpers';
+import { StackNav } from '../../../navigation/NavigationKeys';
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CHeader from '../../../components/common/CHeader';
 import CText from '../../../components/common/CText';
 import CDivider from '../../../components/common/CDivider';
 import LogOut from '../../../components/models/LogOut';
 
-export default AccountTab = ({navigation}) => {
+import { useAccount } from '../../../providers/AccountProvider';
+
+
+export default AccountTab = ({ navigation }) => {
   const color = useSelector(state => state.theme.theme);
   const language = useSelector(state => state.profile.language);
   const LogOutSheetRef = createRef();
   const dispatch = useDispatch();
+
+  const { disconnect } = useAccount();
 
   const [isEnabled, setIsEnabled] = useState(!!color.dark);
 
@@ -59,7 +64,7 @@ export default AccountTab = ({navigation}) => {
     navigation.navigate(StackNav.InviteFriend);
   };
 
-  const onPressEditProfile = () => {};
+  const onPressEditProfile = () => { };
   // navigation.navigate(StackNav.SetUpProfile, {title: strings.editProfile});
 
   const onPressItem = item => {
@@ -72,12 +77,12 @@ export default AccountTab = ({navigation}) => {
 
   const onPressYesLogOut = async () => {
     try {
-      await AsyncStorage.removeItem(ACCESS_TOKEN);
+      await disconnect();
       LogOutSheetRef?.current?.hide();
       setTimeout(() => {
         navigation.reset({
           index: 0,
-          routes: [{name: StackNav.Auth}],
+          routes: [{ name: StackNav.Auth }],
         });
       }, 500);
       return true;
@@ -96,7 +101,7 @@ export default AccountTab = ({navigation}) => {
     );
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         disabled={item.title === strings.darkMode}

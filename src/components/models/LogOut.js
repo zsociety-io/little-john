@@ -1,18 +1,18 @@
 // Library import
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import { StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import ActionSheet from 'react-native-actions-sheet';
 
 // Local import
-import {moderateScale} from '../../common/constants';
-import {styles} from '../../themes';
+import { moderateScale } from '../../common/constants';
+import { styles } from '../../themes';
 import strings from '../../i18n/strings';
 import CButton from '../common/CButton';
 import CText from '../common/CText';
 
 const LogOut = props => {
-  const {SheetRef, onPressCancel, onPressLogOut} = props;
+  const { SheetRef, onPressCancel, onPressLogOut } = props;
   const colors = useSelector(state => state.theme.theme);
 
   return (
@@ -20,7 +20,7 @@ const LogOut = props => {
       ref={SheetRef}
       containerStyle={[
         localStyles.actionSheetContainer,
-        {backgroundColor: colors.backgroundColor},
+        { backgroundColor: colors.backgroundColor },
       ]}>
       <View style={localStyles.bottomContainer}>
         <CText
