@@ -82,7 +82,7 @@ export default AccountTab = ({ navigation }) => {
       setTimeout(() => {
         navigation.reset({
           index: 0,
-          routes: [{ name: StackNav.Auth }],
+          routes: [{ name: StackNav.onBoarding }],
         });
       }, 500);
       return true;
