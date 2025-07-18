@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -20,41 +20,48 @@ const ChipsComponent = ({ data }) => {
   };
 
   const RenderChips = ({ item }) => {
+    const isSelected = selectedChips.includes(item);
     return (
       <TouchableOpacity
         onPress={() => onPressChips(item)}
         style={[
           localStyles.chipsContainer,
           { borderColor: colors.primary },
-          selectedChips.includes(item) && { backgroundColor: colors.primary },
+          isSelected && { backgroundColor: colors.primary },
+          // Corrections spécifiques Android
+          Platform.OS === 'android' && {
+            elevation: isSelected ? 3 : 1,
+            shadowColor: 'transparent', // Désactiver shadow sur Android
+          }
         ]}
+        activeOpacity={0.7}
       >
-        <TouchableOpacity
-          onPress={() => onPressChips(item)}
-          style={[
-            localStyles.chipsContainer,
-            { borderColor: colors.primary },
-            selectedChips.includes(item) && { backgroundColor: colors.primary },
-          ]}>
-          <CText
-            type={'s16'}
-            color={selectedChips.includes(item) ? colors.white : colors.primary}>
-            {item}
-          </CText>
-        </TouchableOpacity>
-      </TouchableOpacity >
+        <CText
+          type={'s16'}
+          color={isSelected ? colors.white : colors.primary}>
+          {item}
+        </CText>
+      </TouchableOpacity>
     );
   };
 
   return (
     <FlatList
-      removeClippedSubviews={false} data={data}
+      removeClippedSubviews={false}
+      data={data}
       renderItem={RenderChips}
       keyExtractor={(item, index) => index.toString()}
       showsVerticalScrollIndicator={false}
       scrollEnabled={false}
-      columnWrapperStyle={styles.wrap}
+      columnWrapperStyle={[
+        styles.wrap,
+        // Corrections Android pour l'espacement
+        Platform.OS === 'android' && {
+          paddingHorizontal: moderateScale(5),
+        }
+      ]}
       numColumns={2}
+      contentContainerStyle={Platform.OS === 'android' && styles.ph10}
     />
   );
 };
@@ -69,5 +76,19 @@ const localStyles = StyleSheet.create({
     borderRadius: moderateScale(25),
     ...styles.mt15,
     ...styles.mh5,
+    // Corrections spécifiques Android
+    ...Platform.select({
+      android: {
+        minHeight: moderateScale(40),
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: moderateScale(8),
+        paddingHorizontal: moderateScale(16),
+      },
+      ios: {
+        paddingVertical: moderateScale(5),
+        paddingHorizontal: moderateScale(20),
+      }
+    }),
   },
 });
