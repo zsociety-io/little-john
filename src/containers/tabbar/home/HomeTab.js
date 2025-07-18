@@ -43,10 +43,10 @@ const renderListedStock = ({ item, index }) => (
 export default HomeTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
 
-  const onPressWishList = () => navigation.navigate(StackNav.MyWishlist);
+  {/*const onPressWishList = () => navigation.navigate(StackNav.MyWishlist);*/}
   const onPressNotification = () => navigation.navigate(StackNav.Notification);
 
-  const onPressMyWishlist = () => navigation.navigate(StackNav.MyWishlist);
+  {/* const onPressMyWishlist = () => navigation.navigate(StackNav.MyWishlist);*/}
   const onPressMyStocks = () => navigation.navigate(StackNav.MyStocks);
 
   const LeftIcon = () => {
@@ -60,9 +60,12 @@ export default HomeTab = ({ navigation }) => {
   const RightIcon = () => {
     return (
       <View style={styles.rowCenter}>
+        {/* BOUTON COEUR WISHLIST COMMENTÉ */}
+        {/*
         <TouchableOpacity style={styles.ph10} onPress={onPressWishList}>
           <LikeIcon height={moderateScale(26)} width={moderateScale(26)} />
         </TouchableOpacity>
+        */}
         <TouchableOpacity onPress={onPressNotification}>
           <NotificationHomeIcon
             height={moderateScale(26)}
