@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { StyleSheet, FlatList, Image, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -13,16 +13,7 @@ import images from '../assets/images';
 import { Google_Icon } from '../assets/svgs';
 import { StackNav, TabNav } from '../navigation/NavigationKeys';
 
-import { transact, Web3MobileWallet } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
-import { PublicKey } from '@solana/web3.js';
-import bs58 from 'bs58';
-import { Buffer } from "buffer";
-
-export const APP_IDENTITY = {
-  name: 'Little John',
-  uri: 'https://zsociety.io/little-john',
-  icon: "favicon.ico",
-};
+import { useAccount } from '../providers/AccountProvider';
 
 
 const OnBoarding = ({ navigation }) => {
@@ -30,32 +21,30 @@ const OnBoarding = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef(null);
 
-  const onPressSignUp = async () => {
-    const authorizationResult = await transact(async (wallet) => {
-      const authorizationResult = await wallet.authorize({
-        cluster: 'solana:devnet',
-        identity: APP_IDENTITY,
-      });
+  const { connect, currentAccount, logOut } = useAccount();
 
-      /* After approval, signing requests are available in the session. */
-      return authorizationResult;
-    });
-    try {
-      const base64Address = authorizationResult.accounts[0].address;
-      const publicKey = new PublicKey(bs58.encode(Buffer.from(base64Address, 'base64')));
-      console.log("PublicKey:", publicKey.toBase58());
-      navigation.navigate(StackNav.TabBar);
-    } catch (e) {
-      console.log("err: " + e)
-    }
+  const onPressSignUp = async () => {
+    await connect();
+    navigation.navigate(StackNav.TabBar);
   };
+
+
+  useEffect(
+    () => {
+      if (currentAccount != null) {
+        navigation.navigate(StackNav.TabBar);
+      }
+    }, [currentAccount]
+  );
+
 
   const OnBoardingSlide = [
     {
       headerText: 'Your on-chain broker',
       text: 'Invest in stocks, ETFs, bonds and commodities with your Solana wallet.\n\nBoost the yield of your assets with the power of DeFi !',
       img: colors.dark ? images.onBordingDark1 : images.onBordingLight1,
-    },/*
+    },
+    /*
     {
       headerText: 'Welcome 👋',
       text: 'The best app to invest in international stocks with as little as $1.00',
@@ -85,7 +74,8 @@ const OnBoarding = ({ navigation }) => {
       headerText: 'Backed by Real Shares 🌏',
       text: 'All your trades are fully backed by real shares all the times.',
       img: colors.dark ? images.onBordingDark6 : images.onBordingLight6,
-    },*/
+    }==
+    */
   ];
 
   const onPressSignIn = () => {
