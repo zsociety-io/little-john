@@ -443,6 +443,7 @@ const HeaderComponent = memo(props => {
             horizontal={true}
             scrollEnabled={false}
             estimatedItemSize={7}
+            removeClippedSubviews={false}
           />
           <TouchableOpacity>
             {isCandle ? <CandleGraphIcon /> : <ChartGraphIcon />}
@@ -654,6 +655,7 @@ const FooterComponent = memo(props => {
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={renderSeparator}
         estimatedItemSize={3}
+        removeClippedSubviews={false}
       />
       <CText
         type="s16"
@@ -685,6 +687,7 @@ const FooterComponent = memo(props => {
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         estimatedItemSize={6}
+        removeClippedSubviews={false}
         contentContainerStyle={styles.ph20}
       />
       <SubHeader
@@ -799,6 +802,7 @@ export default function StockDetailScreen({ navigation, route }) {
         renderItem={renderSpotMarketStats}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
+        removeClippedSubviews={false}
         ListHeaderComponent={
           <HeaderComponent
             item={item}
