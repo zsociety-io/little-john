@@ -21,13 +21,12 @@ const OnBoarding = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef(null);
 
-  const { connect, currentAccount, logOut } = useAccount();
+  const { connect, currentAccount, disconnect } = useAccount();
 
   const onPressSignUp = async () => {
     await connect();
     navigation.navigate(StackNav.TabBar);
   };
-
 
   useEffect(
     () => {
@@ -36,7 +35,6 @@ const OnBoarding = ({ navigation }) => {
       }
     }, [currentAccount]
   );
-
 
   const OnBoardingSlide = [
     {
@@ -155,6 +153,7 @@ const OnBoarding = ({ navigation }) => {
         onViewableItemsChanged={_onViewableItemsChanged}
         viewabilityConfig={_viewabilityConfig}
         pagingEnabled
+        removeClippedSubviews={false}
       />
       {/*
       <View style={styles.rowCenter}>
