@@ -1,17 +1,17 @@
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
-import {FlashList} from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
+import { FlashList } from '@shopify/flash-list';
 
 // Custom Imports
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
-import {moderateScale} from '../../../common/constants';
+import { moderateScale } from '../../../common/constants';
 import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
-import {styles} from '../../../themes';
+import { styles } from '../../../themes';
 import CText from '../../../components/common/CText';
-import {financialTransactionData} from '../../../api/constant';
+import { financialTransactionData } from '../../../api/constant';
 import CDivider from '../../../components/common/CDivider';
 
 export default function FinancialTransaction() {
@@ -29,7 +29,7 @@ export default function FinancialTransaction() {
     );
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <View style={localStyles.settingsContainer}>
         <View style={localStyles.leftContainer}>
@@ -64,6 +64,7 @@ export default function FinancialTransaction() {
     <CSafeAreaView>
       <CHeader title={strings.financialTransaction} rightIcon={<RightIcon />} />
       <FlashList
+        removeClippedSubviews={false}
         data={financialTransactionData}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}

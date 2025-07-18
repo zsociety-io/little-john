@@ -5,18 +5,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
-import {FlashList} from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
+import { FlashList } from '@shopify/flash-list';
 
 // Local import
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
-import {commonColor, styles} from '../../../themes';
-import {deviceWidth, moderateScale} from '../../../common/constants';
-import {AppLogoLight} from '../../../assets/svgs';
+import { commonColor, styles } from '../../../themes';
+import { deviceWidth, moderateScale } from '../../../common/constants';
+import { AppLogoLight } from '../../../assets/svgs';
 import CInput from '../../../components/common/CInput';
 import {
   discoverStockData,
@@ -26,10 +26,10 @@ import {
 import CText from '../../../components/common/CText';
 import KeyBoardAvoidWrapper from '../../../components/common/KeyBoardAvoidWrapper';
 import images from '../../../assets/images';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
 import ChipsComponent from '../../../components/ChipsComponent';
 
-const DiscoverTab = ({navigation}) => {
+const DiscoverTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [search, setSearch] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
@@ -77,13 +77,13 @@ const DiscoverTab = ({navigation}) => {
         searchFocus
           ? colors.primary
           : colors.dark
-          ? colors.grayScale7
-          : colors.grayScale4
+            ? colors.grayScale7
+            : colors.grayScale4
       }
     />
   );
 
-  const renderTopMovers = ({item, index}) => {
+  const renderTopMovers = ({ item, index }) => {
     return (
       <TouchableOpacity style={localStyles.topStockContainer}>
         <Image source={item?.image} style={localStyles.topStockImageStyle} />
@@ -106,11 +106,11 @@ const DiscoverTab = ({navigation}) => {
     );
   };
 
-  const RenderCategory = ({item, index}) => {
+  const RenderCategory = ({ item, index }) => {
     return (
       <ImageBackground
         source={item.image}
-        imageStyle={{borderRadius: moderateScale(24)}}
+        imageStyle={{ borderRadius: moderateScale(24) }}
         style={[
           localStyles.imageBackgroundStyle,
           index % 2 === 0 ? styles.mr5 : styles.ml5,
@@ -142,6 +142,7 @@ const DiscoverTab = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <FlashList
+          removeClippedSubviews={false}
           data={topMoversData}
           renderItem={renderTopMovers}
           keyExtractor={(item, index) => index.toString()}
@@ -151,7 +152,7 @@ const DiscoverTab = ({navigation}) => {
         />
         <ImageBackground
           source={images.discoverImage1}
-          imageStyle={{borderRadius: moderateScale(24)}}
+          imageStyle={{ borderRadius: moderateScale(24) }}
           style={localStyles.discoverImageStyle}>
           <View style={localStyles.innerContainer}>
             <CText type={'b20'} color={colors.white}>
@@ -183,8 +184,8 @@ const DiscoverTab = ({navigation}) => {
           insideLeftIcon={Search_Icon}
           toGetTextFieldValue={onSearchInput}
           inputContainerStyle={[
-            {backgroundColor: colors.inputBg},
-            searchFocus && {borderColor: colors.primary},
+            { backgroundColor: colors.inputBg },
+            searchFocus && { borderColor: colors.primary },
             localStyles.inputContainerStyle,
           ]}
           inputBoxStyle={localStyles.inputBoxStyle}
@@ -192,6 +193,7 @@ const DiscoverTab = ({navigation}) => {
           _onBlur={onSearchBlur}
         />
         <FlashList
+          removeClippedSubviews={false}
           data={discoverStockData}
           renderItem={RenderCategory}
           keyExtractor={(item, index) => index.toString()}
@@ -258,7 +260,7 @@ const localStyles = StyleSheet.create({
   innerContainer: {
     ...styles.p20,
     shadowColor: commonColor.black,
-    shadowOffset: {width: 20, height: 5},
+    shadowOffset: { width: 20, height: 5 },
     shadowOpacity: 1,
     shadowRadius: 10,
     elevation: 10,

@@ -1,16 +1,16 @@
 import React from 'react';
-import {FlashList} from '@shopify/flash-list';
+import { FlashList } from '@shopify/flash-list';
 
 // Local Imports
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import SpotMarketComponent from '../../../components/SpotMarketComponent';
 import CDivider from '../../../components/common/CDivider';
-import {styles} from '../../../themes';
+import { styles } from '../../../themes';
 import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
-import {spotMarketStats} from '../../../api/constant';
+import { spotMarketStats } from '../../../api/constant';
 
-const renderSpotMarketStats = ({item, index}) => {
+const renderSpotMarketStats = ({ item, index }) => {
   return <SpotMarketComponent item={item} />;
 };
 
@@ -21,6 +21,7 @@ export default function SPOTMarketStats() {
     <CSafeAreaView>
       <CHeader title={strings.spotMarketStats} style={styles.mh20} />
       <FlashList
+        removeClippedSubviews={false}
         data={spotMarketStats}
         renderItem={renderSpotMarketStats}
         keyExtractor={(item, index) => index.toString()}

@@ -1,21 +1,21 @@
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {FlashList} from '@shopify/flash-list';
-import {useSelector} from 'react-redux';
+import { FlashList } from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Local import
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CText from '../../../components/common/CText';
-import {styles} from '../../../themes';
-import {moderateScale} from '../../../common/constants';
-import {addBankAccountData} from '../../../api/constant';
+import { styles } from '../../../themes';
+import { moderateScale } from '../../../common/constants';
+import { addBankAccountData } from '../../../api/constant';
 import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
 import CDivider from '../../../components/common/CDivider';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
 
-export default function AddBankAccount({navigation}) {
+export default function AddBankAccount({ navigation }) {
   const colors = useSelector(state => state.theme.theme);
 
   const onPressItem = val =>
@@ -23,7 +23,7 @@ export default function AddBankAccount({navigation}) {
       bank: val,
     });
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
         onPress={() => onPressItem(item)}
@@ -57,6 +57,7 @@ export default function AddBankAccount({navigation}) {
     <CSafeAreaView>
       <CHeader title={strings.addBankAccount} />
       <FlashList
+        removeClippedSubviews={false}
         data={addBankAccountData}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}

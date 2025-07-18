@@ -1,16 +1,16 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {FlashList} from '@shopify/flash-list';
+import { FlashList } from '@shopify/flash-list';
 
 // Local Imports
 import CText from '../../../components/common/CText';
-import {styles} from '../../../themes';
-import {moderateScale} from '../../../common/constants';
+import { styles } from '../../../themes';
+import { moderateScale } from '../../../common/constants';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
-import {myWishlistStockData} from '../../../api/constant';
+import { myWishlistStockData } from '../../../api/constant';
 import CHeader from '../../../components/common/CHeader';
 
 export default function MyWishlist() {
@@ -35,7 +35,7 @@ export default function MyWishlist() {
     );
   };
 
-  const renderListedStock = ({item, index}) => (
+  const renderListedStock = ({ item, index }) => (
     <DiscoverStockComponent item={item} />
   );
 
@@ -64,6 +64,7 @@ export default function MyWishlist() {
     <CSafeAreaView>
       <CHeader title={'My Wishlist'} rightIcon={<RightIcon />} />
       <FlashList
+        removeClippedSubviews={false}
         data={myWishlistStockData}
         renderItem={renderListedStock}
         keyExtractor={(item, index) => index.toString()}

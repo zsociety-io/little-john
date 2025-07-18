@@ -1,21 +1,21 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {FlashList} from '@shopify/flash-list';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { FlashList } from '@shopify/flash-list';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Local Imports
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
-import {styles} from '../../../themes';
+import { styles } from '../../../themes';
 import CInput from '../../../components/common/CInput';
-import {discoverListedStock} from '../../../api/constant';
-import {moderateScale} from '../../../common/constants';
+import { discoverListedStock } from '../../../api/constant';
+import { moderateScale } from '../../../common/constants';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import CText from '../../../components/common/CText';
 
-const renderListedStock = ({item, index}) => (
+const renderListedStock = ({ item, index }) => (
   <DiscoverStockComponent item={item} />
 );
 
@@ -52,8 +52,8 @@ export default function AllStocks() {
         searchFocus
           ? colors.primary
           : colors.dark
-          ? colors.grayScale7
-          : colors.grayScale4
+            ? colors.grayScale7
+            : colors.grayScale4
       }
     />
   );
@@ -89,8 +89,8 @@ export default function AllStocks() {
           insideLeftIcon={Search_Icon}
           toGetTextFieldValue={onSearchInput}
           inputContainerStyle={[
-            {backgroundColor: colors.inputBg},
-            searchFocus && {borderColor: colors.primary},
+            { backgroundColor: colors.inputBg },
+            searchFocus && { borderColor: colors.primary },
             localStyles.inputContainerStyle,
           ]}
           inputBoxStyle={localStyles.inputBoxStyle}
@@ -99,6 +99,7 @@ export default function AllStocks() {
         />
       </View>
       <FlashList
+        removeClippedSubviews={false}
         data={filterData}
         renderItem={renderListedStock}
         keyExtractor={(item, index) => index.toString()}

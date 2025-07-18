@@ -1,20 +1,20 @@
-import React, {useState} from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 //Local Imports
 import CSafeAreaView from '../../components/common/CSafeAreaView';
 import SubHeader from '../../components/SubHeader';
 import CText from '../../components/common/CText';
-import {styles} from '../../themes';
+import { styles } from '../../themes';
 import CButton from '../../components/common/CButton';
 import strings from '../../i18n/strings';
-import {StackNav} from '../../navigation/NavigationKeys';
-import {moderateScale} from '../../common/constants';
-import {termsAndConditionData} from '../../api/constant';
+import { StackNav } from '../../navigation/NavigationKeys';
+import { moderateScale } from '../../common/constants';
+import { termsAndConditionData } from '../../api/constant';
 
-export default TermsAndConditionScreen = ({navigation}) => {
+export default TermsAndConditionScreen = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [isSelected, setIsSelected] = useState([]);
 
@@ -28,13 +28,13 @@ export default TermsAndConditionScreen = ({navigation}) => {
 
   const onPressContinue = () => navigation.navigate(StackNav.SignatureScreen);
 
-  const RenderData = ({item}) => {
+  const RenderData = ({ item }) => {
     return (
       <TouchableOpacity
         onPress={() => onPressItem(item)}
         style={[
           localStyles.settingsContainer,
-          {borderBottomColor: colors.dark ? colors.dark3 : colors.grayScale2},
+          { borderBottomColor: colors.dark ? colors.dark3 : colors.grayScale2 },
         ]}>
         <Ionicons
           name={!isSelected.includes(item) ? 'square-outline' : 'checkbox'}
@@ -58,8 +58,8 @@ export default TermsAndConditionScreen = ({navigation}) => {
       <SubHeader status={18} />
       <View style={localStyles.rootContainer}>
         <FlatList
-          data={termsAndConditionData}
-          renderItem={({item}) => <RenderData item={item} />}
+          removeClippedSubviews={false} data={termsAndConditionData}
+          renderItem={({ item }) => <RenderData item={item} />}
           keyExtractor={(item, index) => index.toString()}
           showsVerticalScrollIndicator={false}
           bounces={false}

@@ -1,17 +1,17 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {FlashList} from '@shopify/flash-list';
-import {useSelector} from 'react-redux';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlashList } from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
 
 // Custom Imports
 import CText from './common/CText';
-import {helperCategoryData} from '../api/constant';
-import {moderateScale} from '../common/constants';
+import { helperCategoryData } from '../api/constant';
+import { moderateScale } from '../common/constants';
 import strings from '../i18n/strings';
-import {styles} from '../themes';
+import { styles } from '../themes';
 
 export default function MostPopularCategory(props) {
-  const {chipsData} = props;
+  const { chipsData } = props;
   const colors = useSelector(state => state.theme.theme);
   const [selectedChips, setSelectedChips] = useState([strings.all]);
   const [extraData, setExtraData] = useState(true);
@@ -28,13 +28,13 @@ export default function MostPopularCategory(props) {
     }
   };
 
-  const renderChips = ({item}) => {
+  const renderChips = ({ item }) => {
     return (
       <TouchableOpacity
         onPress={() => onPressChips(item)}
         style={[
           localStyles.chipsContainer,
-          {borderColor: colors.primary},
+          { borderColor: colors.primary },
           {
             backgroundColor: selectedChips.includes(item)
               ? colors.primary
@@ -53,6 +53,7 @@ export default function MostPopularCategory(props) {
   return (
     <View>
       <FlashList
+        removeClippedSubviews={false}
         data={!!chipsData ? chipsData : helperCategoryData}
         renderItem={renderChips}
         extraData={extraData}

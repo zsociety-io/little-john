@@ -4,24 +4,24 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
-import {Area, Chart, Line, Tooltip} from 'react-native-responsive-linechart';
-import {FlashList} from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
+import { Area, Chart, Line, Tooltip } from 'react-native-responsive-linechart';
+import { FlashList } from '@shopify/flash-list';
 
 // Local Imports
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CText from '../../../components/common/CText';
-import {commonColor, styles} from '../../../themes';
-import {deviceWidth, getHeight, moderateScale} from '../../../common/constants';
+import { commonColor, styles } from '../../../themes';
+import { deviceWidth, getHeight, moderateScale } from '../../../common/constants';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import {
   discoverListedStock,
   portfolioData,
   stockTimeData,
 } from '../../../api/constant';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
 import images from '../../../assets/images';
 import {
   AvgCostIcon,
@@ -34,11 +34,11 @@ import {
 } from '../../../assets/svgs';
 import strings from '../../../i18n/strings';
 
-const renderListedStock = ({item, index}) => (
+const renderListedStock = ({ item, index }) => (
   <DiscoverStockComponent item={item} />
 );
 
-const SubHeader = memo(({title1, title2, style, isHide = false, colors}) => {
+const SubHeader = memo(({ title1, title2, style, isHide = false, colors }) => {
   return (
     <View style={[styles.rowSpaceBetween, styles.ph20, style]}>
       <CText type={'b18'}>{title1}</CText>
@@ -59,7 +59,7 @@ const SubHeader = memo(({title1, title2, style, isHide = false, colors}) => {
   );
 });
 
-const RenderStockTime = ({item, selectedTime, colors, onPressTimeFunction}) => {
+const RenderStockTime = ({ item, selectedTime, colors, onPressTimeFunction }) => {
   return (
     <TouchableOpacity
       onPress={() => onPressTimeFunction(item)}
@@ -100,7 +100,7 @@ const RightIcon = () => {
 };
 
 const SubCategory = props => {
-  const {title1, value1, title2, value2, icon1, icon2, subTextColor} = props;
+  const { title1, value1, title2, value2, icon1, icon2, subTextColor } = props;
   return (
     <View style={localStyles.categoryContainer}>
       <View style={localStyles.categoryRow}>
@@ -130,7 +130,7 @@ const SubCategory = props => {
 };
 
 const HeaderComponent = memo(props => {
-  const {item, colors, subTextColor, colorValue, renderStockTime, extraData} =
+  const { item, colors, subTextColor, colorValue, renderStockTime, extraData } =
     props;
   return (
     <View>
@@ -158,13 +158,13 @@ const HeaderComponent = memo(props => {
           }}
           data={item?.data}
           padding={styles.p5}
-          xDomain={{min: -2, max: 10}}
-          yDomain={{min: 0, max: 20}}>
+          xDomain={{ min: -2, max: 10 }}
+          yDomain={{ min: 0, max: 20 }}>
           <Area
             smoothing="cubic-spline"
             theme={{
               gradient: {
-                from: {color: colors.white},
+                from: { color: colors.white },
                 to: {
                   color: colors.white,
                   opacity: 0.01,
@@ -182,11 +182,12 @@ const HeaderComponent = memo(props => {
               },
             }}
             tooltipComponent={
-              <Tooltip theme={{formatter: ({y}) => y.toFixed(2)}} />
+              <Tooltip theme={{ formatter: ({ y }) => y.toFixed(2) }} />
             }
           />
         </Chart>
         <FlashList
+          removeClippedSubviews={false}
           data={stockTimeData}
           extraData={extraData}
           renderItem={renderStockTime}
@@ -258,7 +259,7 @@ const HeaderComponent = memo(props => {
   );
 });
 
-export default function PortfolioTab({navigation}) {
+export default function PortfolioTab({ navigation }) {
   const colors = useSelector(state => state.theme.theme);
   const [selectedTime, setSelectedTime] = useState('1D');
   const [extraData, setExtraData] = useState(false);
@@ -286,7 +287,7 @@ export default function PortfolioTab({navigation}) {
     [selectedTime],
   );
 
-  const renderStockTime = ({item, index}) => {
+  const renderStockTime = ({ item, index }) => {
     return (
       <View style={styles.selfCenter}>
         <RenderStockTime
@@ -302,6 +303,7 @@ export default function PortfolioTab({navigation}) {
   return (
     <CSafeAreaView>
       <FlashList
+        removeClippedSubviews={false}
         data={discoverListedStock}
         renderItem={renderListedStock}
         keyExtractor={(item, index) => index.toString()}

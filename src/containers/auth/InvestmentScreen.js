@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { useSelector } from 'react-redux';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 //Local Imports
 import CSafeAreaView from '../../components/common/CSafeAreaView';
@@ -9,12 +9,12 @@ import SubHeader from '../../components/SubHeader';
 import CText from '../../components/common/CText';
 import CButton from '../../components/common/CButton';
 import strings from '../../i18n/strings';
-import {StackNav} from '../../navigation/NavigationKeys';
-import {question5Data} from '../../api/constant';
-import {moderateScale} from '../../common/constants';
-import {styles} from '../../themes';
+import { StackNav } from '../../navigation/NavigationKeys';
+import { question5Data } from '../../api/constant';
+import { moderateScale } from '../../common/constants';
+import { styles } from '../../themes';
 
-export default InvestmentScreen = ({navigation}) => {
+export default InvestmentScreen = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [isSelected, setIsSelected] = useState('');
 
@@ -23,13 +23,13 @@ export default InvestmentScreen = ({navigation}) => {
   const onPressContinue = () =>
     navigation.navigate(StackNav.ExperienceInvestmentScreen);
 
-  const RenderData = ({item}) => {
+  const RenderData = ({ item }) => {
     return (
       <TouchableOpacity
         onPress={() => onPressItem(item)}
         style={[
           localStyles.settingsContainer,
-          {borderBottomColor: colors.dark ? colors.dark3 : colors.grayScale2},
+          { borderBottomColor: colors.dark ? colors.dark3 : colors.grayScale2 },
         ]}>
         <Ionicons
           name={isSelected === item ? 'radio-button-on' : 'radio-button-off'}
@@ -51,8 +51,8 @@ export default InvestmentScreen = ({navigation}) => {
       <SubHeader status={5} />
       <View style={localStyles.rootContainer}>
         <FlatList
-          data={question5Data}
-          renderItem={({item}) => <RenderData item={item} />}
+          removeClippedSubviews={false} data={question5Data}
+          renderItem={({ item }) => <RenderData item={item} />}
           keyExtractor={(item, index) => index.toString()}
           showsVerticalScrollIndicator={false}
           bounces={false}

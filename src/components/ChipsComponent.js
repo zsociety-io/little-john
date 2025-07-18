@@ -48,7 +48,7 @@ const ChipsComponent = ({ data }) => {
 
   return (
     <FlatList
-      data={data}
+      removeClippedSubviews={false} data={data}
       renderItem={RenderChips}
       keyExtractor={(item, index) => index.toString()}
       showsVerticalScrollIndicator={false}

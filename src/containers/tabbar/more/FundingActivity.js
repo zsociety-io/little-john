@@ -1,21 +1,21 @@
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
-import {FlashList} from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
+import { FlashList } from '@shopify/flash-list';
 
 // Custom Imports
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
-import {moderateScale} from '../../../common/constants';
+import { moderateScale } from '../../../common/constants';
 import CHeader from '../../../components/common/CHeader';
-import {styles} from '../../../themes';
+import { styles } from '../../../themes';
 import CDivider from '../../../components/common/CDivider';
 import CText from '../../../components/common/CText';
-import {fundingActivityData} from '../../../api/constant';
+import { fundingActivityData } from '../../../api/constant';
 import strings from '../../../i18n/strings';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
 
-export default function FundingActivity({navigation}) {
+export default function FundingActivity({ navigation }) {
   const colors = useSelector(state => state.theme.theme);
 
   const onPressBack = () => navigation.navigate(StackNav.TabBar);
@@ -32,7 +32,7 @@ export default function FundingActivity({navigation}) {
     );
   };
 
-  const DescriptionLine = ({title, desc}) => {
+  const DescriptionLine = ({ title, desc }) => {
     return (
       <View>
         <View style={[styles.rowSpaceBetween, styles.pv20]}>
@@ -51,7 +51,7 @@ export default function FundingActivity({navigation}) {
     );
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <View style={localStyles.settingsContainer}>
         <View style={localStyles.leftContainer}>
@@ -120,6 +120,7 @@ export default function FundingActivity({navigation}) {
         rightIcon={<RightIcon />}
       />
       <FlashList
+        removeClippedSubviews={false}
         data={fundingActivityData}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}

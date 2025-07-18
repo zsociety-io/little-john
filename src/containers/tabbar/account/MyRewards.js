@@ -10,17 +10,17 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
-import {styles} from '../../../themes';
+import { styles } from '../../../themes';
 import CText from '../../../components/common/CText';
-import {myRewardsData} from '../../../api/constant';
-import {moderateScale} from '../../../common/constants';
-import {useSelector} from 'react-redux';
+import { myRewardsData } from '../../../api/constant';
+import { moderateScale } from '../../../common/constants';
+import { useSelector } from 'react-redux';
 import CButton from '../../../components/common/CButton';
 
 export default function MyRewards() {
   const colors = useSelector(state => state.theme.theme);
 
-  const onPressContinue = () => {};
+  const onPressContinue = () => { };
 
   const RightIcon = () => {
     return (
@@ -30,7 +30,7 @@ export default function MyRewards() {
     );
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <View
         style={[
@@ -44,7 +44,7 @@ export default function MyRewards() {
           <CText
             type={'b18'}
             nunberOfLines={1}
-            // style={styles.flex}
+          // style={styles.flex}
           >
             {item.name}
           </CText>
@@ -88,7 +88,7 @@ export default function MyRewards() {
       <CHeader title={strings.myRewards} rightIcon={<RightIcon />} />
       <View style={styles.flex}>
         <FlatList
-          data={myRewardsData}
+          removeClippedSubviews={false} data={myRewardsData}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           showsVerticalScrollIndicator={false}

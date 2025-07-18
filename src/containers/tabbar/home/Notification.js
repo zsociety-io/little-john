@@ -1,16 +1,16 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
-import {FlashList} from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
+import { FlashList } from '@shopify/flash-list';
 
 // Local Imports
-import {moderateScale} from '../../../common/constants';
+import { moderateScale } from '../../../common/constants';
 import CHeader from '../../../components/common/CHeader';
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CText from '../../../components/common/CText';
-import {commonColor, styles} from '../../../themes';
-import {notificationData} from '../../../api/constant';
+import { commonColor, styles } from '../../../themes';
+import { notificationData } from '../../../api/constant';
 import strings from '../../../i18n/strings';
 
 export default function Notification() {
@@ -28,7 +28,7 @@ export default function Notification() {
     );
   };
 
-  const renderNotification = ({item, index}) => {
+  const renderNotification = ({ item, index }) => {
     return (
       <View style={localStyles.settingsContainer}>
         <TouchableOpacity style={styles.rowSpaceBetween}>
@@ -70,6 +70,7 @@ export default function Notification() {
     <CSafeAreaView>
       <CHeader title={strings.notification} rightIcon={<RightIcon />} />
       <FlashList
+        removeClippedSubviews={false}
         data={notificationData}
         renderItem={renderNotification}
         keyExtractor={(item, index) => index.toString()}

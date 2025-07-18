@@ -140,7 +140,7 @@ const OnBoarding = ({ navigation }) => {
       </>
       */}
       <FlatList
-        data={OnBoardingSlide}
+        removeClippedSubviews={false} data={OnBoardingSlide}
         ref={slideRef}
         scrollEnabled={false}
         renderItem={({ item, index }) => (

@@ -8,19 +8,19 @@ import {
 } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Local import
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CText from '../../../components/common/CText';
-import {styles} from '../../../themes';
-import {moderateScale} from '../../../common/constants';
+import { styles } from '../../../themes';
+import { moderateScale } from '../../../common/constants';
 import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
 import CButton from '../../../components/common/CButton';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
 
-export default Security = ({navigation}) => {
+export default Security = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [isEnabled, setIsEnabled] = React.useState({
     rememberMe: true,
@@ -59,7 +59,7 @@ export default Security = ({navigation}) => {
     },
   ];
 
-  const onPressChangePin = () => {};
+  const onPressChangePin = () => { };
 
   const RenderData = data => {
     return (
@@ -93,9 +93,9 @@ export default Security = ({navigation}) => {
       <CHeader title={strings.security} />
       <View style={styles.ph20}>
         <FlatList
-          data={SecurityData}
+          removeClippedSubviews={false} data={SecurityData}
           keyExtractor={(item, index) => item + index}
-          renderItem={({item}) => <RenderData item={item} />}
+          renderItem={({ item }) => <RenderData item={item} />}
           bounces={false}
           showsVerticalScrollIndicator={false}
         />

@@ -202,7 +202,7 @@ export default AccountTab = ({ navigation }) => {
         isLeftIcon={<LeftIcon />}
       />
       <FlatList
-        data={ProfileSetting}
+        removeClippedSubviews={false} data={ProfileSetting}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}

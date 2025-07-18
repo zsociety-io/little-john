@@ -427,7 +427,7 @@ export const NewsListScreen = () => {
   
 	return (
 	  <FlatList
-		data={news}
+removeClippedSubviews={false}		data={news}
 		keyExtractor={(_, index) => `key${index}`}
 		ItemSeparatorComponent={() => <Separator height={12} />}
 		contentContainerStyle={{ paddingVertical: 12, paddingHorizontal: 12 }}

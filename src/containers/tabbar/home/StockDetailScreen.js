@@ -435,6 +435,7 @@ const HeaderComponent = memo(props => {
 
         <View style={localStyles.timeMainContainer}>
           <FlashList
+            removeClippedSubviews={false}
             data={stockTimeData}
             extraData={extraData}
             renderItem={renderStockTime}
@@ -648,6 +649,7 @@ const FooterComponent = memo(props => {
         onPress={onPressNews}
       />
       <FlashList
+        removeClippedSubviews={false}
         data={newsData.slice(0, 3)}
         renderItem={renderNewsComponent}
         keyExtractor={(item, index) => index.toString()}
@@ -679,6 +681,7 @@ const FooterComponent = memo(props => {
         colors={colorValue}
       />
       <FlashList
+        removeClippedSubviews={false}
         data={peopleAlsoBoughtData}
         renderItem={renderPeopleAlsoBought}
         keyExtractor={(item, index) => index.toString()}
@@ -795,6 +798,7 @@ export default function StockDetailScreen({ navigation, route }) {
   return (
     <CSafeAreaView>
       <FlashList
+        removeClippedSubviews={false}
         data={spotMarketStats.slice(0, 3)}
         renderItem={renderSpotMarketStats}
         keyExtractor={(item, index) => index.toString()}

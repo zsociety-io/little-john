@@ -128,6 +128,7 @@ export default HomeTab = ({ navigation }) => {
         </ImageBackground>
         {/* FLASHLIST COMMENTÉE POUR ÉVITER L'ERREUR D'IMBRICATION */}
         <FlashList
+          removeClippedSubviews={false}
           data={topStockData}
           renderItem={renderFirstItem}
           horizontal
@@ -136,11 +137,12 @@ export default HomeTab = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.pt25}
         />
-        
+
         {/* COMMENTAIRE POUR CACHER LA WISHLIST */}
         {/*
         <SubHeader title={'My Wishlist'} onPress={onPressMyWishlist} />
         <FlashList
+removeClippedSubviews={false}
           data={myWishlistStockData}
           renderItem={renderWishlistItem}
           horizontal
@@ -162,6 +164,7 @@ export default HomeTab = ({ navigation }) => {
   return (
     <CSafeAreaView>
       <FlashList
+        removeClippedSubviews={false}
         data={myStockData}
         renderItem={renderListedStock}
         keyExtractor={(item) => item.id.toString()}

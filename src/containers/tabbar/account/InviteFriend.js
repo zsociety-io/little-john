@@ -1,28 +1,28 @@
-import {FlatList, Image, StyleSheet, View} from 'react-native';
+import { FlatList, Image, StyleSheet, View } from 'react-native';
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Local import
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CHeader from '../../../components/common/CHeader';
-import {styles} from '../../../themes';
+import { styles } from '../../../themes';
 import images from '../../../assets/images';
-import {getHeight, moderateScale} from '../../../common/constants';
+import { getHeight, moderateScale } from '../../../common/constants';
 import CDivider from '../../../components/common/CDivider';
 import CText from '../../../components/common/CText';
 import strings from '../../../i18n/strings';
-import {Star_Icon} from '../../../assets/svgs';
-import {inviteFriendData} from '../../../api/constant';
+import { Star_Icon } from '../../../assets/svgs';
+import { inviteFriendData } from '../../../api/constant';
 import CButton from '../../../components/common/CButton';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
 
-export default function InviteFriend({navigation}) {
+export default function InviteFriend({ navigation }) {
   const colors = useSelector(state => state.theme.theme);
 
   const onPressContinue = () => navigation.navigate(StackNav.MyRewards);
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <View style={localStyles.mainContainer}>
         <Star_Icon />
@@ -60,7 +60,7 @@ export default function InviteFriend({navigation}) {
     );
   };
 
-  const ButtonIcon = ({icon, color}) => {
+  const ButtonIcon = ({ icon, color }) => {
     return <Ionicons name={icon} size={moderateScale(24)} color={color} />;
   };
 
@@ -92,7 +92,7 @@ export default function InviteFriend({navigation}) {
     <CSafeAreaView>
       <CHeader />
       <FlatList
-        data={inviteFriendData}
+        removeClippedSubviews={false} data={inviteFriendData}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         ListHeaderComponent={RenderHeader}

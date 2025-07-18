@@ -1,21 +1,21 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {FlashList} from '@shopify/flash-list';
-import {useSelector} from 'react-redux';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlashList } from '@shopify/flash-list';
+import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Local import
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
-import {AppLogoLight} from '../../../assets/svgs';
-import {moderateScale} from '../../../common/constants';
-import {styles} from '../../../themes';
+import { AppLogoLight } from '../../../assets/svgs';
+import { moderateScale } from '../../../common/constants';
+import { styles } from '../../../themes';
 import CText from '../../../components/common/CText';
-import {moreData} from '../../../api/constant';
+import { moreData } from '../../../api/constant';
 import CDivider from '../../../components/common/CDivider';
 
-const MoreTab = ({navigation}) => {
+const MoreTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [extraData, setExtraData] = useState(false);
 
@@ -33,7 +33,7 @@ const MoreTab = ({navigation}) => {
     );
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         onPress={() => onPressItem(item)}
@@ -68,6 +68,7 @@ const MoreTab = ({navigation}) => {
         isLeftIcon={<LeftIcon />}
       />
       <FlashList
+        removeClippedSubviews={false}
         data={moreData}
         renderItem={renderItem}
         extraData={extraData}
