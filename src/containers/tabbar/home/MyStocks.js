@@ -61,7 +61,6 @@ export default function MyStocks() {
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={10}
-        removeClippedSubviews={false}
         contentContainerStyle={styles.flex}
         ListHeaderComponent={renderHeaderComponent}
       />

@@ -139,6 +139,7 @@ export default HomeTab = ({ navigation }) => {
           keyExtractor={(item) => item.id.toString()}
           estimatedItemSize={1}
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.pt25}
         />
 
         {/* COMMENTAIRE POUR CACHER LA WISHLIST */}
@@ -173,7 +174,6 @@ export default HomeTab = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={10}
-        removeClippedSubviews={false}
         ListHeaderComponent={RenderHeaderComponent}
       />
     </CSafeAreaView>
