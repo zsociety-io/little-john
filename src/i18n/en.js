@@ -3,7 +3,7 @@ export default {
   home: 'Home',
   portfolio: 'Portfolio',
   discover: 'Discover',
-  more: 'More',
+  more: 'Manage',
   profile: 'Profile',
   account: 'Account',
   getStarted: 'Get Started',
@@ -290,7 +290,7 @@ export default {
   earningsShare: 'Earnings per share',
   news: 'News',
   characteristics: 'Characteristics',
-  peopleAlsoBought: 'People Also Bought',
+  SimilarStocks: 'Similar Stocks',
   theStoryFar: 'The Story So Far',
   disclosures: 'Disclosures',
   theStoryFarDesc:

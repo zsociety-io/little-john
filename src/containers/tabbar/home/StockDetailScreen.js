@@ -38,11 +38,12 @@ import {
   characteristicsData,
   mainChartData,
   newsData,
-  peopleAlsoBoughtData,
+  similarStocksData,
   sampleDataDates,
   spotMarketStats,
   stockTimeData,
 } from '../../../api/constant';
+console.log('similarStocksData disponible:', similarStocksData?.length);
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CDivider from '../../../components/common/CDivider';
 import CButton from '../../../components/common/CButton';
@@ -95,7 +96,7 @@ const SubHeader = memo(({ title, style, isHide = false, colors, onPress }) => {
   );
 });
 
-const PeopleAlsoBought = memo(({ item, colors, onPressStock }) => {
+const SimilarStocks = memo(({ item, colors, onPressStock }) => {
   return (
     <TouchableOpacity
       onPress={() => onPressStock(item)}
@@ -444,7 +445,6 @@ const HeaderComponent = memo(props => {
             horizontal={true}
             scrollEnabled={false}
             estimatedItemSize={7}
-            removeClippedSubviews={false}
           />
           <TouchableOpacity>
             {isCandle ? <CandleGraphIcon /> : <ChartGraphIcon />}
@@ -518,7 +518,7 @@ const FooterComponent = memo(props => {
     colors,
     subTextColor,
     colorValue,
-    renderPeopleAlsoBought,
+    renderSimilarStocks,
     renderNewsComponent,
     renderSeparator,
     onPressNews,
@@ -536,11 +536,13 @@ const FooterComponent = memo(props => {
         style={styles.pv10}>
         {strings.showMore}
       </CText>
+      {/*
       <SubHeader
         title={'What the Experts Say'}
         style={styles.mb10}
         colors={colorValue}
       />
+      
       <CText type="r18" color={subTextColor} style={localStyles.padding20}>
         {'16 Wall Street Analyst Ratings'}
       </CText>
@@ -583,6 +585,7 @@ const FooterComponent = memo(props => {
         colors={colorValue}
         subTextColor={subTextColor}
       />
+      */}
       <SubHeader title={'Risk'} style={styles.mb10} colors={colorValue} />
       <CText type="r18" color={subTextColor} style={styles.ph20}>
         {'Spot has'}
@@ -641,7 +644,7 @@ const FooterComponent = memo(props => {
           'The company reported results on Dec 25, 2022 and missed market expectations.'
         }
       </CText>
-
+        {/*
       <SubHeader
         title={strings.news}
         style={styles.mb5}
@@ -657,7 +660,6 @@ const FooterComponent = memo(props => {
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={renderSeparator}
         estimatedItemSize={3}
-        removeClippedSubviews={false}
       />
       <CText
         type="s16"
@@ -667,6 +669,7 @@ const FooterComponent = memo(props => {
         onPress={onPressNews}>
         {strings.showMore}
       </CText>
+      */}
       <SubHeader
         title={strings.characteristics}
         style={styles.mb5}
@@ -678,19 +681,18 @@ const FooterComponent = memo(props => {
 
 
       <SubHeader
-        title={strings.peopleAlsoBought}
+        title={strings.SimilarStocks}
         style={styles.mt25}
         colors={colorValue}
       />
       <FlashList
         removeClippedSubviews={false}
-        data={peopleAlsoBoughtData}
-        renderItem={renderPeopleAlsoBought}
+        data={similarStocksData}
+        renderItem={renderSimilarStocks}
         keyExtractor={(item, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         estimatedItemSize={6}
-        removeClippedSubviews={false}
         contentContainerStyle={styles.ph20}
       />
       <SubHeader
@@ -778,9 +780,9 @@ export default function StockDetailScreen({ navigation, route }) {
     );
   };
 
-  const renderPeopleAlsoBought = ({ item }) => {
+  const renderSimilarStocks = ({ item }) => {
     return (
-      <PeopleAlsoBought
+      <SimilarStocks
         item={item}
         colors={colorValue}
         onPressStock={onPressStock}
@@ -827,7 +829,7 @@ export default function StockDetailScreen({ navigation, route }) {
             colors={colorValue}
             subTextColor={subTextColor}
             colorValue={colorValue}
-            renderPeopleAlsoBought={renderPeopleAlsoBought}
+            renderSimilarStocks={renderSimilarStocks}
             renderNewsComponent={renderNewsComponent}
             renderSeparator={renderSeparator}
             onPressNews={onPressNews}

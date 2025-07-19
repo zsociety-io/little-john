@@ -26,6 +26,7 @@ import {
   myStockData,
   myWishlistStockData,
   topStockData,
+  discoverListedStock, 
 } from '../../../api/constant';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import { StackNav } from '../../../navigation/NavigationKeys';
@@ -48,6 +49,7 @@ export default HomeTab = ({ navigation }) => {
 
   {/* const onPressMyWishlist = () => navigation.navigate(StackNav.MyWishlist);*/}
   const onPressMyStocks = () => navigation.navigate(StackNav.MyStocks);
+  const onPressAllStocks = () => navigation.navigate(StackNav.AllStocks);  // Navigation vers tous les stocks
 
   const LeftIcon = () => {
     return (
@@ -160,9 +162,9 @@ export default HomeTab = ({ navigation }) => {
 */}
 
         <SubHeader
-          title={'My Stocks'}
+          title={'All Stocks'}
           style={styles.mb5}
-          onPress={onPressMyStocks}
+          onPress={onPressAllStocks}
         />
       </View>
     );
@@ -172,7 +174,7 @@ export default HomeTab = ({ navigation }) => {
     <CSafeAreaView>
       <FlashList
         removeClippedSubviews={false}
-        data={myStockData}
+        data={discoverListedStock}
         renderItem={renderListedStock}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}

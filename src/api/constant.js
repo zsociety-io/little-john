@@ -398,6 +398,7 @@ const moreData = [
     desc: 'Transfer funds instantly to your Invest account',
     route: StackNav.DepositToOtrade,
   },
+  /*
   {
     id: 3,
     title: 'Withdraw from Invest',
@@ -412,6 +413,7 @@ const moreData = [
     desc: 'Your historical & live fund details in and out of Invest',
     route: StackNav.FundingActivity,
   },
+  */
   {
     id: 3,
     title: 'Financial Transaction',
@@ -419,6 +421,7 @@ const moreData = [
     desc: 'History of your stock transactions in the Invest stock market',
     route: StackNav.FinancialTransaction,
   },
+  /*
   {
     id: 3,
     title: 'Payment Methods',
@@ -426,6 +429,7 @@ const moreData = [
     desc: 'Other connected payment methods other than banks',
     route: StackNav.PaymentMethods,
   },
+  */
 ];
 
 const listedStockData = [
@@ -1620,6 +1624,149 @@ const characteristicsData = [
   '💻 Tech',
 ];
 
+const similarStocksData = [
+  {
+    image: images.pinterestIcon,
+    companyName: 'Pinterest',
+    stockName: 'PINS',
+    currentValue: '$25.75',
+    percentage: '12.37%',
+    data: [
+      { x: -2, y: 15 },
+      { x: -1, y: 10 },
+      { x: 0, y: 12 },
+      { x: 1, y: 7 },
+      { x: 2, y: 6 },
+      { x: 3, y: 8 },
+      { x: 4, y: 10 },
+      { x: 5, y: 8 },
+      { x: 6, y: 12 },
+      { x: 7, y: 14 },
+      { x: 8, y: 12 },
+      { x: 9, y: 13.5 },
+      { x: 10, y: 18 },
+    ],
+    status: false,
+  },
+  {
+    image: images.slackIcon,
+    companyName: 'Slack',
+    stockName: 'WORK',
+    currentValue: '$12.5',
+    percentage: '9.37%',
+    data: [
+      { x: -2, y: 15 },
+      { x: -1, y: 10 },
+      { x: 0, y: 12 },
+      { x: 1, y: 7 },
+      { x: 2, y: 6 },
+      { x: 3, y: 8 },
+      { x: 4, y: 10 },
+      { x: 5, y: 8 },
+      { x: 6, y: 12 },
+      { x: 7, y: 14 },
+      { x: 8, y: 12 },
+      { x: 9, y: 13.5 },
+      { x: 10, y: 18 },
+    ],
+    status: true,
+  },
+  {
+    image: images.hpIcon,
+    companyName: 'HP Inc.',
+    stockName: 'HPQ',
+    currentValue: '$12.5',
+    percentage: '6.7%',
+    data: [
+      { x: -2, y: 15 },
+      { x: -1, y: 10 },
+      { x: 0, y: 12 },
+      { x: 1, y: 7 },
+      { x: 2, y: 6 },
+      { x: 3, y: 8 },
+      { x: 4, y: 10 },
+      { x: 5, y: 13.8 },
+      { x: 6, y: 15.4 },
+      { x: 7, y: 3.1 },
+      { x: 8, y: 12.9 },
+      { x: 9, y: 19.7 },
+      { x: 10, y: 11.5 },
+    ],
+    status: false,
+  },
+  {
+    image: images.linkedinIcon,
+    companyName: 'LinkedIn Corporation',
+    stockName: 'LNKD',
+    currentValue: '$142.5',
+    percentage: '7.37%',
+    data: [
+      { x: -2, y: 10.2 },
+      { x: -1, y: 17.5 },
+      { x: 0, y: 16.8 },
+      { x: 1, y: 18.1 },
+      { x: 2, y: 15.3 },
+      { x: 3, y: 14.7 },
+      { x: 4, y: 7.2 },
+      { x: 5, y: 13.8 },
+      { x: 6, y: 15.4 },
+      { x: 7, y: 3.1 },
+      { x: 8, y: 12.9 },
+      { x: 9, y: 19.7 },
+      { x: 10, y: 11.5 },
+    ],
+    status: false,
+  },
+  {
+    image: images.mozilaIcon,
+    companyName: 'Mozila Corporation',
+    stockName: 'MOZ',
+    currentValue: '$65.3',
+    percentage: '6.37%',
+    data: [
+      { x: -2, y: 15 },
+      { x: -1, y: 10 },
+      { x: 0, y: 12 },
+      { x: 1, y: 7 },
+      { x: 2, y: 6 },
+      { x: 3, y: 12.9 },
+      { x: 4, y: 3.6 },
+      { x: 5, y: 14.2 },
+      { x: 6, y: 13.8 },
+      { x: 7, y: 14.7 },
+      { x: 8, y: 10.1 },
+      { x: 9, y: 14.6 },
+      { x: 10, y: 20 },
+    ],
+    status: true,
+  },
+  {
+    image: images.burgerKingIcon,
+    companyName: 'Burger King',
+    stockName: 'BKG',
+    currentValue: '$54.3',
+    percentage: '5.37%',
+    data: [
+      { x: -2, y: 6.3 },
+      { x: -1, y: 11.8 },
+      { x: 0, y: 13.2 },
+      { x: 1, y: 12.1 },
+      { x: 2, y: 11.5 },
+      { x: 3, y: 12.9 },
+      { x: 4, y: 3.6 },
+      { x: 5, y: 14.2 },
+      { x: 6, y: 13.8 },
+      { x: 7, y: 14.7 },
+      { x: 8, y: 10.1 },
+      { x: 9, y: 14.6 },
+      { x: 10, y: 20 },
+    ],
+    status: false,
+  },
+];
+
+
+{/* A supprimer une fois tout les people also supp */}
 const peopleAlsoBoughtData = [
   {
     image: images.pinterestIcon,
@@ -2045,4 +2192,5 @@ export {
   notificationData,
   mainChartData,
   sampleDataDates,
+  similarStocksData,
 };
