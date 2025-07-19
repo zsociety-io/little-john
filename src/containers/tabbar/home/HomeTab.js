@@ -50,6 +50,11 @@ export default HomeTab = ({ navigation }) => {
   {/* const onPressMyWishlist = () => navigation.navigate(StackNav.MyWishlist);*/}
   const onPressMyStocks = () => navigation.navigate(StackNav.MyStocks);
   const onPressAllStocks = () => navigation.navigate(StackNav.AllStocks);  // Navigation vers tous les stocks
+  const onPressDeposit = () => {
+    // TODO: Implement USDC onramp navigation
+    console.log('Navigate to USDC deposit');
+  };
+
 
   const LeftIcon = () => {
     return (
@@ -126,10 +131,20 @@ export default HomeTab = ({ navigation }) => {
             numberOfLines={1}
             color={colors.white}
             align={'center'}
-            style={styles.mv10}
+            style={[styles.mv5, styles.mb10]}
             type={'m14'}>
             {'Available Cash'}
           </CText>
+          <TouchableOpacity 
+            style={localStyles.depositButton}
+            onPress={onPressDeposit}>
+            <CText
+              color={colors.primary}
+              align={'center'}
+              type={'b16'}>
+              {'Deposit'}
+            </CText>
+          </TouchableOpacity>
         </ImageBackground>
 
         {/* FLASHLIST COMMENTÉE POUR ÉVITER L'ERREUR D'IMBRICATION */}
@@ -193,7 +208,7 @@ const localStyles = StyleSheet.create({
     ...styles.center,
   },
   imageStyle: {
-    height: getHeight(210),
+    height: getHeight(240),
     width: '100%',
     resizeMode: 'cover',
   },
@@ -206,5 +221,14 @@ const localStyles = StyleSheet.create({
     ...styles.ph20,
     ...styles.mv20,
     ...styles.pt5,
+  },
+  depositButton: {
+    backgroundColor: 'white',
+    borderRadius: moderateScale(25),
+    paddingHorizontal: moderateScale(30),
+    paddingVertical: moderateScale(12),
+    marginHorizontal: moderateScale(60),
+    marginBottom: moderateScale(15),
+    alignSelf: 'center',
   },
 });

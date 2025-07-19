@@ -157,7 +157,7 @@ export default AccountTab = ({ navigation }) => {
               />
             </TouchableOpacity>
             <View style={[styles.mh10, styles.flex]}>
-              <CText type="b20">{'Andrew Ainsley'}</CText>
+              <CText type="b20">{'Solana Mainnet'}</CText>
               <CText type="m14" style={styles.mt5}>
                 {'andrew_ainsley@yourdomain.com'}
               </CText>
