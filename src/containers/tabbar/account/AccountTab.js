@@ -26,6 +26,7 @@ import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CHeader from '../../../components/common/CHeader';
 import CText from '../../../components/common/CText';
 import CDivider from '../../../components/common/CDivider';
+
 import LogOut from '../../../components/models/LogOut';
 
 import { useAccount } from '../../../providers/AccountProvider';
@@ -202,13 +203,13 @@ export default AccountTab = ({ navigation }) => {
         isLeftIcon={<LeftIcon />}
       />
       <FlatList
-        removeClippedSubviews={false} data={ProfileSetting}
+        removeClippedSubviews={false} 
+        data={ProfileSetting}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={localStyles.root}
         ListHeaderComponent={renderHeaderComponent}
-        removeClippedSubviews={false}
       />
       <LogOut
         SheetRef={LogOutSheetRef}

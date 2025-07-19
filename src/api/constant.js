@@ -42,6 +42,7 @@ const GenderData = [
 ];
 
 const ProfileSetting = [
+  /*
   {
     id: 1,
     title: strings.personalInfo,
@@ -61,6 +62,7 @@ const ProfileSetting = [
     icon: <Security_Icon />,
     route: StackNav.Security,
   },
+  */
   {
     id: 5,
     title: strings.language,
@@ -74,6 +76,7 @@ const ProfileSetting = [
     icon: <DarkMode_Icon />,
     rightIcon: 'rightIcon',
   },
+  /*
   {
     id: 2,
     title: strings.address,
@@ -92,9 +95,10 @@ const ProfileSetting = [
     icon: <LegalAgreements_Icon />,
     // route: StackNav.Payment,
   },
+  */
   {
     id: 7,
-    title: strings.aboutOtrade,
+    title: strings.aboutLittleJohn,
     icon: <AboutOtrade_Icon />,
     route: StackNav.AboutOtrade,
   },
@@ -112,6 +116,12 @@ const ProfileSetting = [
     route: StackNav.InviteFriends,
     isRightIcon: true,
     isLogout: true,
+  },
+  {
+    id: 10, 
+    title: strings.developerSettings,
+    icon: <DarkMode_Icon />, // Vous devrez ajouter cette icône
+    route: StackNav.DeveloperSettings,
   },
 ];
 
@@ -2150,6 +2160,23 @@ const sampleDataDates = [
   { x: '2016-01-29', open: 52, close: 67, high: 85, low: 40 },
 ];
 
+const networkData = [
+  {
+    title: strings.networks,
+    data: [
+      {
+        networkName: 'Mainnet',
+        description: 'Production network for live trading',
+      },
+      {
+        networkName: 'Testnet',
+        description: 'Test network for development and testing',
+      },
+    ],
+  },
+];
+
+
 export {
   GenderData,
   ProfileSetting,
@@ -2193,4 +2220,5 @@ export {
   mainChartData,
   sampleDataDates,
   similarStocksData,
+  networkData,
 };

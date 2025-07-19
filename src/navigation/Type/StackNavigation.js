@@ -54,6 +54,12 @@ export default function StackNavigation() {
         name={StackNav.AboutOtrade}
         component={StackRoute.AboutOtrade}
       />
+
+      <Stack.Screen
+        name={StackNav.DeveloperSettings}
+        component={StackRoute.DeveloperSettings}
+      />
+      
       <Stack.Screen
         name={StackNav.ExchangeStock}
         component={StackRoute.ExchangeStock}

@@ -41,6 +41,7 @@ import Language from '../containers/tabbar/account/Language';
 import NotificationSetting from '../containers/tabbar/account/NotificationSetting';
 import PersonalInfo from '../containers/tabbar/account/PersonalInfo';
 import AboutOtrade from '../containers/tabbar/account/AboutOtrade';
+import DeveloperSettings from '../containers/tabbar/account/DeveloperSettings';
 import ExchangeStock from '../containers/tabbar/more/ExchangeStock';
 import PreviewExchange from '../containers/tabbar/more/PreviewExchange';
 import OrderSuccessful from '../containers/tabbar/more/OrderSuccessful';
@@ -112,6 +113,7 @@ export const StackRoute = {
   NotificationSetting,
   PersonalInfo,
   AboutOtrade,
+  DeveloperSettings, 
   ExchangeStock,
   PreviewExchange,
   OrderSuccessful,

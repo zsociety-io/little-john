@@ -128,13 +128,13 @@ export default HomeTab = ({ navigation }) => {
             align={'center'}
             style={styles.mv10}
             type={'m14'}>
-            {'Balance Available'}
+            {'Available Cash'}
           </CText>
         </ImageBackground>
 
         {/* FLASHLIST COMMENTÉE POUR ÉVITER L'ERREUR D'IMBRICATION */}
         <View style={[localStyles.marketContainer]}>
-          <CText type={'b20'}>{"Market Data"}</CText>
+          <CText type={'b20'}>{"ETFs"}</CText>
         </View>
         <FlashList
           removeClippedSubviews={false}

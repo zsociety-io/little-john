@@ -44,6 +44,7 @@ export const StackNav = {
   NotificationSetting: 'NotificationSetting',
   PersonalInfo: 'PersonalInfo',
   AboutOtrade: 'AboutOtrade',
+  DeveloperSettings: 'DeveloperSettings',
   ExchangeStock: 'ExchangeStock',
   PreviewExchange: 'PreviewExchange',
   OrderSuccessful: 'OrderSuccessful',
