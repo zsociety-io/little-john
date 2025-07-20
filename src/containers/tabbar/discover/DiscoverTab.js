@@ -221,7 +221,7 @@ const DiscoverTab = ({ navigation }) => {
     return (
       <View>
         {/* SEARCH BAR WITH FILTER */}
-        <View style={localStyles.searchContainer}>
+        <View style={[localStyles.searchContainer, styles.ph20]}>
           <TouchableOpacity
             style={localStyles.searchInputContainer}
             onPress={onPressSearchContainer}
@@ -297,7 +297,6 @@ const DiscoverTab = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           estimatedItemSize={10}
           ListHeaderComponent={renderHeaderComponent}
-          contentContainerStyle={styles.ph20}
         />
       </KeyBoardAvoidWrapper>
     </CSafeAreaView>
@@ -362,6 +361,7 @@ const localStyles = StyleSheet.create({
     ...styles.rowSpaceBetween,
     ...styles.mt20,
     ...styles.mb10,
+    ...styles.ph20,
   },
   topStockImageStyle: {
     height: moderateScale(50),
