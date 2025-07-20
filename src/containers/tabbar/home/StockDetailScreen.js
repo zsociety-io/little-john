@@ -207,7 +207,7 @@ const StakingCards = memo(({ item, colors, onPressStaked, onPressUnstaked }) => 
           {item?.staking?.staked || '$0.00'}
         </CText>
       </TouchableOpacity>
-      
+
       <TouchableOpacity
         style={[
           localStyles.stakingCard,
@@ -319,6 +319,7 @@ const HeaderComponent = memo(props => {
     onPressSPOTMarket,
     selectedTime,
     onPressCandle,
+    navigation,
   } = props;
 
   React.useEffect(() => {
@@ -524,8 +525,14 @@ const HeaderComponent = memo(props => {
         <StakingCards
           item={item}
           colors={colorValue}
-          onPressStaked={() => console.log('Staked pressed')}
-          onPressUnstaked={() => console.log('Unstaked pressed')}
+          onPressStaked={() => navigation.navigate(StackNav.StakeAction, {
+            item: item,
+            isStake: true
+          })}
+          onPressUnstaked={() => navigation.navigate(StackNav.StakeAction, {
+            item: item,
+            isStake: false
+          })}
         />
       )}
       <SubHeader
@@ -872,6 +879,7 @@ export default function StockDetailScreen({ navigation, route }) {
             extraData={extraData}
             onPressSPOTMarket={onPressSPOTMarket}
             selectedTime={selectedTimeValue}
+            navigation={navigation}
           />
         }
         ListFooterComponent={

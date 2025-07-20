@@ -151,6 +151,18 @@ export default function StackNavigation() {
         component={StackRoute.BuySellSuccessful}
       />
       <Stack.Screen
+        name={StackNav.StakeAction}
+        component={StackRoute.StakeAction}
+      />
+      <Stack.Screen
+        name={StackNav.StakePreview}
+        component={StackRoute.StakePreview}
+      />
+      <Stack.Screen
+        name={StackNav.StakeSuccessful}
+        component={StackRoute.StakeSuccessful}
+      />
+      <Stack.Screen
         name={StackNav.NewsScreen}
         component={StackRoute.NewsScreen}
       />

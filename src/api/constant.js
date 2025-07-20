@@ -1363,6 +1363,12 @@ const myStockData = [
     staking: {
       staked: '$125.78',
       unstaked: '$54.20',
+      apy: '12.5%',
+      availableBalance: '$1,250.00',
+      lockPeriod: '30 days',
+      minStakeAmount: '$10.00',
+      maxStakeAmount: '$10,000.00',
+      stakingFees: '$2.50',
     },
   },
   {
@@ -1391,6 +1397,12 @@ const myStockData = [
     staking: {
       staked: '$89.32',
       unstaked: '$76.13',
+      apy: '8.7%',
+      availableBalance: '$850.00',
+      lockPeriod: '14 days',
+      minStakeAmount: '$5.00',
+      maxStakeAmount: '$5,000.00',
+      stakingFees: '$1.75',
     },
   },
   {
@@ -1419,6 +1431,12 @@ const myStockData = [
     staking: {
       staked: '$0',
       unstaked: '$150.25',
+      apy: '15.2%',
+      availableBalance: '$2,500.00',
+      lockPeriod: '7 days',
+      minStakeAmount: '$25.00',
+      maxStakeAmount: '$15,000.00',
+      stakingFees: '$3.00',
     },
   },
   {

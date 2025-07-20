@@ -66,6 +66,9 @@ import BuySell from '../containers/tabbar/home/BuySell';
 import BuySellOption from '../containers/tabbar/home/BuySellOption';
 import BuySellPreview from '../containers/tabbar/home/BuySellPreview';
 import BuySellSuccessful from '../containers/tabbar/home/BuySellSuccessful';
+import StakeAction from '../containers/tabbar/home/StakeAction';
+import StakePreview from '../containers/tabbar/home/StakePreview';
+import StakeSuccessful from '../containers/tabbar/home/StakeSuccessful';
 import NewsScreen from '../containers/tabbar/home/NewsScreen';
 import SPOTMarketStats from '../containers/tabbar/home/SPOTMarketStats';
 
@@ -138,6 +141,9 @@ export const StackRoute = {
   BuySellOption,
   BuySellPreview,
   BuySellSuccessful,
+  StakeAction,
+  StakePreview,
+  StakeSuccessful,
   NewsScreen,
   SPOTMarketStats,
 };

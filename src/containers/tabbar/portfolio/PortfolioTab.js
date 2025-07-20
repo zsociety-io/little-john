@@ -41,7 +41,7 @@ const renderListedStock = ({ item, index }) => (
 
 const SubHeader = memo(({ title1, title2, style, isHide = false, colors }) => {
   return (
-    <View style={[styles.rowSpaceBetween, styles.ph20, style]}>
+    <View style={[styles.rowSpaceBetween, styles.ph5, style]}>
       <CText type={'b18'}>{title1}</CText>
       {isHide && (
         <TouchableOpacity style={styles.rowCenter}>
@@ -197,7 +197,7 @@ const HeaderComponent = memo(props => {
           horizontal={true}
           scrollEnabled={false}
           estimatedItemSize={5}
-          contentContainerStyle={styles.ph20}
+          contentContainerStyle={styles.ph5}
         />
       </ImageBackground>
       <View
@@ -252,7 +252,7 @@ const HeaderComponent = memo(props => {
       <SubHeader
         title1={'My Positions'}
         isHide={true}
-        style={[styles.mt10, styles.mb5]}
+        style={[styles.mt10, styles.mb5, styles.ph20]}
         title2={'Recently'}
         colors={colorValue}
       />
@@ -328,7 +328,7 @@ export default function PortfolioTab({ navigation }) {
 const localStyles = StyleSheet.create({
   container: {
     ...styles.rowSpaceBetween,
-    ...styles.ph20,
+    ...styles.ph5,
     ...styles.pv15,
     ...styles.mb20,
     ...styles.center,
@@ -345,7 +345,7 @@ const localStyles = StyleSheet.create({
   settingsContainer: {
     ...styles.rowSpaceBetween,
     ...styles.pv15,
-    ...styles.ph20,
+    ...styles.ph5,
   },
   leftContainer: {
     ...styles.flexRow,
@@ -377,7 +377,7 @@ const localStyles = StyleSheet.create({
   categoryContainer: {
     ...styles.rowSpaceBetween,
     ...styles.flex,
-    ...styles.ph20,
+    ...styles.ph5,
     ...styles.mb20,
   },
   categoryRow: {

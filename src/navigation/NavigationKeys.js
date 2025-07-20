@@ -69,6 +69,9 @@ export const StackNav = {
   BuySellOption: 'BuySellOption',
   BuySellPreview: 'BuySellPreview',
   BuySellSuccessful: 'BuySellSuccessful',
+  StakeAction: 'StakeAction',
+  StakePreview: 'StakePreview',
+  StakeSuccessful: 'StakeSuccessful',
   NewsScreen: 'NewsScreen',
   SPOTMarketStats: 'SPOTMarketStats',
 };
