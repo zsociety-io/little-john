@@ -644,7 +644,7 @@ const FooterComponent = memo(props => {
           'The company reported results on Dec 25, 2022 and missed market expectations.'
         }
       </CText>
-        {/*
+      {/*
       <SubHeader
         title={strings.news}
         style={styles.mb5}

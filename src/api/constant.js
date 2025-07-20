@@ -42,6 +42,12 @@ const GenderData = [
 ];
 
 const ProfileSetting = [
+  {
+    id: 10, 
+    title: strings.developerSettings,
+    icon: <DarkMode_Icon />, // Vous devrez ajouter cette icône
+    route: StackNav.DeveloperSettings,
+  },
   /*
   {
     id: 1,
@@ -117,12 +123,7 @@ const ProfileSetting = [
     isRightIcon: true,
     isLogout: true,
   },
-  {
-    id: 10, 
-    title: strings.developerSettings,
-    icon: <DarkMode_Icon />, // Vous devrez ajouter cette icône
-    route: StackNav.DeveloperSettings,
-  },
+  
 ];
 
 const question5Data = [
