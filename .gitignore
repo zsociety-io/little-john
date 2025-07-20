@@ -73,11 +73,8 @@ coverage/
 *.swp
 .idea/
 
-<<<<<<< HEAD
-android/app/.cxx/*
-android/app/.cxx
-=======
-#cxx
+# CXX
 android/app/.cxx/
 
->>>>>>> origin/main
+# Kiro IDE files
+.kiro/

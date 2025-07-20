@@ -35,9 +35,8 @@ const DiscoverTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [search, setSearch] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
-  const [filterData, setFilterData] = useState(discoverListedStock);
-  const [showFilters, setShowFilters] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [showMoreFilters, setShowMoreFilters] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState('All');
 
   const onSearchInput = val => setSearch(val);
   const onSearchFocus = () => setSearchFocus(true);
@@ -45,33 +44,17 @@ const DiscoverTab = ({ navigation }) => {
 
   const onPressSearch = () => navigation.navigate(StackNav.AllStocks);
   const onPressAllStocks = () => navigation.navigate(StackNav.AllStocks);
+  const onToggleMoreFilters = () => setShowMoreFilters(!showMoreFilters);
 
-  const onToggleFilters = () => setShowFilters(!showFilters);
+  // Create worst movers data (opposite of top movers)
+  const worstMoversData = topMoversData.map(item => ({
+    ...item,
+    percentage: '-' + item.percentage,
+    status: false,
+  }));
 
-  const onFilterPress = (item, index) => {
-    const isSelected = selectedFilters.includes(index);
-    if (isSelected) {
-      setSelectedFilters(selectedFilters.filter(id => id !== index));
-    } else {
-      setSelectedFilters([...selectedFilters, index]);
-    }
-  };
-
-  // Filter data based on search input
-  React.useEffect(() => {
-    filterDataList();
-  }, [search]);
-
-  const filterDataList = () => {
-    if (!!search) {
-      const filteredData = discoverListedStock.filter(item =>
-        item.companyName.toLowerCase().includes(search.toLowerCase()),
-      );
-      setFilterData(filteredData);
-    } else {
-      setFilterData(discoverListedStock);
-    }
-  };
+  const filterOptions = ['All', 'Technology', 'Healthcare', 'Finance', 'Energy', 'Consumer'];
+  const visibleFilters = showMoreFilters ? filterOptions : [filterOptions[0]];
 
   const LeftIcon = () => {
     return (
@@ -121,19 +104,42 @@ const DiscoverTab = ({ navigation }) => {
       <TouchableOpacity style={localStyles.topStockContainer}>
         <Image source={item?.image} style={localStyles.topStockImageStyle} />
         <CText
-          type={'m12'}
+          type={'b18'}
           numberOfLines={1}
           align={'center'}
           style={localStyles.stockTitleStyle}>
           {item?.stockName}
         </CText>
         <CText
-          type={'m12'}
-          color={colors.primary}
+          type={'b18'}
+          color={item.status ? colors.primary : colors.redColor}
           align={'center'}
           numberOfLines={1}
           style={styles.flex}>
-          {'+ ' + item?.percentage}
+          {item.status ? '+ ' : ''}{item?.percentage}
+        </CText>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderWorstMovers = ({ item, index }) => {
+    return (
+      <TouchableOpacity style={localStyles.topStockContainer}>
+        <Image source={item?.image} style={localStyles.topStockImageStyle} />
+        <CText
+          type={'b18'}
+          numberOfLines={1}
+          align={'center'}
+          style={localStyles.stockTitleStyle}>
+          {item?.stockName}
+        </CText>
+        <CText
+          type={'b18'}
+          color={colors.redColor}
+          align={'center'}
+          numberOfLines={1}
+          style={styles.flex}>
+          {item?.percentage}
         </CText>
       </TouchableOpacity>
     );
@@ -158,32 +164,56 @@ const DiscoverTab = ({ navigation }) => {
     );
   };
 
-  const FilterDropdown = () => {
+  const FilterSection = () => {
     return (
-      <View style={localStyles.filterButtonContainer}>
-        {stockCategoryData.map((item, index) => {
-          const isSelected = selectedFilters.includes(index);
-          return (
+      <View style={localStyles.filterContainer}>
+        <View style={localStyles.filterRow}>
+          {visibleFilters.map((filter, index) => (
             <TouchableOpacity
               key={index}
               style={[
-                localStyles.filterButton2,
-                {
-                  backgroundColor: isSelected ? colors.primary : 'transparent',
-                  borderColor: colors.primary
-                },
+                localStyles.filterChip,
+                selectedFilter === filter && localStyles.selectedFilterChip,
               ]}
-              onPress={() => onFilterPress(item, index)}
-              activeOpacity={0.7}>
+              onPress={() => setSelectedFilter(filter)}>
               <CText
-                type={'s16'}
-                color={isSelected ? colors.white : colors.primary}
-                align={'center'}>
-                {item}
+                type={'m14'}
+                color={selectedFilter === filter ? colors.white : colors.textColor}>
+                {filter}
               </CText>
             </TouchableOpacity>
-          );
-        })}
+          ))}
+          {!showMoreFilters && (
+            <TouchableOpacity
+              style={localStyles.moreFiltersButton}
+              onPress={onToggleMoreFilters}>
+              <CText type={'m14'} color={colors.primary}>
+                More Filters
+              </CText>
+              <Ionicons
+                name="chevron-down"
+                size={moderateScale(16)}
+                color={colors.primary}
+                style={styles.ml5}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+        {showMoreFilters && (
+          <TouchableOpacity
+            style={localStyles.lessFiltersButton}
+            onPress={onToggleMoreFilters}>
+            <CText type={'m14'} color={colors.primary}>
+              Less Filters
+            </CText>
+            <Ionicons
+              name="chevron-up"
+              size={moderateScale(16)}
+              color={colors.primary}
+              style={styles.ml5}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     );
   };
@@ -212,57 +242,54 @@ const DiscoverTab = ({ navigation }) => {
   const renderHeaderComponent = () => {
     return (
       <View>
-        {/* SEARCH BAR WITH FILTER */}
+        {/* TOP MOVERS SECTION */}
+        <SubHeader title={strings.topMovers} onPress={onPressSearch} />
+        <FlashList
+          removeClippedSubviews={false}
+          data={topMoversData}
+          renderItem={renderTopMovers}
+          keyExtractor={(item, index) => 'top_' + index.toString()}
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          estimatedItemSize={5}
+        />
+
+        {/* WORST MOVERS SECTION */}
+        <SubHeader title="Worst Movers" onPress={onPressSearch} />
+        <FlashList
+          removeClippedSubviews={false}
+          data={worstMoversData}
+          renderItem={renderWorstMovers}
+          keyExtractor={(item, index) => 'worst_' + index.toString()}
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          estimatedItemSize={5}
+        />
+
+        {/* SEARCH BAR */}
         <View style={localStyles.searchContainer}>
-          <View style={localStyles.searchInputContainer}>
-            <CInput
-              placeHolder={strings.searchStockCompany}
-              _value={search}
-              keyBoardType={'default'}
-              autoCapitalize={'none'}
-              insideLeftIcon={Search_Icon}
-              toGetTextFieldValue={onSearchInput}
-              inputContainerStyle={[
-                { backgroundColor: colors.inputBg },
-                searchFocus && { borderColor: colors.primary },
-                localStyles.inputContainerStyle,
-              ]}
-              inputBoxStyle={localStyles.inputBoxStyle}
-              _onFocus={onSearchFocus}
-              _onBlur={onSearchBlur}
-            />
-          </View>
-          <TouchableOpacity
-            style={[localStyles.filterButton, { backgroundColor: colors.inputBg }]}
-            onPress={onToggleFilters}>
-            <Ionicons
-              name="funnel-outline"
-              size={moderateScale(20)}
-              color={colors.textColor}
-            />
-          </TouchableOpacity>
+          <CInput
+            placeHolder={strings.searchStockCompany}
+            _value={search}
+            keyBoardType={'default'}
+            autoCapitalize={'none'}
+            insideLeftIcon={Search_Icon}
+            toGetTextFieldValue={onSearchInput}
+            inputContainerStyle={[
+              { backgroundColor: colors.inputBg },
+              searchFocus && { borderColor: colors.primary },
+              localStyles.inputContainerStyle,
+            ]}
+            inputBoxStyle={localStyles.inputBoxStyle}
+            _onFocus={onSearchFocus}
+            _onBlur={onSearchBlur}
+          />
         </View>
 
-        {/* FILTER BUTTONS */}
-        {showFilters && <FilterDropdown />}
+        {/* FILTERS SECTION */}
+        <FilterSection />
 
-        {/* TRENDING FLOWS SECTION - Hidden when filters are shown */}
-        {!showFilters && (
-          <>
-            <SubHeader title="Trending flows" onPress={onPressSearch} />
-            <FlashList
-              removeClippedSubviews={false}
-              data={topMoversData}
-              renderItem={renderTopMovers}
-              keyExtractor={(item, index) => 'top_' + index.toString()}
-              showsHorizontalScrollIndicator={false}
-              horizontal={true}
-              estimatedItemSize={5}
-            />
-          </>
-        )}
-
-        {/* STOCKS SECTION HEADER */}
+        {/* ALL STOCKS HEADER */}
         <SubHeader title="All Stocks" onPress={onPressAllStocks} />
       </View>
     );
@@ -279,13 +306,12 @@ const DiscoverTab = ({ navigation }) => {
       <KeyBoardAvoidWrapper contentContainerStyle={styles.rootContainer}>
         <FlashList
           removeClippedSubviews={false}
-          data={filterData}
+          data={discoverListedStock}
           renderItem={renderAllStockItem}
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           estimatedItemSize={10}
           ListHeaderComponent={renderHeaderComponent}
-          contentContainerStyle={styles.ph20}
         />
       </KeyBoardAvoidWrapper>
     </CSafeAreaView>
@@ -303,48 +329,8 @@ const localStyles = StyleSheet.create({
     ...styles.ph15,
   },
   searchContainer: {
-    ...styles.flexRow,
-    ...styles.itemsCenter,
-    ...styles.mb15,
-  },
-  searchInputContainer: {
-    ...styles.flex,
-    ...styles.mr10,
-  },
-  filterButton: {
-    ...styles.center,
-    height: moderateScale(45),
-    width: moderateScale(45),
-    borderRadius: moderateScale(12),
-    backgroundColor: commonColor.inputBg,
-    borderWidth: moderateScale(1),
-    borderColor: commonColor.grayScale3,
-  },
-  filterButtonContainer: {
-    ...styles.flexRow,
-    flexWrap: 'wrap',
-    ...styles.mb15,
-    paddingHorizontal: moderateScale(5),
-  },
-  filterButton2: {
-    borderRadius: moderateScale(25),
-    borderWidth: moderateScale(1),
-    paddingHorizontal: moderateScale(16),
-    paddingVertical: moderateScale(8),
-    marginRight: moderateScale(8),
-    marginBottom: moderateScale(8),
-    minHeight: moderateScale(40),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  filterItem: {
-    ...styles.ph12,
-    ...styles.pv6,
-    borderRadius: moderateScale(15),
-    ...styles.mb5,
-  },
-  selectedFilterItem: {
-    backgroundColor: commonColor.primary,
+    ...styles.mt20,
+    ...styles.mb10,
   },
   subHeaderStyle: {
     ...styles.rowSpaceBetween,
@@ -352,21 +338,65 @@ const localStyles = StyleSheet.create({
     ...styles.mb10,
   },
   topStockImageStyle: {
-    height: moderateScale(50),
-    width: moderateScale(50),
-    borderRadius: moderateScale(25),
-    borderWidth: moderateScale(2),
+    height: moderateScale(80),
+    width: moderateScale(80),
+    borderRadius: moderateScale(40),
+    borderWidth: moderateScale(4),
     borderColor: commonColor.primary,
     resizeMode: 'contain',
   },
   topStockContainer: {
     ...styles.flex,
     ...styles.itemsCenter,
-    ...styles.p5,
+    ...styles.p10,
   },
   stockTitleStyle: {
-    width: moderateScale(60),
-    ...styles.mv5,
+    width: moderateScale(80),
+    ...styles.mv10,
     ...styles.flex,
+  },
+  filterContainer: {
+    ...styles.mt15,
+    ...styles.mb20,
+  },
+  filterRow: {
+    ...styles.flexRow,
+    ...styles.itemsCenter,
+    flexWrap: 'wrap',
+  },
+  filterChip: {
+    ...styles.ph15,
+    ...styles.pv8,
+    borderRadius: moderateScale(20),
+    borderWidth: moderateScale(1),
+    borderColor: commonColor.grayScale3,
+    ...styles.mr10,
+    ...styles.mb10,
+  },
+  selectedFilterChip: {
+    backgroundColor: commonColor.primary,
+    borderColor: commonColor.primary,
+  },
+  moreFiltersButton: {
+    ...styles.flexRow,
+    ...styles.itemsCenter,
+    ...styles.ph15,
+    ...styles.pv8,
+    borderRadius: moderateScale(20),
+    borderWidth: moderateScale(1),
+    borderColor: commonColor.primary,
+    ...styles.mr10,
+    ...styles.mb10,
+  },
+  lessFiltersButton: {
+    ...styles.flexRow,
+    ...styles.itemsCenter,
+    ...styles.ph15,
+    ...styles.pv8,
+    borderRadius: moderateScale(20),
+    borderWidth: moderateScale(1),
+    borderColor: commonColor.primary,
+    alignSelf: 'flex-start',
+    ...styles.mt5,
   },
 });
