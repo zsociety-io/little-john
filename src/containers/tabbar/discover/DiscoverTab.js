@@ -38,10 +38,18 @@ const DiscoverTab = ({ navigation }) => {
   const [filterData, setFilterData] = useState(discoverListedStock);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const searchInputRef = React.useRef(null);
 
   const onSearchInput = val => setSearch(val);
   const onSearchFocus = () => setSearchFocus(true);
   const onSearchBlur = () => setSearchFocus(false);
+
+  // Function to handle search container press and force focus
+  const onPressSearchContainer = () => {
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  };
 
   const onPressSearch = () => navigation.navigate(StackNav.AllStocks);
   const onPressAllStocks = () => navigation.navigate(StackNav.AllStocks);
@@ -214,8 +222,12 @@ const DiscoverTab = ({ navigation }) => {
       <View>
         {/* SEARCH BAR WITH FILTER */}
         <View style={localStyles.searchContainer}>
-          <View style={localStyles.searchInputContainer}>
+          <TouchableOpacity
+            style={localStyles.searchInputContainer}
+            onPress={onPressSearchContainer}
+            activeOpacity={1}>
             <CInput
+              fieldRef={searchInputRef}
               placeHolder={strings.searchStockCompany}
               _value={search}
               keyBoardType={'default'}
@@ -231,7 +243,7 @@ const DiscoverTab = ({ navigation }) => {
               _onFocus={onSearchFocus}
               _onBlur={onSearchBlur}
             />
-          </View>
+          </TouchableOpacity>
           <TouchableOpacity
             style={[localStyles.filterButton, { backgroundColor: colors.inputBg }]}
             onPress={onToggleFilters}>
@@ -246,8 +258,8 @@ const DiscoverTab = ({ navigation }) => {
         {/* FILTER BUTTONS */}
         {showFilters && <FilterDropdown />}
 
-        {/* TRENDING FLOWS SECTION - Hidden when filters are shown */}
-        {!showFilters && (
+        {/* TRENDING FLOWS SECTION - Hidden when filters are shown, search is focused, or search has content */}
+        {!showFilters && !searchFocus && !search && (
           <>
             <SubHeader title="Trending flows" onPress={onPressSearch} />
             <FlashList
