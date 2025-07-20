@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { FlashList } from '@shopify/flash-list';
@@ -10,11 +10,29 @@ import { styles } from '../../../themes';
 import { moderateScale } from '../../../common/constants';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
-import { discoverListedStock } from '../../../api/constant';
 import CHeader from '../../../components/common/CHeader';
+import { useAccount } from '../../../providers/AccountProvider';
+import { getHoldingsData } from '../../../api/stocks'
+
+
 
 export default function MyStocks() {
+  const { currentAccount } = useAccount(null);
+
+  const [myStocksData, setMyStocksData] = useState(null);
+
   const colors = useSelector(state => state.theme.theme);
+
+  const setHoldingsData = async (pubkey) => {
+    const newMyStocksData = await getHoldingsData(pubkey);
+    setMyStocksData(newMyStocksData);
+  }
+
+  useEffect(
+    () => {
+      setHoldingsData(currentAccount?.pubkey);
+    }, [currentAccount?.pubkey]
+  );
 
   const renderHeaderComponent = () => {
     return (
@@ -54,16 +72,25 @@ export default function MyStocks() {
   return (
     <CSafeAreaView>
       <CHeader title={'My Stocks'} rightIcon={<RightIcon />} />
-      <FlashList
-        removeClippedSubviews={false}
-        data={discoverListedStock}
-        renderItem={renderListedStock}
-        keyExtractor={(item, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
-        estimatedItemSize={10}
-        contentContainerStyle={styles.flex}
-        ListHeaderComponent={renderHeaderComponent}
-      />
+      {
+        (myStocksData == null) && (
+          <>
+            {/* Loading Squeleton */}
+          </>
+        )
+      }
+      {
+        (myStocksData != null) && (<FlashList
+          removeClippedSubviews={false}
+          data={myStocksData}
+          renderItem={renderListedStock}
+          keyExtractor={(item, index) => index.toString()}
+          showsVerticalScrollIndicator={false}
+          estimatedItemSize={10}
+          contentContainerStyle={styles.flex}
+          ListHeaderComponent={renderHeaderComponent}
+        />)
+      }
     </CSafeAreaView>
   );
 }
