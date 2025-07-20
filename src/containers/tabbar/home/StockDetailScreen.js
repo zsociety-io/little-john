@@ -187,6 +187,48 @@ const EPSComponent = memo(props => {
   );
 });
 
+const StakingCards = memo(({ item, colors, onPressStaked, onPressUnstaked }) => {
+  return (
+    <View style={localStyles.stakingContainer}>
+      <TouchableOpacity
+        style={[
+          localStyles.stakingCard,
+          {
+            backgroundColor: colors.dark ? colors.dark2 : colors.white,
+            borderColor: colors.dark ? colors.dark3 : colors.grayScale2,
+          },
+        ]}
+        onPress={onPressStaked}
+        activeOpacity={0.7}>
+        <CText type="s14" color={colors.dark ? colors.grayScale3 : colors.grayScale6}>
+          Staked
+        </CText>
+        <CText type="b24" style={styles.mt5}>
+          {item?.staking?.staked || '$0.00'}
+        </CText>
+      </TouchableOpacity>
+      
+      <TouchableOpacity
+        style={[
+          localStyles.stakingCard,
+          {
+            backgroundColor: colors.dark ? colors.dark2 : colors.white,
+            borderColor: colors.dark ? colors.dark3 : colors.grayScale2,
+          },
+        ]}
+        onPress={onPressUnstaked}
+        activeOpacity={0.7}>
+        <CText type="s14" color={colors.dark ? colors.grayScale3 : colors.grayScale6}>
+          Unstaked
+        </CText>
+        <CText type="b24" style={styles.mt5}>
+          {item?.staking?.unstaked || '$0.00'}
+        </CText>
+      </TouchableOpacity>
+    </View>
+  );
+});
+
 const SubCategory = props => {
   const {
     title1,
@@ -276,6 +318,7 @@ const HeaderComponent = memo(props => {
     extraData,
     onPressSPOTMarket,
     selectedTime,
+    onPressCandle,
   } = props;
 
   React.useEffect(() => {
@@ -477,6 +520,14 @@ const HeaderComponent = memo(props => {
           </CText>
         </View>
       </View>
+      {item?.staking && (
+        <StakingCards
+          item={item}
+          colors={colorValue}
+          onPressStaked={() => console.log('Staked pressed')}
+          onPressUnstaked={() => console.log('Unstaked pressed')}
+        />
+      )}
       <SubHeader
         title={'My SPOT Position'}
         style={styles.mb25}
@@ -808,7 +859,6 @@ export default function StockDetailScreen({ navigation, route }) {
         renderItem={renderSpotMarketStats}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
-        removeClippedSubviews={false}
         ListHeaderComponent={
           <HeaderComponent
             item={item}
@@ -1003,5 +1053,27 @@ const localStyles = StyleSheet.create({
     height: getHeight(290),
     ...styles.mv15,
     width: deviceWidth,
+  },
+  stakingContainer: {
+    ...styles.flexRow,
+    ...styles.mh20,
+    ...styles.mt5,
+    ...styles.mb10,
+    gap: moderateScale(10),
+  },
+  stakingCard: {
+    flex: 1,
+    ...styles.p15,
+    borderRadius: moderateScale(12),
+    borderWidth: moderateScale(1),
+    ...styles.center,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
   },
 });

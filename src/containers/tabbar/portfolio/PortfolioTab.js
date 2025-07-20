@@ -18,6 +18,7 @@ import { deviceWidth, getHeight, moderateScale } from '../../../common/constants
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import {
   discoverListedStock,
+  myStockData,
   portfolioData,
   stockTimeData,
 } from '../../../api/constant';
@@ -304,7 +305,7 @@ export default function PortfolioTab({ navigation }) {
     <CSafeAreaView>
       <FlashList
         removeClippedSubviews={false}
-        data={discoverListedStock}
+        data={myStockData}
         renderItem={renderListedStock}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}

@@ -43,7 +43,7 @@ const GenderData = [
 
 const ProfileSetting = [
   {
-    id: 10, 
+    id: 10,
     title: strings.developerSettings,
     icon: <DarkMode_Icon />, // Vous devrez ajouter cette icône
     route: StackNav.DeveloperSettings,
@@ -123,7 +123,7 @@ const ProfileSetting = [
     isRightIcon: true,
     isLogout: true,
   },
-  
+
 ];
 
 const question5Data = [
@@ -1360,6 +1360,10 @@ const myStockData = [
       { x: 10, y: 17 },
     ],
     status: false,
+    staking: {
+      staked: '$125.78',
+      unstaked: '$54.20',
+    },
   },
   {
     id: 2,
@@ -1384,6 +1388,10 @@ const myStockData = [
       { x: 10, y: 19.5 },
     ],
     status: false,
+    staking: {
+      staked: '$89.32',
+      unstaked: '$76.13',
+    },
   },
   {
     id: 3,
@@ -1408,6 +1416,10 @@ const myStockData = [
       { x: 10, y: 12.8 },
     ],
     status: true,
+    staking: {
+      staked: '$0',
+      unstaked: '$150.25',
+    },
   },
   {
     id: 4,
@@ -1432,6 +1444,10 @@ const myStockData = [
       { x: 10, y: 17.7 },
     ],
     status: true,
+    staking: {
+      staked: '$0',
+      unstaked: '$150.25',
+    },
   },
   {
     id: 5,
@@ -1480,6 +1496,10 @@ const myStockData = [
       { x: 10, y: 11.5 },
     ],
     status: false,
+    staking: {
+      staked: '$0',
+      unstaked: '$150.25',
+    },
   },
   {
     id: 2,
@@ -1504,6 +1524,10 @@ const myStockData = [
       { x: 10, y: 20 },
     ],
     status: true,
+    staking: {
+      staked: '$0',
+      unstaked: '$150.25',
+    },
   },
   {
     id: 7,
@@ -1528,6 +1552,10 @@ const myStockData = [
       { x: 10, y: 20 },
     ],
     status: false,
+    staking: {
+      staked: '$0',
+      unstaked: '$150.25',
+    },
   },
   {
     id: 8,
@@ -1552,6 +1580,10 @@ const myStockData = [
       { x: 10, y: 14.2 },
     ],
     status: true,
+    staking: {
+      staked: '$0',
+      unstaked: '$150.25',
+    },
   },
   {
     id: 8,
@@ -1576,6 +1608,10 @@ const myStockData = [
       { x: 10, y: 19.1 },
     ],
     status: false,
+    staking: {
+      staked: '$89.32',
+      unstaked: '$76.13',
+    },
   },
 ];
 
@@ -1777,7 +1813,7 @@ const similarStocksData = [
 ];
 
 
-{/* A supprimer une fois tout les people also supp */}
+{/* A supprimer une fois tout les people also supp */ }
 const peopleAlsoBoughtData = [
   {
     image: images.pinterestIcon,
