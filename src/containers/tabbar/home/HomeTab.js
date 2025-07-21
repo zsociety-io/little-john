@@ -26,7 +26,7 @@ import {
   myStockData,
   myWishlistStockData,
   topStockData,
-  discoverListedStock, 
+  discoverListedStock,
 } from '../../../api/constant';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import { StackNav } from '../../../navigation/NavigationKeys';
@@ -44,10 +44,10 @@ const renderListedStock = ({ item, index }) => (
 export default HomeTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
 
-  {/*const onPressWishList = () => navigation.navigate(StackNav.MyWishlist);*/}
+  {/*const onPressWishList = () => navigation.navigate(StackNav.MyWishlist);*/ }
   const onPressNotification = () => navigation.navigate(StackNav.Notification);
 
-  {/* const onPressMyWishlist = () => navigation.navigate(StackNav.MyWishlist);*/}
+  {/* const onPressMyWishlist = () => navigation.navigate(StackNav.MyWishlist);*/ }
   const onPressMyStocks = () => navigation.navigate(StackNav.MyStocks);
   const onPressAllStocks = () => navigation.navigate(StackNav.AllStocks);  // Navigation vers tous les stocks
   const onPressDeposit = () => {
@@ -135,7 +135,7 @@ export default HomeTab = ({ navigation }) => {
             type={'m14'}>
             {'Available Cash'}
           </CText>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={localStyles.depositButton}
             onPress={onPressDeposit}>
             <CText

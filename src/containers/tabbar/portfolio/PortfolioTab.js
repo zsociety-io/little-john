@@ -41,7 +41,7 @@ const renderListedStock = ({ item, index }) => (
 
 const SubHeader = memo(({ title1, title2, style, isHide = false, colors }) => {
   return (
-    <View style={[styles.rowSpaceBetween, styles.ph5, style]}>
+    <View style={[styles.rowSpaceBetween, styles.ph20, style]}>
       <CText type={'b18'}>{title1}</CText>
       {isHide && (
         <TouchableOpacity style={styles.rowCenter}>
@@ -107,10 +107,10 @@ const SubCategory = props => {
       <View style={localStyles.categoryRow}>
         {icon1}
         <View style={localStyles.descStyle}>
-          <CText type="s14" color={subTextColor}>
+          <CText type="s12" color={subTextColor}>
             {title1}
           </CText>
-          <CText type="b18" style={styles.mt10}>
+          <CText type="b16" style={styles.mt5}>
             {value1}
           </CText>
         </View>
@@ -118,10 +118,10 @@ const SubCategory = props => {
       <View style={localStyles.categoryRow}>
         {icon2}
         <View style={localStyles.descStyle}>
-          <CText type="s14" numberOfLines={1} color={subTextColor}>
+          <CText type="s12" numberOfLines={1} color={subTextColor}>
             {title2}
           </CText>
-          <CText type="b18" style={styles.mt10}>
+          <CText type="b16" style={styles.mt5}>
             {value2}
           </CText>
         </View>
@@ -197,7 +197,7 @@ const HeaderComponent = memo(props => {
           horizontal={true}
           scrollEnabled={false}
           estimatedItemSize={5}
-          contentContainerStyle={styles.ph5}
+          contentContainerStyle={styles.ph20}
         />
       </ImageBackground>
       <View
@@ -328,7 +328,7 @@ export default function PortfolioTab({ navigation }) {
 const localStyles = StyleSheet.create({
   container: {
     ...styles.rowSpaceBetween,
-    ...styles.ph5,
+    ...styles.ph20,
     ...styles.pv15,
     ...styles.mb20,
     ...styles.center,
@@ -345,7 +345,7 @@ const localStyles = StyleSheet.create({
   settingsContainer: {
     ...styles.rowSpaceBetween,
     ...styles.pv15,
-    ...styles.ph5,
+    ...styles.ph20,
   },
   leftContainer: {
     ...styles.flexRow,
@@ -377,16 +377,24 @@ const localStyles = StyleSheet.create({
   categoryContainer: {
     ...styles.rowSpaceBetween,
     ...styles.flex,
-    ...styles.ph5,
+    ...styles.ph20,
     ...styles.mb20,
+    gap: moderateScale(15),
   },
   categoryRow: {
     ...styles.rowCenter,
-    ...styles.flex,
+    flex: 1,
+    minWidth: 0,
+  },
+  iconContainer: {
+    width: moderateScale(35),
+    height: moderateScale(35),
+    ...styles.center,
   },
   descStyle: {
     ...styles.ml10,
-    ...styles.flex,
+    flex: 1,
+    minWidth: 0,
   },
   padding20: {
     ...styles.ph20,
