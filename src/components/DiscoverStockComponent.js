@@ -89,7 +89,6 @@ const localStyles = StyleSheet.create({
   settingsContainer: {
     ...styles.rowSpaceBetween,
     ...styles.pv15,
-    ...styles.ph20,
   },
   leftContainer: {
     ...styles.flexRow,

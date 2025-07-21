@@ -361,7 +361,6 @@ const localStyles = StyleSheet.create({
     ...styles.rowSpaceBetween,
     ...styles.mt20,
     ...styles.mb10,
-    ...styles.ph20,
   },
   topStockImageStyle: {
     height: moderateScale(50),

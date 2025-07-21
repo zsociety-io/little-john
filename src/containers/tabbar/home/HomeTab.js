@@ -224,11 +224,11 @@ const localStyles = StyleSheet.create({
   },
   depositButton: {
     backgroundColor: 'white',
-    borderRadius: moderateScale(25),
-    paddingHorizontal: moderateScale(30),
-    paddingVertical: moderateScale(12),
-    marginHorizontal: moderateScale(60),
-    marginBottom: moderateScale(15),
+    borderRadius: moderateScale(20),
+    paddingHorizontal: moderateScale(18),
+    paddingVertical: moderateScale(7),
+    marginHorizontal: moderateScale(30),
+    marginBottom: moderateScale(10),
     alignSelf: 'center',
   },
 });
