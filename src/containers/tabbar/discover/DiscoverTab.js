@@ -221,7 +221,7 @@ const DiscoverTab = ({ navigation }) => {
     return (
       <View>
         {/* SEARCH BAR WITH FILTER */}
-        <View style={[localStyles.searchContainer, styles.ph20]}>
+        <View style={localStyles.searchContainer}>
           <TouchableOpacity
             style={localStyles.searchInputContainer}
             onPress={onPressSearchContainer}
@@ -270,6 +270,7 @@ const DiscoverTab = ({ navigation }) => {
               showsHorizontalScrollIndicator={false}
               horizontal={true}
               estimatedItemSize={5}
+              contentContainerStyle={styles.ph20}
             />
           </>
         )}
@@ -288,7 +289,7 @@ const DiscoverTab = ({ navigation }) => {
         isLeftIcon={<LeftIcon />}
         rightIcon={<RightIcon />}
       />
-      <KeyBoardAvoidWrapper contentContainerStyle={styles.rootContainer}>
+      <KeyBoardAvoidWrapper>
         <FlashList
           removeClippedSubviews={false}
           data={filterData}
@@ -316,6 +317,7 @@ const localStyles = StyleSheet.create({
   searchContainer: {
     ...styles.flexRow,
     ...styles.itemsCenter,
+    ...styles.ph20,
     ...styles.mb15,
   },
   searchInputContainer: {
@@ -334,8 +336,8 @@ const localStyles = StyleSheet.create({
   filterButtonContainer: {
     ...styles.flexRow,
     flexWrap: 'wrap',
+    ...styles.ph20,
     ...styles.mb15,
-    paddingHorizontal: moderateScale(5),
   },
   filterButton2: {
     borderRadius: moderateScale(25),
@@ -359,8 +361,11 @@ const localStyles = StyleSheet.create({
   },
   subHeaderStyle: {
     ...styles.rowSpaceBetween,
-    ...styles.mt20,
-    ...styles.mb10,
+    ...styles.ph20,
+    ...styles.mv20,
+  },
+  stockItemContainer: {
+    marginHorizontal: -moderateScale(20),
   },
   topStockImageStyle: {
     height: moderateScale(50),
