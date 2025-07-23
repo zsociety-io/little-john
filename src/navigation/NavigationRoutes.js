@@ -71,6 +71,12 @@ import StakePreview from '../containers/tabbar/home/StakePreview';
 import StakeSuccessful from '../containers/tabbar/home/StakeSuccessful';
 import NewsScreen from '../containers/tabbar/home/NewsScreen';
 import SPOTMarketStats from '../containers/tabbar/home/SPOTMarketStats';
+// Transfer screens
+import TransferEntryScreen from '../containers/tabbar/transfer/TransferEntryScreen';
+import TransferConfirmScreen from '../containers/tabbar/transfer/TransferConfirmScreen';
+import TransferResultScreen from '../containers/tabbar/transfer/TransferResultScreen';
+import TransferHistoryScreen from '../containers/tabbar/transfer/TransferHistoryScreen';
+import AssetSelectorScreen from '../containers/tabbar/transfer/AssetSelectorScreen';
 
 export const TabRoute = {
   HomeTab,
@@ -146,4 +152,10 @@ export const StackRoute = {
   StakeSuccessful,
   NewsScreen,
   SPOTMarketStats,
+  // Transfer screens
+  TransferEntryScreen,
+  TransferConfirmScreen,
+  TransferResultScreen,
+  TransferHistoryScreen,
+  AssetSelectorScreen,
 };

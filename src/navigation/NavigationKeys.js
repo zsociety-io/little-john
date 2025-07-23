@@ -74,4 +74,10 @@ export const StackNav = {
   StakeSuccessful: 'StakeSuccessful',
   NewsScreen: 'NewsScreen',
   SPOTMarketStats: 'SPOTMarketStats',
+  // Transfer routes
+  TransferEntry: 'TransferEntry',
+  TransferConfirm: 'TransferConfirm',
+  TransferResult: 'TransferResult',
+  TransferHistory: 'TransferHistory',
+  AssetSelector: 'AssetSelector',
 };

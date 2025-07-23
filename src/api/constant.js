@@ -404,6 +404,13 @@ const moreData = [
   },
   {
     id: 2,
+    title: 'Transfer Assets',
+    icon: <ExchangeStockIcon />,
+    desc: 'Send your assets to another wallet or address',
+    route: StackNav.TransferEntry,
+  },
+  {
+    id: 3,
     title: 'Deposit to Invest',
     icon: <DepositToOtrade />,
     desc: 'Transfer funds instantly to your Invest account',
@@ -426,7 +433,7 @@ const moreData = [
   },
   */
   {
-    id: 3,
+    id: 4,
     title: 'Financial Transaction',
     icon: <FinancialTransaction />,
     desc: 'History of your stock transactions in the Invest stock market',
@@ -667,53 +674,131 @@ const fundingActivityData = [
 
 const financialTransactionData = [
   {
+    id: 1,
     title: 'SPOT: Buy in Dollars',
     date: 'Dec 24, 2022',
     amount: '$10,000.00',
     value: '0.013659756',
     image: images.spotifyIcon,
+    transactionType: 'stock_purchase',
+    type: 'buy'
   },
   {
+    id: 2,
     title: 'SPOT: Sell in Dollars',
     date: 'Dec 24, 2022',
     amount: '$5,000.00',
     value: '0.026487494',
     image: images.spotifyIcon,
+    transactionType: 'stock_sale',
+    type: 'sell'
   },
   {
+    id: 3,
     title: 'TSLA: Exchange in Dollars',
     date: 'Dec 24, 2022',
     amount: '$10,000.00',
     value: '0.017365862',
     image: images.teslaIcon,
+    transactionType: 'stock_exchange',
+    type: 'exchange'
   },
   {
+    id: 4,
     title: 'AAPL: Buy in Dollars',
     date: 'Dec 24, 2022',
     amount: '$25,000.00',
     value: '0.025573978',
     image: images.appleIcon,
+    transactionType: 'stock_purchase',
+    type: 'buy'
   },
   {
+    id: 5,
     title: 'PINS: Sell in Dollars',
     date: 'Dec 20, 2022',
     amount: '$8,000.00',
     value: '0.014236557',
     image: images.googleIcon,
+    transactionType: 'stock_sale',
+    type: 'sell'
   },
   {
+    id: 6,
     title: 'GOOGL: Exchange in Dollars',
     date: 'Dec 02, 2022',
     amount: '$15,000.00',
     value: '0.012576639',
     image: images.googleIcon,
+    transactionType: 'stock_exchange',
+    type: 'exchange'
   },
   {
+    id: 7,
     title: 'META: Sell in Dollars',
     date: 'Sep 13, 2022',
     amount: '$10,000.00',
     value: '0.012874537',
     image: images.metaIcon,
+    transactionType: 'stock_sale',
+    type: 'sell'
+  },
+  // Transfer transactions
+  {
+    id: 1001,
+    title: 'BTC: Sent to Wallet',
+    date: 'Dec 23, 2022',
+    amount: '$1,250.50',
+    value: '0.058234000',
+    image: images.bitcoinIcon,
+    transactionType: 'asset_transfer',
+    type: 'sent',
+    recipientAddress: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
+    transactionHash: '0xab1cd2ef3456789012345678901234567890123456789012345678901234567890',
+    fees: 2.50,
+    status: 'completed'
+  },
+  {
+    id: 1002,
+    title: 'ETH: Received from Wallet',
+    date: 'Dec 22, 2022',
+    amount: '$800.00',
+    value: '0.634567000',
+    image: images.ethereumIcon,
+    transactionType: 'asset_transfer',
+    type: 'received',
+    senderAddress: '0x742d35Cc6634C0532925a3b8D6a8b8F8eF7326AB',
+    transactionHash: '0xcd2ef3456789012345678901234567890123456789012345678901234567890ab',
+    fees: 1.25,
+    status: 'completed'
+  },
+  {
+    id: 1003,
+    title: 'USDT: Sent to Exchange',
+    date: 'Dec 21, 2022',
+    amount: '$500.00',
+    value: '500.000000000',
+    image: images.usdtIcon,
+    transactionType: 'asset_transfer',
+    type: 'sent',
+    recipientAddress: '0x8ba1f109551bD432803012645Hac136c6a67890e',
+    transactionHash: '0xef3456789012345678901234567890123456789012345678901234567890abcd',
+    fees: 1.00,
+    status: 'completed'
+  },
+  {
+    id: 1004,
+    title: 'SOL: Received from DeFi',
+    date: 'Dec 20, 2022',
+    amount: '$320.75',
+    value: '15.250000000',
+    image: images.solanaIcon,
+    transactionType: 'asset_transfer',
+    type: 'received',
+    senderAddress: 'DRiP2Pn2K6fuMLKQmt5rZWxa4dkHUSaKUKU',
+    transactionHash: '0x456789012345678901234567890123456789012345678901234567890abcdef',
+    fees: 0.50,
+    status: 'completed'
   },
 ];
 

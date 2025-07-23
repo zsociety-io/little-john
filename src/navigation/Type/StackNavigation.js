@@ -170,6 +170,28 @@ export default function StackNavigation() {
         name={StackNav.SPOTMarketStats}
         component={StackRoute.SPOTMarketStats}
       />
+      
+      {/* Transfer Screens */}
+      <Stack.Screen
+        name={StackNav.TransferEntry}
+        component={StackRoute.TransferEntryScreen}
+      />
+      <Stack.Screen
+        name={StackNav.TransferConfirm}
+        component={StackRoute.TransferConfirmScreen}
+      />
+      <Stack.Screen
+        name={StackNav.TransferResult}
+        component={StackRoute.TransferResultScreen}
+      />
+      <Stack.Screen
+        name={StackNav.TransferHistory}
+        component={StackRoute.TransferHistoryScreen}
+      />
+      <Stack.Screen
+        name={StackNav.AssetSelector}
+        component={StackRoute.AssetSelectorScreen}
+      />
     </Stack.Navigator>
   );
 }
