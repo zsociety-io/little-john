@@ -5,7 +5,7 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -21,8 +21,22 @@ const AssetSelectorScreen = ({ route, navigation }) => {
   const { availableAssets } = route.params;
 
   const handleAssetSelect = (asset) => {
-    // Naviguer de retour en passant l'asset sélectionné
-    navigation.navigate('TransferEntry', { selectedAsset: asset });
+    // Définir les paramètres pour la route précédente puis revenir
+    const routes = navigation.getState()?.routes;
+    const prevRoute = routes[routes.length - 2]; // Route précédente
+    
+    if (prevRoute && prevRoute.name === 'TransferEntry') {
+      navigation.navigate('TransferEntry', {
+        ...prevRoute.params,
+        selectedAsset: asset
+      });
+    } else {
+      navigation.goBack();
+    }
+  };
+
+  const handleGoBack = () => {
+    navigation.goBack();
   };
 
   const renderAssetItem = ({ item }) => (
@@ -70,7 +84,7 @@ const AssetSelectorScreen = ({ route, navigation }) => {
       <CHeader
         title="Select Asset"
         isHideBack={false}
-        onPressBack={() => navigation.goBack()}
+        onPressBack={handleGoBack}
       />
       
       <View style={[styles.flex, styles.ph20]}>
@@ -84,6 +98,7 @@ const AssetSelectorScreen = ({ route, navigation }) => {
           keyExtractor={(item) => item.uniqueId}
           showsVerticalScrollIndicator={false}
           style={styles.flex}
+          removeClippedSubviews={false}
         />
       </View>
     </CSafeAreaView>

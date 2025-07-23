@@ -121,7 +121,8 @@ const TransferEntryScreen = ({ navigation, route }) => {
       <ScrollView 
         style={styles.flex}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled">
+        keyboardShouldPersistTaps="handled"
+        removeClippedSubviews={false}>
         <View style={styles.ph20}>
           
           {/* Sélecteur d'actif */}
