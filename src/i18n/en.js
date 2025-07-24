@@ -260,7 +260,7 @@ export default {
   exchangeStock: 'Exchange Stocks',
   viewMyPortfolio: 'View My Portfolio',
   backToMenu: 'Back to Menu',
-  depositToOtrade: 'Deposit to Otrade',
+  depositToOtrade: 'Deposit to Little John',
   iMadePayment: "I've Made the Payment",
   makePaymentLater: 'Make Payment Later',
   withdrawalAccount: 'Withdrawal Account',

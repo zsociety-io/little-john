@@ -33,12 +33,8 @@ const TransferResultScreen = ({ navigation, route }) => {
   const onBackToHome = () => {
     navigation.reset({
       index: 0,
-      routes: [{ 
-        name: 'TabNavigation',
-        state: {
-          routes: [{ name: 'Home' }],
-          index: 0,
-        }
+      routes: [{
+        name: StackNav.TabBar
       }],
     });
   };
@@ -52,33 +48,26 @@ const TransferResultScreen = ({ navigation, route }) => {
     // Retourner à la page More quand on clique sur Cancel
     navigation.reset({
       index: 0,
-      routes: [{ 
-        name: 'TabNavigation',
-        state: {
-          routes: [{ name: 'More' }],
-          index: 0,
-        }
+      routes: [{
+        name: StackNav.TabBar
       }],
     });
   };
 
   const onViewHistory = () => {
-    // Naviguer vers l'onglet More où se trouve l'historique des transactions
+    // Remplacer la route pour que le retour fonctionne comme si on venait de MoreTab
     navigation.reset({
-      index: 0,
-      routes: [{ 
-        name: 'TabNavigation',
-        state: {
-          routes: [{ name: 'More' }],
-          index: 0,
-        }
-      }],
+      index: 1,
+      routes: [
+        { name: StackNav.TabBar },
+        { name: StackNav.FinancialTransaction }
+      ],
     });
   };
 
   // Force toujours l'affichage de la page de succès pour les tests
   const showSuccessPage = true; // result.success;
-  
+
   if (showSuccessPage) {
     return (
       <CSafeAreaView>
@@ -86,10 +75,10 @@ const TransferResultScreen = ({ navigation, route }) => {
           title="Transfer Complete"
           isHideBack={true}
         />
-        
+
         <View style={styles.flex}>
           <View style={[styles.flex, styles.center, styles.ph20]}>
-            
+
             {/* Success Icon */}
             <View style={[
               localStyles.iconContainer,
@@ -105,7 +94,7 @@ const TransferResultScreen = ({ navigation, route }) => {
             <CText type="b28" align="center" style={styles.mb10}>
               Transfer Successful!
             </CText>
-            
+
             <CText type="m16" align="center" color={colors.grayScale6} style={styles.mb30}>
               Your {result.asset.stockName} has been successfully transferred
             </CText>
@@ -124,14 +113,14 @@ const TransferResultScreen = ({ navigation, route }) => {
                 </CText>
                 <CText type="b18">${result.amount.toFixed(2)}</CText>
               </View>
-              
+
               <View style={localStyles.detailRow}>
                 <CText type="m16" color={colors.grayScale6}>
                   Network Fees
                 </CText>
                 <CText type="b16">{result.estimatedFees}</CText>
               </View>
-              
+
               <View style={localStyles.detailRow}>
                 <CText type="m16" color={colors.grayScale6}>
                   Transaction Hash
@@ -193,10 +182,10 @@ const TransferResultScreen = ({ navigation, route }) => {
         title="Transfer Failed"
         isHideBack={true}
       />
-      
+
       <View style={styles.flex}>
         <View style={[styles.flex, styles.center, styles.ph20]}>
-          
+
           {/* Error Icon */}
           <View style={[
             localStyles.iconContainer,
@@ -212,7 +201,7 @@ const TransferResultScreen = ({ navigation, route }) => {
           <CText type="b28" align="center" style={styles.mb10}>
             Transfer Failed
           </CText>
-          
+
           <CText type="m16" align="center" color={colors.grayScale6} style={styles.mb30}>
             {result.error || 'An unexpected error occurred during the transfer'}
           </CText>
@@ -229,7 +218,7 @@ const TransferResultScreen = ({ navigation, route }) => {
               What happened?
             </CText>
             <CText type="m14" color={colors.alertColor}>
-              {result.error === 'Insufficient balance or network error' 
+              {result.error === 'Insufficient balance or network error'
                 ? 'This could be due to insufficient balance, network congestion, or invalid recipient address.'
                 : result.error
               }
@@ -264,7 +253,7 @@ const TransferResultScreen = ({ navigation, route }) => {
             color={colors.grayScale6}
             bgColor={colors.dark ? colors.dark3 : colors.grayScale2}
             containerStyle={localStyles.cancelButton}
-            onPress={onBackToHome}
+            onPress={onCancel}
           />
           <CButton
             title="Try Again"
@@ -323,6 +312,9 @@ const localStyles = StyleSheet.create({
     flex: 1,
   },
   retryButton: {
+    flex: 1,
+  },
+  cancelButton: {
     flex: 1,
   },
 });
