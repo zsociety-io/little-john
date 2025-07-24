@@ -851,16 +851,17 @@ const stockCategoryData = [
   '🔥 Hot Stocks',
   '💎 Blue Chips',
   '📈 Growth',
-  '🍔 Food & Drinks',
   '🛒 Retail',
   '🏥 Healthcare',
   '🏭 Industrial',
   '⚡ Energy',
-  '🏫 Education',
   '🏬 Real Estate',
-  '🛫 Travel',
-  '🏭 Construction',
   '📦 Logistics',
+  '🧠 Tech',
+  '🏦 Fintech',
+  '🔁 Blockchain',
+  '📊 ETF',
+  '💎 Commodities',
 ];
 
 const topMoversData = [
