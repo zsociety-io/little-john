@@ -80,4 +80,6 @@ export const StackNav = {
   TransferResult: 'TransferResult',
   TransferHistory: 'TransferHistory',
   AssetSelector: 'AssetSelector',
+  // Common pages
+  IncommingFeature: 'IncommingFeature',
 };

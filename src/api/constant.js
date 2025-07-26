@@ -414,7 +414,8 @@ const moreData = [
     title: 'Deposit to Invest',
     icon: <DepositToOtrade />,
     desc: 'Transfer funds instantly to your Invest account',
-    route: StackNav.DepositToOtrade,
+    // route: StackNav.DepositToOtrade,
+    route: StackNav.IncommingFeature, // Redirigé vers la page Coming Soon
   },
   /*
   {

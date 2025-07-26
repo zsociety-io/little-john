@@ -62,7 +62,7 @@ export default HomeTab = ({ navigation }) => {
   const onPressMyStocks = () => navigation.navigate(StackNav.MyStocks);
   const onPressAllStocks = () => navigation.navigate(StackNav.AllStocks);  // Navigation vers tous les stocks
   const onPressDeposit = () => {
-    navigation.navigate(StackNav.DepositToOtrade);
+    navigation.navigate(StackNav.IncommingFeature);
   };
 
 
@@ -145,7 +145,6 @@ export default HomeTab = ({ navigation }) => {
             type={'m14'}>
             {'Available Cash'}
           </CText>
-          {/*
           <TouchableOpacity
             style={localStyles.depositButton}
             onPress={onPressDeposit}>
@@ -156,7 +155,6 @@ export default HomeTab = ({ navigation }) => {
               {'Deposit'}
             </CText>
           </TouchableOpacity>
-          */}
         </ImageBackground>
 
         {/* FLASHLIST COMMENTÉE POUR ÉVITER L'ERREUR D'IMBRICATION */}

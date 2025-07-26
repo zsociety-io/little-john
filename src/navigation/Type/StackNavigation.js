@@ -192,6 +192,12 @@ export default function StackNavigation() {
         name={StackNav.AssetSelector}
         component={StackRoute.AssetSelectorScreen}
       />
+      
+      {/* Common Screens */}
+      <Stack.Screen
+        name={StackNav.IncommingFeature}
+        component={StackRoute.IncommingFeature}
+      />
     </Stack.Navigator>
   );
 }
