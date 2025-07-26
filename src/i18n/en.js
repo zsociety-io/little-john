@@ -287,6 +287,7 @@ export default {
   buy: 'Buy',
   sell: 'Sell',
   lastClose: 'Last close',
+  performance: "Performance",
   showMore: 'Show More',
   targetPrice: 'Target Price',
   earningsShare: 'Earnings per share',

@@ -12,7 +12,8 @@ import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
 import CHeader from '../../../components/common/CHeader';
 import { useAccount } from '../../../providers/AccountProvider';
-import { getHoldingsData } from '../../../api/stocks'
+import { getHoldingsData } from '../../../api/stocks';
+import ListSkeleton from '../../../components/common/ListSkeleton';
 
 
 
@@ -24,6 +25,7 @@ export default function MyStocks() {
   const colors = useSelector(state => state.theme.theme);
 
   const setHoldingsData = async (pubkey) => {
+    await sleep(2000);
     const newMyStocksData = await getHoldingsData(pubkey);
     setMyStocksData(newMyStocksData);
   }
@@ -74,9 +76,7 @@ export default function MyStocks() {
       <CHeader title={'My Stocks'} rightIcon={<RightIcon />} />
       {
         (myStocksData == null) && (
-          <>
-            {/* Loading Squeleton */}
-          </>
+          <ListSkeleton count={6} height={moderateScale(75)} />
         )
       }
       {

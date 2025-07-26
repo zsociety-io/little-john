@@ -34,6 +34,7 @@ import {
   WhiteAppLogo,
 } from '../../../assets/svgs';
 import strings from '../../../i18n/strings';
+import ListSkeleton from '../../../components/common/ListSkeleton';
 
 const renderListedStock = ({ item, index }) => (
   <DiscoverStockComponent item={item} />
@@ -222,7 +223,7 @@ const HeaderComponent = memo(props => {
             type="s14"
             color={colors.dark ? colors.grayScale3 : colors.grayScale5}
             style={styles.mh10}>
-            {strings.lastClose}
+            {strings.performance}
           </CText>
         </View>
       </View>
@@ -264,10 +265,20 @@ export default function PortfolioTab({ navigation }) {
   const colors = useSelector(state => state.theme.theme);
   const [selectedTime, setSelectedTime] = useState('1D');
   const [extraData, setExtraData] = useState(false);
+  const [myPositionsData, setMyPositionsData] = useState(null);
 
   useEffect(() => {
     setExtraData(!extraData);
   }, [selectedTime]);
+
+  // Simuler le chargement des positions
+  useEffect(() => {
+    const loadPositions = async () => {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setMyPositionsData(myStockData);
+    };
+    loadPositions();
+  }, []);
 
   const selectedTimeValue = useMemo(() => {
     return selectedTime;
@@ -303,24 +314,43 @@ export default function PortfolioTab({ navigation }) {
 
   return (
     <CSafeAreaView>
-      <FlashList
-        removeClippedSubviews={false}
-        data={myStockData}
-        renderItem={renderListedStock}
-        keyExtractor={(item, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
-        estimatedItemSize={10}
-        ListHeaderComponent={
-          <HeaderComponent
-            item={portfolioData}
-            colors={colorValue}
-            subTextColor={subTextColor}
-            colorValue={colorValue}
-            renderStockTime={renderStockTime}
-            extraData={extraData}
+      {
+        (myPositionsData == null) && (
+          <View>
+            <HeaderComponent
+              item={portfolioData}
+              colors={colorValue}
+              subTextColor={subTextColor}
+              colorValue={colorValue}
+              renderStockTime={renderStockTime}
+              extraData={extraData}
+            />
+            <ListSkeleton count={6} height={moderateScale(75)} />
+          </View>
+        )
+      }
+      {
+        (myPositionsData != null) && (
+          <FlashList
+            removeClippedSubviews={false}
+            data={myPositionsData}
+            renderItem={renderListedStock}
+            keyExtractor={(item, index) => index.toString()}
+            showsVerticalScrollIndicator={false}
+            estimatedItemSize={10}
+            ListHeaderComponent={
+              <HeaderComponent
+                item={portfolioData}
+                colors={colorValue}
+                subTextColor={subTextColor}
+                colorValue={colorValue}
+                renderStockTime={renderStockTime}
+                extraData={extraData}
+              />
+            }
           />
-        }
-      />
+        )
+      }
     </CSafeAreaView>
   );
 }

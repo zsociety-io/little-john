@@ -14,6 +14,8 @@ import { discoverListedStock } from '../../../api/constant';
 import { moderateScale } from '../../../common/constants';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import CText from '../../../components/common/CText';
+import ListSkeleton from '../../../components/common/ListSkeleton';
+
 
 const renderListedStock = ({ item, index }) => (
   <DiscoverStockComponent item={item} />
@@ -24,9 +26,15 @@ export default function AllStocks() {
   const [search, setSearch] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
   const [filterData, setFilterData] = useState(discoverListedStock);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    filterDataList();
+    // Simuler un chargement de 2 secondes
+    setTimeout(() => {
+      filterDataList();
+      setLoading(false);
+    }, 2000);
   }, [search]);
 
   const filterDataList = () => {
@@ -80,6 +88,7 @@ export default function AllStocks() {
   return (
     <CSafeAreaView>
       <CHeader title={'✅ All Stocks'} />
+      
       <View style={styles.ph20}>
         <CInput
           placeHolder={strings.searchStockCompany}
@@ -98,16 +107,20 @@ export default function AllStocks() {
           _onBlur={onSearchBlur}
         />
       </View>
-      <FlashList
-        removeClippedSubviews={false}
-        data={filterData}
-        renderItem={renderListedStock}
-        keyExtractor={(item, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
-        estimatedItemSize={10}
-        contentContainerStyle={styles.flex}
-        ListHeaderComponent={renderHeaderComponent}
-      />
+      {loading ? (
+        <ListSkeleton count={8} height={moderateScale(70)} />
+      ) : (
+        <FlashList
+          removeClippedSubviews={false}
+          data={filterData}
+          renderItem={renderListedStock}
+          keyExtractor={(item, index) => index.toString()}
+          showsVerticalScrollIndicator={false}
+          estimatedItemSize={10}
+          contentContainerStyle={styles.flex}
+          ListHeaderComponent={renderHeaderComponent}
+        />
+      )}
     </CSafeAreaView>
   );
 }

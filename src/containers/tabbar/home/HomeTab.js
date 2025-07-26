@@ -4,7 +4,7 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FlashList } from '@shopify/flash-list';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -30,6 +30,7 @@ import {
 } from '../../../api/constant';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import { StackNav } from '../../../navigation/NavigationKeys';
+import ListSkeleton from '../../../components/common/ListSkeleton';
 
 const renderFirstItem = ({ item, index }) => <StockDetailComponent item={item} />;
 
@@ -43,6 +44,16 @@ const renderListedStock = ({ item, index }) => (
 
 export default HomeTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
+  const [stocksData, setStocksData] = useState(null);
+
+  // simulation des chargement a retirer
+  useEffect(() => {
+    const loadStocks = async () => {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setStocksData(discoverListedStock);
+    };
+    loadStocks();
+  }, []);
 
   {/*const onPressWishList = () => navigation.navigate(StackNav.MyWishlist);*/ }
   const onPressNotification = () => navigation.navigate(StackNav.Notification);
@@ -51,8 +62,7 @@ export default HomeTab = ({ navigation }) => {
   const onPressMyStocks = () => navigation.navigate(StackNav.MyStocks);
   const onPressAllStocks = () => navigation.navigate(StackNav.AllStocks);  // Navigation vers tous les stocks
   const onPressDeposit = () => {
-    // TODO: Implement USDC onramp navigation
-    console.log('Navigate to USDC deposit');
+    navigation.navigate(StackNav.DepositToOtrade);
   };
 
 
@@ -135,6 +145,7 @@ export default HomeTab = ({ navigation }) => {
             type={'m14'}>
             {'Available Cash'}
           </CText>
+          {/*
           <TouchableOpacity
             style={localStyles.depositButton}
             onPress={onPressDeposit}>
@@ -145,6 +156,7 @@ export default HomeTab = ({ navigation }) => {
               {'Deposit'}
             </CText>
           </TouchableOpacity>
+          */}
         </ImageBackground>
 
         {/* FLASHLIST COMMENTÉE POUR ÉVITER L'ERREUR D'IMBRICATION */}
@@ -189,12 +201,15 @@ export default HomeTab = ({ navigation }) => {
     <CSafeAreaView>
       <FlashList
         removeClippedSubviews={false}
-        data={discoverListedStock}
-        renderItem={renderListedStock}
-        keyExtractor={(item) => item.id.toString()}
+        data={stocksData || []}
+        renderItem={stocksData ? renderListedStock : () => null}
+        keyExtractor={(item, index) => stocksData ? item.id.toString() : index.toString()}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={10}
         ListHeaderComponent={RenderHeaderComponent}
+        ListFooterComponent={() => 
+          stocksData == null ? <ListSkeleton count={8} /> : null
+        }
       />
     </CSafeAreaView>
   );

@@ -1,5 +1,5 @@
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import { FlashList } from '@shopify/flash-list';
@@ -13,26 +13,39 @@ import { styles } from '../../../themes';
 import CText from '../../../components/common/CText';
 import { financialTransactionData } from '../../../api/constant';
 import CDivider from '../../../components/common/CDivider';
+import ListSkeleton from '../../../components/common/ListSkeleton';
 
 export default function FinancialTransaction() {
   const colors = useSelector(state => state.theme.theme);
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [transactionData, setTransactionData] = useState(null);
+
+  // Charger les données de transaction (sans simulation)
+  useEffect(() => {
+    const loadTransactions = async () => {
+      // Ici tu peux ajouter un vrai appel API plus tard
+      setTransactionData(financialTransactionData);
+    };
+    loadTransactions();
+  }, []);
 
   // Filtrage des données selon le filtre sélectionné
   const filteredData = useMemo(() => {
+    if (!transactionData) return [];
+    
     switch (selectedFilter) {
       case 'stocks':
-        return financialTransactionData.filter(
+        return transactionData.filter(
           item => ['stock_purchase', 'stock_sale', 'stock_exchange'].includes(item.transactionType)
         );
       case 'transfers':
-        return financialTransactionData.filter(
+        return transactionData.filter(
           item => item.transactionType === 'asset_transfer'
         );
       default:
-        return financialTransactionData;
+        return transactionData;
     }
-  }, [selectedFilter]);
+  }, [selectedFilter, transactionData]);
 
   const RightIcon = () => {
     return (
@@ -114,16 +127,25 @@ export default function FinancialTransaction() {
         {renderFilterButton('transfers', 'Transfers')}
       </View>
 
-      <FlashList
-        removeClippedSubviews={false}
-        data={filteredData}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
-        estimatedItemSize={10}
-        contentContainerStyle={styles.ph20}
-        ItemSeparatorComponent={separatorComponent}
-      />
+      {
+        (transactionData == null) && (
+          <ListSkeleton count={8} height={moderateScale(80)} />
+        )
+      }
+      {
+        (transactionData != null) && (
+          <FlashList
+            removeClippedSubviews={false}
+            data={filteredData}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            showsVerticalScrollIndicator={false}
+            estimatedItemSize={10}
+            contentContainerStyle={styles.ph20}
+            ItemSeparatorComponent={separatorComponent}
+          />
+        )
+      }
     </CSafeAreaView>
   );
 }
