@@ -1,7 +1,7 @@
 
 
 const API_VERSION = `0`;
-const API_BASE_URL = `http://10.0.2.2:3000/api/v${API_VERSION}`;
+const API_BASE_URL = `https://littlejohn.fi/api/v${API_VERSION}`;
 
 
 export const callApiGet = async (endpoint) => {
