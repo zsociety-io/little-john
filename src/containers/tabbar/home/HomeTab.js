@@ -30,6 +30,7 @@ import {
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import { StackNav } from '../../../navigation/NavigationKeys';
 import ListSkeleton from '../../../components/common/ListSkeleton';
+import EtfSkeleton from '../../../components/common/EtfSkeleton';
 import { getAllStocks, getCashBalance } from '../../../api/stocks';
 import { formatCurrency } from '../../../api';
 
@@ -184,6 +185,9 @@ export default HomeTab = ({ navigation }) => {
         <View style={[localStyles.marketContainer]}>
           <CText type={'b20'}>{"ETFs"}</CText>
         </View>
+        {topStockData == null ? (
+        <EtfSkeleton count={4} />
+        ) : (
         <FlashList
           removeClippedSubviews={false}
           data={topStockData}
@@ -194,6 +198,7 @@ export default HomeTab = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.pt5}
         />
+        )}
 
         {/* COMMENTAIRE POUR CACHER LA WISHLIST */}
         {/*
