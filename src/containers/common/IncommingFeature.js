@@ -46,12 +46,12 @@ export default function IncommingFeature() {
 
   return (
     <View style={[localStyles.container, { backgroundColor: colors.backgroundColor }]}>
-      <StatusBar 
-        translucent 
-        backgroundColor="transparent" 
-        barStyle={colors.dark ? "light-content" : "dark-content"} 
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={colors.dark ? "light-content" : "dark-content"}
       />
-      
+
       {/* Background overlay */}
       <View
         style={[
@@ -63,7 +63,7 @@ export default function IncommingFeature() {
       {/* Header avec safe area */}
       <View style={localStyles.safeHeader}>
         <View style={localStyles.header}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={localStyles.backButton}
             onPress={onPressBack}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
@@ -73,7 +73,7 @@ export default function IncommingFeature() {
               color={colors.textColor}
             />
           </TouchableOpacity>
-          
+
           <View style={localStyles.placeholder} />
           <View style={localStyles.placeholder} />
         </View>
@@ -83,10 +83,10 @@ export default function IncommingFeature() {
       <View style={localStyles.content}>
         {/* Animated icon */}
         <View style={localStyles.iconContainer}>
-          <Animated.View 
+          <Animated.View
             style={[
               localStyles.iconWrapper,
-              { 
+              {
                 transform: [{ scale: pulseAnim }],
                 opacity: 0.8
               }
@@ -97,37 +97,30 @@ export default function IncommingFeature() {
               color={colors.primary}
             />
           </Animated.View>
-          
-          {/* Loading indicator */}
-          <View style={localStyles.loaderContainer}>
-            <ActivityIndicator 
-              size="large" 
-              color={colors.primary}
-            />
-          </View>
+
         </View>
 
         {/* Text content */}
         <View style={localStyles.textContainer}>
-          <CText 
-            type="b32" 
-            align="center" 
+          <CText
+            type="b32"
+            align="center"
             style={styles.mb10}
             color={colors.textColor}>
             Coming Soon
           </CText>
-          
-          <CText 
-            type="m18" 
-            align="center" 
+
+          <CText
+            type="m18"
+            align="center"
             style={[styles.mb20, localStyles.descriptionText]}
             color={colors.dark ? colors.grayScale3 : colors.grayScale6}>
             This feature is currently under development and will be available soon.
           </CText>
-          
-          <CText 
-            type="r16" 
-            align="center" 
+
+          <CText
+            type="r16"
+            align="center"
             color={colors.dark ? colors.grayScale4 : colors.grayScale5}>
             Stay tuned for updates!
           </CText>
@@ -139,25 +132,25 @@ export default function IncommingFeature() {
         <TouchableOpacity
           style={[
             localStyles.actionButton,
-            { 
+            {
               backgroundColor: colors.primary,
-              borderColor: colors.primary 
+              borderColor: colors.primary
             }
           ]}
           onPress={onPressBack}
           activeOpacity={0.8}>
-          <CText 
-            type="b16" 
+          <CText
+            type="b16"
             color={colors.white}
             align="center">
             Go Back
           </CText>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={[
             localStyles.secondaryButton,
-            { 
+            {
               backgroundColor: 'transparent',
               borderColor: colors.dark ? colors.dark3 : colors.grayScale3,
               borderWidth: 1
@@ -174,8 +167,8 @@ export default function IncommingFeature() {
             color={colors.textColor}
             style={styles.mr10}
           />
-          <CText 
-            type="m16" 
+          <CText
+            type="m16"
             color={colors.textColor}
             align="center">
             Notify Me

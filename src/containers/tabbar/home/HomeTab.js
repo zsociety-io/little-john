@@ -25,12 +25,13 @@ import StockDetailComponent from '../../../components/StockDetailComponent';
 import {
   myStockData,
   myWishlistStockData,
-  topStockData,
   discoverListedStock,
 } from '../../../api/constant';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import { StackNav } from '../../../navigation/NavigationKeys';
 import ListSkeleton from '../../../components/common/ListSkeleton';
+import { getAllStocks, getCashBalance } from '../../../api/stocks';
+import { formatCurrency } from '../../../api';
 
 const renderFirstItem = ({ item, index }) => <StockDetailComponent item={item} />;
 
@@ -45,14 +46,26 @@ const renderListedStock = ({ item, index }) => (
 export default HomeTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [stocksData, setStocksData] = useState(null);
+  const [topStockData, setTopStockData] = useState(null);
+  const [cashBalance, setCashBalance] = useState("-");
 
   // simulation des chargement a retirer
   useEffect(() => {
     const loadStocks = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setStocksData(discoverListedStock);
+      const [allStocks, topStocks] = await getAllStocks();
+      setStocksData(allStocks);
+      setTopStockData(topStocks);
     };
     loadStocks();
+  }, []);
+
+  useEffect(() => {
+    const loadCashBalance = async () => {
+      const myCashBalance = await getCashBalance();
+      const formattedBalance = formatCurrency(myCashBalance);
+      setCashBalance(formattedBalance);
+    };
+    loadCashBalance();
   }, []);
 
   {/*const onPressWishList = () => navigation.navigate(StackNav.MyWishlist);*/ }
@@ -135,7 +148,7 @@ export default HomeTab = ({ navigation }) => {
             align={'center'}
             style={[styles.ph10, styles.mt10]}
             type={'B48'}>
-            {'$229,375.25'}
+            {cashBalance}
           </CText>
           <CText
             numberOfLines={1}
@@ -205,7 +218,7 @@ export default HomeTab = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         estimatedItemSize={10}
         ListHeaderComponent={RenderHeaderComponent}
-        ListFooterComponent={() => 
+        ListFooterComponent={() =>
           stocksData == null ? <ListSkeleton count={8} /> : null
         }
       />

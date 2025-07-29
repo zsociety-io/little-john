@@ -35,7 +35,7 @@ export default function StockDetailComponent({ isMyWhishList = false, item }) {
         )}
         <View style={styles.ph10}>
           <CText numberOfLines={1} style={styles.pt10} type={'b16'}>
-            {item?.stockName}
+            {item?.companyName}
           </CText>
           <CText
             numberOfLines={1}

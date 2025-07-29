@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { FlashList } from '@shopify/flash-list';
@@ -18,7 +18,7 @@ import ListSkeleton from '../../../components/common/ListSkeleton';
 
 
 export default function MyStocks() {
-  const { currentAccount } = useAccount(null);
+  const { currentAccount } = useAccount();
 
   const [myStocksData, setMyStocksData] = useState(null);
 

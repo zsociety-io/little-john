@@ -37,6 +37,8 @@ export default AccountTab = ({ navigation }) => {
   const language = useSelector(state => state.profile.language);
   const LogOutSheetRef = createRef();
   const dispatch = useDispatch();
+  const { currentAccount } = useAccount();
+  const pubkey = currentAccount?.pubkey;
 
   const { disconnect } = useAccount();
 
@@ -159,7 +161,7 @@ export default AccountTab = ({ navigation }) => {
             <View style={[styles.mh10, styles.flex]}>
               <CText type="b20">{'Solana Mainnet'}</CText>
               <CText type="m14" style={styles.mt5}>
-                {'andrew_ainsley@yourdomain.com'}
+                {pubkey && pubkey.toString()}
               </CText>
             </View>
           </View>
@@ -203,7 +205,7 @@ export default AccountTab = ({ navigation }) => {
         isLeftIcon={<LeftIcon />}
       />
       <FlatList
-        removeClippedSubviews={false} 
+        removeClippedSubviews={false}
         data={ProfileSetting}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}

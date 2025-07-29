@@ -108,6 +108,7 @@ const ProfileSetting = [
     icon: <AboutOtrade_Icon />,
     route: StackNav.AboutOtrade,
   },
+  /*
   {
     id: 8,
     title: strings.closeYourAccount,
@@ -115,6 +116,7 @@ const ProfileSetting = [
     // route: StackNav.InviteFriends,
     isRightIcon: true,
   },
+  */
   {
     id: 9,
     title: strings.logout,

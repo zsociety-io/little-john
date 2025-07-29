@@ -70,7 +70,7 @@ const DiscoverTab = ({ navigation }) => {
     filterDataList();
   }, [search]);
 
-  const filterDataList = () => {
+  const filterDataList = async () => {
     if (!!search) {
       const filteredData = discoverListedStock.filter(item =>
         item.companyName.toLowerCase().includes(search.toLowerCase()),

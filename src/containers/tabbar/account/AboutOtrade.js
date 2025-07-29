@@ -39,7 +39,7 @@ export default function AboutOtrade() {
             width={moderateScale(150)}
           />
           <CText type="b24" align="center" style={styles.mv15}>
-            {'Otrade v5.6.9'}
+            {'Little John v1.0.1'}
           </CText>
         </View>
         <CDivider />

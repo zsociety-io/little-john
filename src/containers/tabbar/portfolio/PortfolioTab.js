@@ -19,7 +19,6 @@ import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import {
   discoverListedStock,
   myStockData,
-  portfolioData,
   stockTimeData,
 } from '../../../api/constant';
 import { StackNav } from '../../../navigation/NavigationKeys';
@@ -35,6 +34,8 @@ import {
 } from '../../../assets/svgs';
 import strings from '../../../i18n/strings';
 import ListSkeleton from '../../../components/common/ListSkeleton';
+import { getPortfolioData } from '../../../api/stocks';
+import { useAccount } from '../../../providers/AccountProvider';
 
 const renderListedStock = ({ item, index }) => (
   <DiscoverStockComponent item={item} />
@@ -198,7 +199,7 @@ const HeaderComponent = memo(props => {
           horizontal={true}
           scrollEnabled={false}
           estimatedItemSize={5}
-          contentContainerStyle={styles.ph20}
+          contentContainerStyle={{ ...styles.ph20, ...styles.mt10 }}
         />
       </ImageBackground>
       <View
@@ -217,7 +218,7 @@ const HeaderComponent = memo(props => {
           <CText
             type="s14"
             color={!item?.status ? colors.downColor1 : colors.upColor1}>
-            {'  $66,378.49' + '  (' + item?.percentage + ')'}
+            {`  ${item?.performance}` + '  (' + item?.percentage + ')'}
           </CText>
           <CText
             type="s14"
@@ -234,18 +235,18 @@ const HeaderComponent = memo(props => {
       />
       <SubCategory
         title1={'Cash Available'}
-        value1={'$23,087.39'}
+        value1={item?.cashBalance}
         title2={'Staked Ratio'}
-        value2={'73.4%'}
+        value2={'0%'}
         icon1={<SharesIcon />}
         icon2={<AvgCostIcon />}
         subTextColor={subTextColor}
       />
       <SubCategory
         title1={'Equity'}
-        value1={'$186,473.68'}
+        value1={item?.equityBalance}
         title2={'Total Returns'}
-        value2={'$66,378.49'}
+        value2={item?.pnl}
         icon1={<EquityIcon />}
         icon2={<TotalReturnsIcon />}
         subTextColor={subTextColor}
@@ -266,19 +267,46 @@ export default function PortfolioTab({ navigation }) {
   const [selectedTime, setSelectedTime] = useState('1D');
   const [extraData, setExtraData] = useState(false);
   const [myPositionsData, setMyPositionsData] = useState(null);
+  const [portfolioData, setPortfolioData] = useState(null);
+
+  const { currentAccount } = useAccount();
+  const pubkey = currentAccount?.pubkey;
 
   useEffect(() => {
     setExtraData(!extraData);
   }, [selectedTime]);
 
-  // Simuler le chargement des positions
+
   useEffect(() => {
     const loadPositions = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setMyPositionsData(myStockData);
+      console.log("All portfolio data")
+      const newPortfolioData = await getPortfolioData(pubkey, selectedTime);
+      setPortfolioData(newPortfolioData);
+      setMyPositionsData(newPortfolioData.positions);
+      //setMyPositionsData(myStockData);
     };
     loadPositions();
-  }, []);
+  }, [pubkey]);
+
+
+  useEffect(() => {
+    const loadChart = async () => {
+      if (portfolioData == null) {
+        return;
+      }
+      console.log("Chart only")
+      const newPortfolioData = await getPortfolioData(pubkey, selectedTime, true, portfolioData.currentPrice);
+      setPortfolioData({
+        ...portfolioData,
+        data: newPortfolioData.data,
+        performance: newPortfolioData.performance,
+        percentage: newPortfolioData.percentage,
+        status: newPortfolioData.status,
+      });
+    };
+    loadChart();
+  }, [pubkey, selectedTime]);
+
 
   const selectedTimeValue = useMemo(() => {
     return selectedTime;
@@ -301,7 +329,7 @@ export default function PortfolioTab({ navigation }) {
 
   const renderStockTime = ({ item, index }) => {
     return (
-      <View style={styles.selfCenter}>
+      <View style={{ ...styles.selfCenter, ...styles.mt20 }}>
         <RenderStockTime
           item={item}
           selectedTime={selectedTimeValue}
@@ -315,8 +343,9 @@ export default function PortfolioTab({ navigation }) {
   return (
     <CSafeAreaView>
       {
-        (myPositionsData == null) && (
+        (myPositionsData == null || portfolioData == null) && (
           <View>
+            {/* 
             <HeaderComponent
               item={portfolioData}
               colors={colorValue}
@@ -325,12 +354,13 @@ export default function PortfolioTab({ navigation }) {
               renderStockTime={renderStockTime}
               extraData={extraData}
             />
+            */}
             <ListSkeleton count={6} height={moderateScale(75)} />
           </View>
         )
       }
       {
-        (myPositionsData != null) && (
+        (myPositionsData != null && portfolioData != null) && (
           <FlashList
             removeClippedSubviews={false}
             data={myPositionsData}

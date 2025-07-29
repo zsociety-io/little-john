@@ -236,7 +236,7 @@ export default {
     'We have sent the OTP verification code to your email address. Check your email and enter the code below.',
   didReceiveEmail: "Didn't receive email?",
   legalAgreements: 'Legal Agreements',
-  aboutLittleJohn: 'About LittleJohn',
+  aboutLittleJohn: 'About Little John',
   developerSettings: 'Developer Settings',
   networks: 'Networks',
   closeYourAccount: 'Close Your Account',
@@ -339,7 +339,7 @@ export default {
   details: 'Details',
   totalStakeAmount: 'Total Stake Amount',
   totalUnstakeAmount: 'Total Unstake Amount',
-  
+
   // Transfer strings
   transferAssets: 'Transfer Assets',
   transferHistory: 'Transfer History',
