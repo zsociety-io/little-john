@@ -112,8 +112,6 @@ export const getPortfolioData = async (pubkey, selectedTime, chartOnly, initialB
   if (!chartOnly) {
     positions = Object.entries(portfolioData.assets).map(
       ([tokenAddress, asset], i) => {
-        asset.asset_icon = asset.asset_icon.replace("https://littlejohn.fi", "http://10.0.2.2:3000")
-
         const currentValue = formatCurrency(asset.value);
         const { open_price, current_price } = asset;
         const variation = ((current_price - open_price) / open_price * 100).toFixed(2);
@@ -218,12 +216,13 @@ export const getAllStocks = async () => {
         stockName: asset.asset_ticker,
         currentValue,
         percentage: `${Math.abs(variation)}%`,
+        percentageFloat: Number(variation),
         data,
         status
       }
     });
 
-  const topStocks = assets
+  const allEtfs = assets
     .filter(asset => asset.asset_categories.includes("ETF"))
     .map((asset, i) => {
       const currentValue = formatCurrency(asset.current_price);
@@ -246,39 +245,27 @@ export const getAllStocks = async () => {
         stockName: asset.asset_ticker,
         currentValue,
         percentage: `${Math.abs(variation)}%`,
+        percentageFloat: Number(variation),
         data,
         status: status,
       }
     });
 
 
-  return [allStocks, topStocks];
-
-  [{
-    id: 1,
-    image: images.adobeIcon,
-    companyName: 'Adobe',
-    stockName: 'ADBE',
-    currentValue: '$285.75',
-    percentage: '4.58%',
-    data: [
-      { x: -2, y: 15 },
-      { x: -1, y: 10 },
-      { x: 0, y: 12 },
-      { x: 1, y: 7 },
-      { x: 2, y: 6 },
-      { x: 3, y: 8 },
-      { x: 4, y: 10 },
-      { x: 5, y: 8 },
-      { x: 6, y: 12 },
-      { x: 7, y: 14 },
-      { x: 8, y: 12 },
-      { x: 9, y: 13.5 },
-      { x: 10, y: 18 },
-    ],
-    status: false,
-  }];
+  return [allStocks, allEtfs];
 }
+
+export const getDiscoverStocks = async () => {
+  const [allStocks, allEtfs] = await getAllStocks();
+  const allAssets = [...allEtfs, ...allStocks];
+
+  const topAssets = allAssets
+    .filter(asset => typeof asset.percentageFloat === 'number')
+    .sort((a, b) => b.percentageFloat - a.percentageFloat)
+    .slice(0, 5);
+
+  return [allAssets, topAssets];
+};
 
 
 export const getETFsData = async () => {

@@ -15,6 +15,7 @@ import { moderateScale } from '../../../common/constants';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import CText from '../../../components/common/CText';
 import ListSkeleton from '../../../components/common/ListSkeleton';
+import { getAllStocks } from '../../../api/stocks';
 
 
 const renderListedStock = ({ item, index }) => (
@@ -25,26 +26,34 @@ export default function AllStocks() {
   const colors = useSelector(state => state.theme.theme);
   const [search, setSearch] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
-  const [filterData, setFilterData] = useState(discoverListedStock);
+  const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [allStocksData, setAllStocksData] = useState([]);
+
+  useEffect(() => {
+    const loadStocks = async () => {
+      const [allStocks, allEtfs] = await getAllStocks(); //getDiscoverStocks
+      const allAssets = [...allStocks, ...allEtfs]
+      setAllStocksData(allAssets);
+    };
+    loadStocks();
+  }, []);
 
   useEffect(() => {
     // Simuler un chargement de 2 secondes
-    setTimeout(() => {
-      filterDataList();
-      setLoading(false);
-    }, 2000);
-  }, [search]);
+    filterDataList();
+    setLoading(false);
+  }, [search, allStocksData]);
 
   const filterDataList = () => {
     if (!!search) {
-      const filteredData = discoverListedStock.filter(item =>
+      const filteredData = allStocksData.filter(item =>
         item.companyName.toLowerCase().includes(search.toLowerCase()),
       );
       setFilterData(filteredData);
     } else {
-      setFilterData(discoverListedStock);
+      setFilterData(allStocksData);
     }
   };
 
@@ -69,7 +78,7 @@ export default function AllStocks() {
   const renderHeaderComponent = () => {
     return (
       <View style={[styles.rowSpaceBetween, styles.ph20]}>
-        <CText type={'b18'}>{'500 Companies'}</CText>
+        <CText type={'b18'}>{'ETF and Stocks'}</CText>
         <TouchableOpacity style={styles.rowCenter}>
           <CText type={'b18'} color={colors.primary}>
             {'A to Z'}
@@ -88,7 +97,7 @@ export default function AllStocks() {
   return (
     <CSafeAreaView>
       <CHeader title={'✅ All Stocks'} />
-      
+
       <View style={styles.ph20}>
         <CInput
           placeHolder={strings.searchStockCompany}

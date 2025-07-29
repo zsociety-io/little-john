@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import { FlashList } from '@shopify/flash-list';
@@ -31,6 +31,11 @@ import { StackNav } from '../../../navigation/NavigationKeys';
 import ChipsComponent from '../../../components/ChipsComponent';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 
+import { getDiscoverStocks } from '../../../api/stocks';
+
+import { SvgUri } from 'react-native-svg';
+
+
 const DiscoverTab = ({ navigation }) => {
   const colors = useSelector(state => state.theme.theme);
   const [search, setSearch] = useState('');
@@ -38,6 +43,8 @@ const DiscoverTab = ({ navigation }) => {
   const [filterData, setFilterData] = useState(discoverListedStock);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [allStocks, setAllStocks] = useState([]);
+  const [topMovers, setTopMovers] = useState([]);
   const searchInputRef = React.useRef(null);
 
   const onSearchInput = val => setSearch(val);
@@ -68,18 +75,28 @@ const DiscoverTab = ({ navigation }) => {
   // Filter data based on search input
   React.useEffect(() => {
     filterDataList();
-  }, [search]);
+  }, [search, allStocks]);
 
   const filterDataList = async () => {
     if (!!search) {
-      const filteredData = discoverListedStock.filter(item =>
+      const filteredData = allStocks.filter(item =>
         item.companyName.toLowerCase().includes(search.toLowerCase()),
       );
       setFilterData(filteredData);
     } else {
-      setFilterData(discoverListedStock);
+      setFilterData(allStocks);
     }
   };
+
+  useEffect(() => {
+    const loadStocks = async () => {
+      const [allStocks, topStocks] = await getDiscoverStocks(); //getDiscoverStocks
+      console.log({ allStocks })
+      setAllStocks(allStocks);
+      setTopMovers(topStocks);
+    };
+    loadStocks();
+  }, []);
 
   const LeftIcon = () => {
     return (
@@ -126,8 +143,14 @@ const DiscoverTab = ({ navigation }) => {
 
   const renderTopMovers = ({ item, index }) => {
     return (
-      <TouchableOpacity style={localStyles.topStockContainer}>
-        <Image source={item?.image} style={localStyles.topStockImageStyle} />
+      <TouchableOpacity style={localStyles.topStockContainer} onPress={() => navigation.navigate(StackNav.StockDetailScreen, { item })}>
+        <View style={[localStyles.roundLogoWrapper]}>
+          {String(item?.image).endsWith("svg") && (<SvgUri uri={item?.image}
+            width={localStyles.topStockImageStyle?.width}
+            height={localStyles.topStockImageStyle?.height} />)}
+          {!String(item?.image).endsWith("svg") && (<Image source={item?.image} style={localStyles.topStockImageStyle} />)}
+        </View>
+
         <CText
           type={'m12'}
           numberOfLines={1}
@@ -151,17 +174,19 @@ const DiscoverTab = ({ navigation }) => {
     <DiscoverStockComponent item={item} />
   );
 
-  const SubHeader = ({ title, onPress }) => {
+  const SubHeader = ({ title, onPress, hideForward }) => {
     return (
       <View style={localStyles.subHeaderStyle}>
         <CText type={'b20'}>{title}</CText>
-        <TouchableOpacity onPress={onPress}>
-          <Ionicons
-            name="arrow-forward"
-            size={moderateScale(26)}
-            color={colors.primary}
-          />
-        </TouchableOpacity>
+        {!hideForward && (
+          <TouchableOpacity onPress={onPress}>
+            <Ionicons
+              name="arrow-forward"
+              size={moderateScale(26)}
+              color={colors.primary}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     );
   };
@@ -261,10 +286,10 @@ const DiscoverTab = ({ navigation }) => {
         {/* TRENDING FLOWS SECTION - Hidden when filters are shown, search is focused, or search has content */}
         {!showFilters && !searchFocus && !search && (
           <>
-            <SubHeader title="Trending flows" onPress={onPressSearch} />
+            <SubHeader title="Trending flows" onPress={onPressSearch} hideForward />
             <FlashList
               removeClippedSubviews={false}
-              data={topMoversData}
+              data={topMovers}
               renderItem={renderTopMovers}
               keyExtractor={(item, index) => 'top_' + index.toString()}
               showsHorizontalScrollIndicator={false}
@@ -276,7 +301,7 @@ const DiscoverTab = ({ navigation }) => {
         )}
 
         {/* STOCKS SECTION HEADER */}
-        <SubHeader title="All Stocks" onPress={onPressAllStocks} />
+        <SubHeader title="All Assets" onPress={onPressAllStocks} />
       </View>
     );
   };
@@ -380,6 +405,28 @@ const localStyles = StyleSheet.create({
     ...styles.itemsCenter,
     ...styles.p5,
   },
+  imageStyle: {
+    height: moderateScale(50),
+    width: moderateScale(50),
+    borderRadius: moderateScale(25),
+    borderWidth: moderateScale(2),
+    resizeMode: 'contain',
+  },
+  roundLogoWrapper: {
+    height: moderateScale(50),
+    width: moderateScale(50),
+    borderRadius: moderateScale(55) / 2,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ccc', // placeholder background
+    borderRadius: 50, // half of width/height
+    overflow: 'hidden', // clips anything outside the round boundary
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#eee', // optional placeholder background
+  },
+
   stockTitleStyle: {
     width: moderateScale(60),
     ...styles.mv5,
