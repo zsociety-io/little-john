@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  Clipboard,
+  Alert,
 } from 'react-native';
 import React, { createRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -96,6 +98,17 @@ export default AccountTab = ({ navigation }) => {
 
   const onPressCancel = () => LogOutSheetRef?.current?.hide();
 
+  const onPressCopyWallet = () => {
+    if (pubkey) {
+      Clipboard.setString(pubkey.toString());
+      Alert.alert(
+        'Copied!',
+        'Wallet address copied to clipboard',
+        [{ text: 'OK' }]
+      );
+    }
+  };
+
   const LeftIcon = () => {
     return (
       <View style={styles.pr10}>
@@ -160,14 +173,20 @@ export default AccountTab = ({ navigation }) => {
             </TouchableOpacity>
             <View style={[styles.mh10, styles.flex]}>
               <CText type="b20">{'Solana Mainnet'}</CText>
-              <CText type="m14" style={styles.mt5}>
-                {pubkey && pubkey.toString()}
-              </CText>
+              <View style={[styles.rowCenter, styles.mt5]}>
+                <CText type="m14" style={styles.flex}>
+                  {pubkey && pubkey.toString()}
+                </CText>
+                <TouchableOpacity onPress={onPressCopyWallet} style={styles.ml10}>
+                  <Ionicons
+                    name="copy-outline"
+                    size={moderateScale(20)}
+                    color={color.textColor}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-          <TouchableOpacity onPress={onPressEditProfile}>
-            <EditDark />
-          </TouchableOpacity>
         </View>
         <TouchableOpacity
           onPress={onPressPremium}

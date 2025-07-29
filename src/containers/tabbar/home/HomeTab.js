@@ -48,6 +48,16 @@ export default HomeTab = ({ navigation }) => {
   const [stocksData, setStocksData] = useState(null);
   const [topStockData, setTopStockData] = useState(null);
   const [cashBalance, setCashBalance] = useState("-");
+  useEffect(() => {
+    const test = async () => {
+      try {
+        await fetch("https://littlejohn.fi");
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    test();
+  }, []);
 
   // simulation des chargement a retirer
   useEffect(() => {

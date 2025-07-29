@@ -28,6 +28,21 @@ export default function AllStocks() {
   const [searchFocus, setSearchFocus] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sortAsc, setSortAsc] = useState(true);
+  const sortStocks = (data, asc) => {
+    return [...data].sort((a, b) => {
+      if (!a.companyName || !b.companyName) return 0;
+      if (asc) {
+        return a.companyName.localeCompare(b.companyName);
+      } else {
+        return b.companyName.localeCompare(a.companyName);
+      }
+    });
+  };
+  
+  // Filtrer et trier
+  // Removed duplicate filterDataList function
+
 
   const [allStocksData, setAllStocksData] = useState([]);
 
@@ -44,18 +59,17 @@ export default function AllStocks() {
     // Simuler un chargement de 2 secondes
     filterDataList();
     setLoading(false);
-  }, [search, allStocksData]);
+  }, [search, allStocksData, sortAsc]);
 
   const filterDataList = () => {
-    if (!!search) {
-      const filteredData = allStocksData.filter(item =>
-        item.companyName.toLowerCase().includes(search.toLowerCase()),
-      );
-      setFilterData(filteredData);
-    } else {
-      setFilterData(allStocksData);
-    }
-  };
+  let filteredData = allStocksData;
+  if (!!search) {
+    filteredData = filteredData.filter(item =>
+      item.companyName.toLowerCase().includes(search.toLowerCase()),
+    );
+  }
+  setFilterData(sortStocks(filteredData, sortAsc));
+};
 
   const onSearchInput = val => setSearch(val);
   const onSearchFocus = () => setSearchFocus(true);
@@ -79,9 +93,11 @@ export default function AllStocks() {
     return (
       <View style={[styles.rowSpaceBetween, styles.ph20]}>
         <CText type={'b18'}>{'ETF and Stocks'}</CText>
-        <TouchableOpacity style={styles.rowCenter}>
+        <TouchableOpacity style={styles.rowCenter}
+        onPress={() => setSortAsc(prev => !prev)} // Inverse
+        >
           <CText type={'b18'} color={colors.primary}>
-            {'A to Z'}
+            {sortAsc ? 'A to Z' : 'Z to A'}
           </CText>
           <Ionicons
             name="swap-vertical"
@@ -96,7 +112,7 @@ export default function AllStocks() {
 
   return (
     <CSafeAreaView>
-      <CHeader title={'✅ All Stocks'} />
+      <CHeader title={'All Stocks'} />
 
       <View style={styles.ph20}>
         <CInput

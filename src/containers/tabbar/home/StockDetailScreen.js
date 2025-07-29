@@ -189,6 +189,15 @@ const EPSComponent = memo(props => {
 });
 
 const StakingCards = memo(({ item, colors, onPressStaked, onPressUnstaked }) => {
+  const staked = parseFloat(item?.staking?.staked) || 0;
+  const unstaked = parseFloat(item?.staking?.unstaked) || 0;
+  const total = parseFloat(item?.staking?.total) || 0;
+
+  // Stake: désactivé si tout déjà stake ou rien n'est possédé
+  const stakeDisabled = staked >= total || total === 0;
+
+  // Unstake: désactivé si rien n'est unstakable
+  const unstakeDisabled = unstaked === 0;
   return (
     <View style={localStyles.stakingContainer}>
       <TouchableOpacity
@@ -197,6 +206,7 @@ const StakingCards = memo(({ item, colors, onPressStaked, onPressUnstaked }) => 
           {
             backgroundColor: colors.dark ? colors.dark2 : colors.white,
             borderColor: colors.dark ? colors.dark3 : colors.grayScale2,
+            opacity: stakeDisabled ? 0.5 : 1, 
           },
         ]}
         onPress={onPressStaked}

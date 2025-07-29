@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import { FlashList } from '@shopify/flash-list';
@@ -30,6 +30,7 @@ import images from '../../../assets/images';
 import { StackNav } from '../../../navigation/NavigationKeys';
 import ChipsComponent from '../../../components/ChipsComponent';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
+import ListSkeleton from '../../../components/common/ListSkeleton';
 
 import { getDiscoverStocks } from '../../../api/stocks';
 
@@ -45,6 +46,8 @@ const DiscoverTab = ({ navigation }) => {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [allStocks, setAllStocks] = useState([]);
   const [topMovers, setTopMovers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchResults, setSearchResults] = useState([]);
   const searchInputRef = React.useRef(null);
 
   const onSearchInput = val => setSearch(val);
@@ -72,31 +75,55 @@ const DiscoverTab = ({ navigation }) => {
     }
   };
 
-  // Filter data based on search input
-  React.useEffect(() => {
-    filterDataList();
-  }, [search, allStocks]);
+  // Remplacez les deux useEffect par celui-ci :
+  useEffect(() => {
+    const loadAllData = async () => {
+      try {
+        setIsLoading(true);
+        const [allStocks, topStocks] = await getDiscoverStocks();
+        
+        setAllStocks(allStocks);
+        setFilterData(allStocks);
+        setTopMovers(topStocks);
+      } catch (error) {
+        console.error('Erreur lors du chargement des données:', error);
+        // En cas d'erreur, utilisez les données statiques
+        setAllStocks(discoverListedStock);
+        setFilterData(discoverListedStock);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    loadAllData();
+  }, []);
 
-  const filterDataList = async () => {
-    if (!!search) {
+  // Fonction de filtrage optimisée
+  const filterDataList = useCallback(() => {
+    if (!allStocks.length) return;
+    
+    if (search.trim()) {
       const filteredData = allStocks.filter(item =>
-        item.companyName.toLowerCase().includes(search.toLowerCase()),
+        item.companyName?.toLowerCase().includes(search.toLowerCase().trim()) ||
+        item.stockName?.toLowerCase().includes(search.toLowerCase().trim())
       );
       setFilterData(filteredData);
     } else {
       setFilterData(allStocks);
     }
-  };
+  }, [search, allStocks]);
 
+  // useEffect optimisé pour le filtrage
   useEffect(() => {
-    const loadStocks = async () => {
-      const [allStocks, topStocks] = await getDiscoverStocks(); //getDiscoverStocks
-      console.log({ allStocks })
-      setAllStocks(allStocks);
-      setTopMovers(topStocks);
-    };
-    loadStocks();
-  }, []);
+    if (!isLoading && allStocks.length > 0) {
+      // Délai pour éviter trop d'appels
+      const timeoutId = setTimeout(() => {
+        filterDataList();
+      }, 300);
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [search, allStocks, isLoading, filterDataList]);
 
   const LeftIcon = () => {
     return (
@@ -244,7 +271,7 @@ const DiscoverTab = ({ navigation }) => {
 
   const renderHeaderComponent = () => {
     return (
-      <View>
+      <View style={localStyles.headerContainer}>
         {/* SEARCH BAR WITH FILTER */}
         <View style={localStyles.searchContainer}>
           <TouchableOpacity
@@ -285,7 +312,7 @@ const DiscoverTab = ({ navigation }) => {
 
         {/* TRENDING FLOWS SECTION - Hidden when filters are shown, search is focused, or search has content */}
         {!showFilters && !searchFocus && !search && (
-          <>
+          <View style={{ marginTop: moderateScale(15), marginBottom: moderateScale(15) }}>
             <SubHeader title="Trending flows" onPress={onPressSearch} hideForward />
             <FlashList
               removeClippedSubviews={false}
@@ -297,11 +324,13 @@ const DiscoverTab = ({ navigation }) => {
               estimatedItemSize={5}
               contentContainerStyle={styles.ph20}
             />
-          </>
+          </View>
         )}
 
         {/* STOCKS SECTION HEADER */}
-        <SubHeader title="All Assets" onPress={onPressAllStocks} />
+        <View style={{ marginTop: moderateScale(10) }}>
+          <SubHeader title="All Assets" onPress={onPressAllStocks} />
+        </View>
       </View>
     );
   };
@@ -314,16 +343,24 @@ const DiscoverTab = ({ navigation }) => {
         isLeftIcon={<LeftIcon />}
         rightIcon={<RightIcon />}
       />
-      <KeyBoardAvoidWrapper>
-        <FlashList
-          removeClippedSubviews={false}
-          data={filterData}
-          renderItem={renderAllStockItem}
-          keyExtractor={(item) => item.id.toString()}
-          showsVerticalScrollIndicator={false}
-          estimatedItemSize={10}
-          ListHeaderComponent={renderHeaderComponent}
-        />
+      <KeyBoardAvoidWrapper style={localStyles.listContainer}>
+        {isLoading ? (
+          <View>
+            {renderHeaderComponent()}
+            <ListSkeleton count={8} />
+          </View>
+        ) : (
+          <FlashList
+            removeClippedSubviews={false}
+            data={filterData}
+            renderItem={renderAllStockItem}
+            keyExtractor={(item, index) => `${item.id}-${index}`}
+            showsVerticalScrollIndicator={false}
+            estimatedItemSize={10}
+            ListHeaderComponent={renderHeaderComponent}
+            ListHeaderComponentStyle={localStyles.headerWrapper}
+          />
+        )}
       </KeyBoardAvoidWrapper>
     </CSafeAreaView>
   );
@@ -344,10 +381,13 @@ const localStyles = StyleSheet.create({
     ...styles.itemsCenter,
     ...styles.ph20,
     ...styles.mb15,
+    zIndex: 100, // Assure que la barre de recherche reste au-dessus
+    backgroundColor: 'transparent', // Empêche la transparence
   },
   searchInputContainer: {
     ...styles.flex,
     ...styles.mr10,
+    minHeight: moderateScale(45), // Hauteur minimale cohérente
   },
   filterButton: {
     ...styles.center,
@@ -363,6 +403,8 @@ const localStyles = StyleSheet.create({
     flexWrap: 'wrap',
     ...styles.ph20,
     ...styles.mb15,
+    backgroundColor: 'transparent', // Empêche la transparence
+    zIndex: 99, // Juste en dessous de la barre de recherche
   },
   filterButton2: {
     borderRadius: moderateScale(25),
@@ -374,6 +416,17 @@ const localStyles = StyleSheet.create({
     minHeight: moderateScale(40),
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  // Supprime l'espace blanc autour du header de liste
+  headerWrapper: {
+    paddingBottom: 0,
+    marginBottom: 0,
+    paddingTop: 0,
+    marginTop: 0,
+  },
+  headerContainer: {
+    backgroundColor: 'transparent',
+    zIndex: 50,
   },
   filterItem: {
     ...styles.ph12,
@@ -387,7 +440,10 @@ const localStyles = StyleSheet.create({
   subHeaderStyle: {
     ...styles.rowSpaceBetween,
     ...styles.ph20,
-    ...styles.mv20,
+  },
+  listContainer: {
+    flex: 1,
+    zIndex: 1, // Plus bas que les éléments de recherche
   },
   stockItemContainer: {
     marginHorizontal: -moderateScale(20),
