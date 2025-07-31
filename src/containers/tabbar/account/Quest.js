@@ -13,14 +13,18 @@ import CDivider from '../../../components/common/CDivider';
 import CText from '../../../components/common/CText';
 import strings from '../../../i18n/strings';
 import { Star_Icon } from '../../../assets/svgs';
-import { inviteFriendData } from '../../../api/constant';
+import { questData } from '../../../api/constant';
 import CButton from '../../../components/common/CButton';
 import { StackNav } from '../../../navigation/NavigationKeys';
+import { Linking } from 'react-native';
 
-export default function InviteFriend({ navigation }) {
+export default function Quest({ navigation }) {
   const colors = useSelector(state => state.theme.theme);
 
-  const onPressContinue = () => navigation.navigate(StackNav.MyRewards);
+  const onPressQuest = () => {
+    Linking.openURL('https://www.google.com'); // mettre le lien de la campagne svp
+  };
+  const onPressMyLeaderboard = () => navigation.navigate(StackNav.MyRewards);
 
   const renderItem = ({ item, index }) => {
     return (
@@ -34,9 +38,14 @@ export default function InviteFriend({ navigation }) {
             style={styles.mt5}>
             {item.desc}
             {item.termAndCond && (
-              <CText type={'m16'} color={colors.primary}>
+              <CText 
+              type={'m16'} 
+              color={colors.primary}
+              style={[styles.mt5, { textDecorationLine: 'underline' }]}
+              onPress={() => Linking.openURL('https://www.discord.com')} // Lien discord community la team
+              >
                 {' '}
-                {strings.termsApply}
+                {strings.joinUs}
               </CText>
             )}
           </CText>
@@ -49,11 +58,11 @@ export default function InviteFriend({ navigation }) {
     return (
       <View>
         <Image
-          source={images.inviteFriend}
-          style={localStyles.inviteFriendImage}
+          source={images.quest}
+          style={localStyles.questImage}
         />
         <CText type={'b32'} align={'center'} style={styles.mt20}>
-          {strings.inviteFriendsGetStock}
+          {strings.questsGetStock}
         </CText>
         <CDivider style={styles.mt30} />
       </View>
@@ -68,21 +77,21 @@ export default function InviteFriend({ navigation }) {
     return (
       <View style={styles.mt30}>
         <CButton
-          title={strings.shareMyInviteLink}
+          title={strings.completeQuests}
           containerStyle={styles.mb15}
           style={styles.ml10}
-          onPress={onPressContinue}
-          frontIcon={<ButtonIcon icon={'paper-plane'} color={colors.white} />}
+          onPress={onPressQuest}
+          frontIcon={<ButtonIcon icon={'flag'} color={colors.white} />}
         />
         <CButton
           type={'S16'}
-          title={strings.myRewards}
+          title={strings.myLeaderboard}
           bgColor={colors.dark3}
           color={colors.primary}
           style={styles.ml10}
           containerStyle={styles.mb15}
-          onPress={onPressContinue}
-          frontIcon={<ButtonIcon icon={'gift'} color={colors.primary} />}
+          onPress={onPressMyLeaderboard}
+          frontIcon={<ButtonIcon icon={'trophy'} color={colors.primary} />}
         />
       </View>
     );
@@ -92,7 +101,7 @@ export default function InviteFriend({ navigation }) {
     <CSafeAreaView>
       <CHeader />
       <FlatList
-        removeClippedSubviews={false} data={inviteFriendData}
+        removeClippedSubviews={false} data={questData}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         ListHeaderComponent={RenderHeader}
@@ -105,7 +114,7 @@ export default function InviteFriend({ navigation }) {
 }
 
 const localStyles = StyleSheet.create({
-  inviteFriendImage: {
+  questImage: {
     width: '100%',
     height: getHeight(250),
     resizeMode: 'contain',

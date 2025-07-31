@@ -210,7 +210,7 @@ export const getAllStocks = async () => {
       });
       return {
         id: i,
-
+        categories: asset.asset_categories,
         image: asset.asset_icon,
         companyName: asset.asset_name,
         stockName: asset.asset_ticker,
@@ -240,6 +240,7 @@ export const getAllStocks = async () => {
 
       return {
         id: i,
+        categories: asset.asset_categories,
         image: asset.asset_icon,
         companyName: asset.asset_name,
         stockName: asset.asset_ticker,

@@ -36,7 +36,7 @@ export const StackNav = {
   SetPinScreen: 'SetPinScreen',
   EmailScreen: 'EmailScreen',
   EmailVerifyScreen: 'EmailVerifyScreen',
-  InviteFriend: 'InviteFriend',
+  Quest: 'Quest',
   MyRewards: 'MyRewards',
   Security: 'Security',
   HelpCenter: 'HelpCenter',

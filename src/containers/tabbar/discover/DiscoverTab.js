@@ -102,16 +102,26 @@ const DiscoverTab = ({ navigation }) => {
   const filterDataList = useCallback(() => {
     if (!allStocks.length) return;
     
+    let filtered = allStocks;
+    
+    // Filtrer par recherche
     if (search.trim()) {
-      const filteredData = allStocks.filter(item =>
+      filtered = filtered.filter(item =>
         item.companyName?.toLowerCase().includes(search.toLowerCase().trim()) ||
         item.stockName?.toLowerCase().includes(search.toLowerCase().trim())
       );
-      setFilterData(filteredData);
-    } else {
-      setFilterData(allStocks);
     }
-  }, [search, allStocks]);
+    
+    // Filtrer par catégories sélectionnées (utilise stockCategoryData)
+    if (selectedFilters.length > 0) {
+      const selectedCategories = selectedFilters.map(index => stockCategoryData[index]);
+      filtered = filtered.filter(item =>
+        item.categories?.some(category => selectedCategories.includes(category))
+      );
+    }
+    
+    setFilterData(filtered);
+  }, [search, allStocks, selectedFilters]);
 
   // useEffect optimisé pour le filtrage
   useEffect(() => {
@@ -123,7 +133,7 @@ const DiscoverTab = ({ navigation }) => {
       
       return () => clearTimeout(timeoutId);
     }
-  }, [search, allStocks, isLoading, filterDataList]);
+  }, [search, selectedFilters, allStocks, isLoading, filterDataList]);
 
   const LeftIcon = () => {
     return (

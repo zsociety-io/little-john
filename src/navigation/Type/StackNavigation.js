@@ -29,8 +29,8 @@ export default function StackNavigation() {
         component={StackRoute.EmailVerifyScreen}
       />
       <Stack.Screen
-        name={StackNav.InviteFriend}
-        component={StackRoute.InviteFriend}
+        name={StackNav.Quest}
+        component={StackRoute.Quest}
       />
       <Stack.Screen
         name={StackNav.MyRewards}

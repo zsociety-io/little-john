@@ -33,7 +33,7 @@ import UnlockScreen from '../containers/auth/UnlockScreen';
 import SetPinScreen from '../containers/auth/SetPinScreen';
 import EmailScreen from '../containers/auth/EmailScreen';
 import EmailVerifyScreen from '../containers/auth/EmailVerifyScreen';
-import InviteFriend from '../containers/tabbar/account/InviteFriend';
+import Quest from '../containers/tabbar/account/Quest';
 import MyRewards from '../containers/tabbar/account/MyRewards';
 import Security from '../containers/tabbar/account/Security';
 import HelpCenter from '../containers/tabbar/account/HelpCenter';
@@ -116,7 +116,7 @@ export const StackRoute = {
   SetPinScreen,
   EmailScreen,
   EmailVerifyScreen,
-  InviteFriend,
+  Quest,
   MyRewards,
   Security,
   HelpCenter,
