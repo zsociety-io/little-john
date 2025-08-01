@@ -15,7 +15,7 @@ export default {
   userDark: require('./userDark.png'),
   userLight: require('./userLight.png'),
   freeStock: require('./freeStock.png'),
-  inviteFriend: require('./inviteFriend.png'),
+  quest: require('./inviteFriend.png'), // Utilise la même image pour l'instant
   user1: require('./user1.png'),
   user2: require('./user2.png'),
   user3: require('./user3.png'),

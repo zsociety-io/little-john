@@ -188,24 +188,87 @@ const termsAndConditionData = [
   'I have read, understood and agree to be bound by all terms, disclosures, certifications, and disclaimers applicable to me, as found on the legal page of the Invest website.',
 ];
 
-const inviteFriendData = [
+const questData = [
   {
     id: 1,
-    title: strings.inviteYourFriends,
-    desc: strings.inviteYourFriendsDesc,
+    title: strings.tradingStocks,
+    desc: strings.tradingStocksDesc,
     termAndCond: false,
   },
   {
     id: 2,
-    title: strings.theyGetFreeStock,
-    desc: strings.theyGetFreeStockDesc,
-    termAndCond: true,
+    title: strings.gaxleCampaign,
+    desc: strings.gaxleCampaignDesc,
+    termAndCond: false,
   },
   {
     id: 3,
-    title: strings.youGetFreeStock,
-    desc: strings.youGetFreeStockDesc,
+    title: strings.discordActivity,
+    desc: strings.discordActivityDesc,
     termAndCond: true,
+  },
+];
+
+const leaderboardData = [
+  {
+    id: 1,
+    image: images.user1,
+    name: 'Andrew Ainsley',
+    points: 2450,
+  },
+  {
+    id: 2,
+    image: images.user2,
+    name: 'Jessica Chen',
+    points: 2380,
+  },
+  {
+    id: 3,
+    image: images.user3,
+    name: 'Marcus Johnson',
+    points: 2210,
+  },
+  {
+    id: 4,
+    image: images.user4,
+    name: 'Sarah Williams',
+    points: 2150,
+  },
+  {
+    id: 5,
+    image: images.user5,
+    name: 'David Brown',
+    points: 2090,
+  },
+  {
+    id: 6,
+    image: images.user6,
+    name: 'Emily Davis',
+    points: 1980,
+  },
+  {
+    id: 7,
+    image: images.user1,
+    name: 'Michael Wilson',
+    points: 1920,
+  },
+  {
+    id: 8,
+    image: images.user2,
+    name: 'Lisa Garcia',
+    points: 1850,
+  },
+  {
+    id: 9,
+    image: images.user3,
+    name: 'Robert Miller',
+    points: 1780,
+  },
+  {
+    id: 10,
+    image: images.user4,
+    name: 'Jennifer Taylor',
+    points: 1720,
   },
 ];
 
@@ -2330,7 +2393,8 @@ export {
   countryData,
   houseStatusData,
   termsAndConditionData,
-  inviteFriendData,
+  questData,
+  leaderboardData,
   myRewardsData,
   helperCategoryData,
   helperData,

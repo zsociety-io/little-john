@@ -66,7 +66,7 @@ export default AccountTab = ({ navigation }) => {
   };
 
   const onPressPremium = () => {
-    navigation.navigate(StackNav.InviteFriend);
+    navigation.navigate(StackNav.Quest);
   };
 
   const onPressEditProfile = () => { };
@@ -202,7 +202,7 @@ export default AccountTab = ({ navigation }) => {
               {strings.getFreeStock}
             </CText>
             <CText type="r14" color={color.whiteColor} style={styles.mv5}>
-              {strings.referDesc}
+              {strings.farmDesc}
             </CText>
           </View>
         </TouchableOpacity>
