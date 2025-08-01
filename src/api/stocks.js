@@ -79,7 +79,6 @@ function generateStockData(upTrend, options) {
 // Portfolio page -------------------------------------
 // stocks du user
 export const getHoldingsData = async (pubkey) => {
-  pubkey = "AZoY3GD8fJTiA6yNnf6t8MgJ7d5x6vEC8natVssjGn3i"
   const endpoint = `portfolio/${pubkey}`;
   const portfolioData = await callApiGet(endpoint);
 
@@ -88,16 +87,64 @@ export const getHoldingsData = async (pubkey) => {
 
 
 export const getCashBalance = async (pubkey) => {
-  pubkey = "AZoY3GD8fJTiA6yNnf6t8MgJ7d5x6vEC8natVssjGn3i"
   const endpoint = `portfolio/${pubkey}/cash/`;
   const cashData = await callApiGet(endpoint);
   return cashData;
 }
 
+export const getPortfolioAsset = async (pubkey, tokenAddress, selectedTime) => {
+  const endpoint = `portfolio/${pubkey}/asset/${tokenAddress}?period=${selectedTime}`;
+  const assetData = await callApiGet(endpoint);
+  const chart = Array.isArray(assetData?.chart) ? [...assetData.chart] : [];
+
+  if (chart.length === 0) {
+    return {
+      xMin: 0,
+      xMax: 0,
+      yMin: 0,
+      yMax: 0,
+      data: [],
+    };
+  }
+  chart.sort((a, b) => a.x - b.x);
+
+  const xs = chart.map(p => p.x);
+  const ys = chart.map(p => p.y);
+
+  const xMin = Math.min(...xs);
+  const xMax = Math.max(...xs);
+
+  let yMin = Math.min(...ys);
+  let yMax = Math.max(...ys);
+
+  if (yMin === yMax) {
+    const delta = yMin === 0 ? 1 : Math.abs(yMin * 0.05);
+    yMin = yMin - delta;
+    yMax = yMax + delta;
+  } else {
+    const padding = (yMax - yMin) * 0.1;
+    yMin = yMin - padding;
+    yMax = yMax + padding;
+  }
+
+  //const currentValue = formatCurrency(assetData.portfolioData.value);
+
+  return {
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    portfolioData: {
+      currentValue: formatCurrency(assetData?.portfolioData?.value),
+      balance: assetData?.portfolioData?.balance.toFixed(2),
+    },
+    data: chart,
+    assetData
+  };
+};
 
 //Données globales du portfolio
 export const getPortfolioData = async (pubkey, selectedTime, chartOnly, initialBalance) => {
-  pubkey = "AZoY3GD8fJTiA6yNnf6t8MgJ7d5x6vEC8natVssjGn3i"
   const endpoint = `portfolio/${pubkey}${chartOnly ? '/chart' : ''}?period=${selectedTime}`;
   const portfolioData = await callApiGet(endpoint);
   const current_price = chartOnly ? initialBalance : portfolioData.totalBalance;
@@ -127,17 +174,20 @@ export const getPortfolioData = async (pubkey, selectedTime, chartOnly, initialB
 
         return {
           id: i,
-          tokenAddress,
           image: asset.asset_icon,
+          balance: asset.balance,
           companyName: asset.asset_name,
           stockName: asset.asset_ticker,
+          description: asset.asset_description,
+          tokenAddress: asset.token_address,
+          currentPrice: formatCurrency(current_price),
           currentValue,
           percentage: `${Math.abs(variation)}%`,
           data,
           status,
           staking: {
-            staked: '$125.78',
-            unstaked: '$54.20',
+            staked: '$0',
+            unstaked: currentValue,
             apy: '12.5%',
             availableBalance: '$1,250.00',
             lockPeriod: '30 days',
@@ -153,7 +203,7 @@ export const getPortfolioData = async (pubkey, selectedTime, chartOnly, initialB
   const data = {
     id: 2,
     image: null,
-    currentPrice: current_price,
+    currentPrice: formatCurrency(current_price),
     currentValue: formatCurrency(portfolioData.totalBalance),
     cashBalance: formatCurrency(portfolioData.cashBalance),
     equityBalance: formatCurrency(portfolioData.totalBalance - portfolioData.cashBalance),
@@ -201,6 +251,7 @@ export const getAllStocks = async () => {
       const variation = ((current_price - open_price) / open_price * 100).toFixed(2);
       const status = current_price - open_price > 0;
 
+
       const data = generateStockData(status, {
         volatility: 4,
         spikeProb: 0.15,
@@ -210,11 +261,12 @@ export const getAllStocks = async () => {
       });
       return {
         id: i,
-
+        description: asset.asset_description,
+        tokenAddress: asset.token_address,
         image: asset.asset_icon,
         companyName: asset.asset_name,
         stockName: asset.asset_ticker,
-        currentValue,
+        currentPrice: currentValue,
         percentage: `${Math.abs(variation)}%`,
         percentageFloat: Number(variation),
         data,
@@ -243,7 +295,8 @@ export const getAllStocks = async () => {
         image: asset.asset_icon,
         companyName: asset.asset_name,
         stockName: asset.asset_ticker,
-        currentValue,
+        tokenAddress: asset.token_address,
+        currentPrice: currentValue,
         percentage: `${Math.abs(variation)}%`,
         percentageFloat: Number(variation),
         data,

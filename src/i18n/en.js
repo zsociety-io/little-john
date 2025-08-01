@@ -286,7 +286,7 @@ export default {
   topMovers: 'Top Movers',
   buy: 'Buy',
   sell: 'Sell',
-  lastClose: 'Last close',
+  lastClose: 'Current Price',
   performance: "Performance",
   showMore: 'Show More',
   targetPrice: 'Target Price',

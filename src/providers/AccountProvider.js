@@ -32,7 +32,7 @@ export const AccountProvider = ({ children }) => {
   const connect = useCallback(async () => {
     const authorizationResult = await transact(async (wallet) => {
       const authorizationResult = await wallet.authorize({
-        cluster: 'solana:devnet',
+        cluster: 'mainnet-beta',
         identity: APP_IDENTITY,
       });
       return authorizationResult;

@@ -38,7 +38,7 @@ import { getPortfolioData } from '../../../api/stocks';
 import { useAccount } from '../../../providers/AccountProvider';
 
 const renderListedStock = ({ item, index }) => (
-  <DiscoverStockComponent item={item} />
+  <DiscoverStockComponent item={item} fromPortfolio />
 );
 
 const SubHeader = memo(({ title1, title2, style, isHide = false, colors }) => {
@@ -378,9 +378,17 @@ export default function PortfolioTab({ navigation }) {
                 extraData={extraData}
               />
             }
+            ListFooterComponent={
+              myPositionsData.length === 0 ? (<CText type="r18" color={subTextColor} style={{ ...localStyles.textStyle, paddingRight: "30", paddingLeft: "30", paddingTop: "10", paddingBottom: "30" }}>
+                You don't have any positions yet. Buy an asset to start.
+              </CText>) : (<></>)
+            }
           />
         )
       }
+
+
+
     </CSafeAreaView>
   );
 }

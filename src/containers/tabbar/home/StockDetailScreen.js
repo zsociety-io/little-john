@@ -15,6 +15,8 @@ import { Area, Chart, Line, Tooltip } from 'react-native-responsive-linechart';
 import { FlashList } from '@shopify/flash-list';
 import { VictoryCandlestick } from 'victory-native';
 
+import { SvgUri } from 'react-native-svg';
+
 // Local Imports
 import {
   AvgCostIcon,
@@ -54,6 +56,10 @@ import ChipsComponent from '../../../components/ChipsComponent';
 import { StackNav } from '../../../navigation/NavigationKeys';
 import NewsComponent from '../../../components/NewsComponent';
 
+import { getPortfolioAsset } from '../../../api/stocks';
+import { useAccount } from '../../../providers/AccountProvider';
+
+
 const RightIcon = memo(() => {
   return (
     <View style={styles.rowCenter}>
@@ -66,6 +72,7 @@ const RightIcon = memo(() => {
     </View>
   );
 });
+
 
 const LeftIcon = memo(({ colors, onPressBack }) => {
   return (
@@ -206,10 +213,10 @@ const StakingCards = memo(({ item, colors, onPressStaked, onPressUnstaked }) => 
           {
             backgroundColor: colors.dark ? colors.dark2 : colors.white,
             borderColor: colors.dark ? colors.dark3 : colors.grayScale2,
-            opacity: stakeDisabled ? 0.5 : 1, 
+            opacity: stakeDisabled ? 0.5 : 1,
           },
         ]}
-        onPress={onPressStaked}
+        onPress={() => { }/* onPressStaked */}
         activeOpacity={0.7}>
         <CText type="s14" color={colors.dark ? colors.grayScale3 : colors.grayScale6}>
           Staked
@@ -331,6 +338,8 @@ const HeaderComponent = memo(props => {
     selectedTime,
     onPressCandle,
     navigation,
+    chartData,
+    itemPortfolioData
   } = props;
 
   React.useEffect(() => {
@@ -339,52 +348,7 @@ const HeaderComponent = memo(props => {
 
   const chartOpacity = new Animated.Value(0);
 
-  const generateChartData = timeFrame => {
-    switch (timeFrame) {
-      case '1D':
-        return {
-          xMax: 4,
-          data: mainChartData.slice(0, 7),
-        };
-      case '1W':
-        return {
-          xMax: 7,
-          data: mainChartData.slice(0, 10),
-        };
-      case '1M':
-        return {
-          xMax: 14,
-          data: mainChartData.slice(0, 20),
-        };
-      case '3M':
-        return {
-          xMax: 28,
-          data: mainChartData.slice(0, 32),
-        };
-      case '6M':
-        return {
-          xMax: 40,
-          data: mainChartData.slice(0, 42),
-        };
-      case '1Y':
-        return {
-          xMax: 46,
-          data: mainChartData.slice(0, 52),
-        };
-      case '5Y':
-        return {
-          xMax: 55,
-          data: mainChartData.slice(0, 60),
-        };
-      default:
-        return {
-          xMax: 1,
-          data: mainChartData,
-        };
-    }
-  };
-
-  const data = generateChartData(selectedTime);
+  const data = chartData;
 
   const startChartAnimation = () => {
     Animated.timing(chartOpacity, {
@@ -410,7 +374,16 @@ const HeaderComponent = memo(props => {
         />
         <View style={localStyles.settingsContainer}>
           <View style={localStyles.leftContainer}>
-            <Image source={item?.image} style={localStyles.imageStyle} />
+
+            {/*<Image source={item?.image} style={localStyles.imageStyle} />*/}
+            <View style={[localStyles.roundLogoWrapper]}>
+              {String(item?.image).endsWith("svg") && (<SvgUri uri={item?.image}
+                width={localStyles.topStockImageStyle?.width}
+                height={localStyles.topStockImageStyle?.height} />)}
+              {!String(item?.image).endsWith("svg") && (<Image source={item?.image} style={localStyles.topStockImageStyle} />)}
+            </View>
+
+
             <View style={localStyles.stockNameContainer}>
               <CText type="b18" color={colors.white} numberOfLines={1}>
                 {item?.companyName}
@@ -429,7 +402,7 @@ const HeaderComponent = memo(props => {
               {strings.lastClose}
             </CText>
             <CText type="b18" color={colors.white} style={styles.mt10}>
-              {item?.currentValue}
+              {item?.currentPrice}
             </CText>
           </View>
         </View>
@@ -443,8 +416,8 @@ const HeaderComponent = memo(props => {
               style={localStyles.chartStyle}
               data={data?.data}
               padding={styles.p5}
-              xDomain={{ min: 0, max: data?.xMax }}
-              yDomain={{ min: 0, max: 20 }}>
+              xDomain={{ min: data?.xMin || 0, max: data?.xMax }}
+              yDomain={{ min: data?.yMin || 0, max: data?.yMax || 20 }}>
               <Area
                 smoothing="cubic-spline"
                 theme={{
@@ -515,7 +488,13 @@ const HeaderComponent = memo(props => {
           },
         ]}>
         <CText type="b40" style={localStyles.padding20}>
-          {item?.currentValue}
+          {
+            item?.currentValue == null ?
+              itemPortfolioData == null ?
+                "-" :
+                itemPortfolioData?.currentValue :
+              item?.currentValue
+          }
         </CText>
         <View style={localStyles.priceInnerContainer}>
           {item?.status ? <UpIcon /> : <DownIcon />}
@@ -547,13 +526,19 @@ const HeaderComponent = memo(props => {
         />
       )}
       <SubHeader
-        title={'My SPOT Position'}
+        title={'My Position'}
         style={styles.mb25}
         colors={colorValue}
       />
       <SubCategory
         title1={'Shares'}
-        value1={'0.17469'}
+        value1={
+          item?.balance == null ?
+            itemPortfolioData == null ?
+              "-" :
+              console.log("this") || itemPortfolioData?.balance :
+            console.log("that") || item?.balance.toFixed(2)
+        }
         title2={'Avg. Cost'}
         value2={'$73.86'}
         icon1={<SharesIcon />}
@@ -571,6 +556,7 @@ const HeaderComponent = memo(props => {
         colors={colorValue}
         subTextColor={subTextColor}
       />
+      {/* 
       <SubHeader
         title={strings.spotMarketStats}
         isHide={true}
@@ -578,6 +564,7 @@ const HeaderComponent = memo(props => {
         colors={colorValue}
         onPress={onPressSPOTMarket}
       />
+      */}
     </View>
   );
 });
@@ -592,9 +579,11 @@ const FooterComponent = memo(props => {
     renderSeparator,
     onPressNews,
     onPressSPOTMarket,
+    item
   } = props;
   return (
     <View>
+      {/*
       <CDivider style={styles.mh20} />
 
       <CText
@@ -605,7 +594,6 @@ const FooterComponent = memo(props => {
         style={styles.pv10}>
         {strings.showMore}
       </CText>
-      {/*
       <SubHeader
         title={'What the Experts Say'}
         style={styles.mb10}
@@ -655,19 +643,13 @@ const FooterComponent = memo(props => {
         subTextColor={subTextColor}
       />
       */}
-      <SubHeader title={'Risk'} style={styles.mb10} colors={colorValue} />
+      <SubHeader title={'Description'} style={styles.mb10} colors={colorValue} />
       <CText type="r18" color={subTextColor} style={styles.ph20}>
-        {'Spot has'}
-        <CText type="r18" color={colors.alertColor}>
-          {' 27% '}
-        </CText>
-        <CText type="r18" color={subTextColor}>
-          {'more risk than the market as a whole.'}
-        </CText>
+        {item?.description}
       </CText>
 
 
-
+      {/*
       <SubHeader
         title={strings.earningsShare}
         style={styles.mb10}
@@ -713,7 +695,7 @@ const FooterComponent = memo(props => {
           'The company reported results on Dec 25, 2022 and missed market expectations.'
         }
       </CText>
-      {/*
+      
       <SubHeader
         title={strings.news}
         style={styles.mb5}
@@ -764,6 +746,7 @@ const FooterComponent = memo(props => {
         estimatedItemSize={6}
         contentContainerStyle={styles.ph20}
       />
+      {/*
       <SubHeader
         title={strings.theStoryFar}
         style={styles.mt25}
@@ -780,7 +763,8 @@ const FooterComponent = memo(props => {
       <CText type="r18" color={subTextColor} style={localStyles.textStyle}>
         {strings.disclosuresDesc}
       </CText>
-    </View>
+      */}
+    </View >
   );
 });
 
@@ -790,6 +774,32 @@ export default function StockDetailScreen({ navigation, route }) {
   const [selectedTime, setSelectedTime] = useState('1D');
   const [isCandle, setIsCandle] = useState(false);
   const [extraData, setExtraData] = useState(false);
+
+  const [itemPortfolioData, setItemPortfolioData] = useState(null);
+
+  const [chartData, setChartData] = useState({
+    xMin: 0,
+    xMax: 1,
+    yMin: 0,
+    yMax: 1,
+    data: [{ x: 0, y: 0 }, { x: 0, y: 0 }],
+  });
+
+  const { currentAccount } = useAccount();
+  const pubkey = currentAccount?.pubkey;
+
+  useEffect(() => {
+    const loadChart = async () => {
+      console.log("All portfolio data")
+      const newChartData = await getPortfolioAsset(pubkey, item.tokenAddress, selectedTime);
+      console.log({ newChartData })
+      setChartData(newChartData);
+      console.log({ it: newChartData.portfolioData })
+      setItemPortfolioData(newChartData.portfolioData);
+    };
+    loadChart();
+  }, [pubkey, selectedTime, item.tokenAddress]);
+
 
   useEffect(() => {
     setExtraData(!extraData);
@@ -871,9 +881,10 @@ export default function StockDetailScreen({ navigation, route }) {
 
   return (
     <CSafeAreaView>
+
       <FlashList
         removeClippedSubviews={false}
-        data={spotMarketStats.slice(0, 3)}
+        data={[]}
         renderItem={renderSpotMarketStats}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
@@ -888,9 +899,11 @@ export default function StockDetailScreen({ navigation, route }) {
             onPressCandle={onPressCandle}
             isCandle={isCandle}
             extraData={extraData}
+            itemPortfolioData={itemPortfolioData}
             onPressSPOTMarket={onPressSPOTMarket}
             selectedTime={selectedTimeValue}
             navigation={navigation}
+            chartData={chartData}
           />
         }
         ListFooterComponent={
@@ -903,6 +916,7 @@ export default function StockDetailScreen({ navigation, route }) {
             renderSeparator={renderSeparator}
             onPressNews={onPressNews}
             onPressSPOTMarket={onPressSPOTMarket}
+            item={item}
           />
         }
         ItemSeparatorComponent={renderSeparator}
@@ -946,10 +960,25 @@ const localStyles = StyleSheet.create({
     ...styles.ph20,
     ...styles.mv20,
   },
+
   imageStyle: {
-    height: getHeight(60),
-    width: moderateScale(60),
+    height: moderateScale(55),
+    width: moderateScale(55),
     resizeMode: 'contain',
+  },
+  roundLogoWrapper: {
+    width: moderateScale(55),
+    height: moderateScale(55),
+    borderRadius: moderateScale(55) / 2,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ccc', // placeholder background
+    borderRadius: 50, // half of width/height
+    overflow: 'hidden', // clips anything outside the round boundary
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#eee', // optional placeholder background
   },
   settingsContainer: {
     ...styles.rowSpaceBetween,

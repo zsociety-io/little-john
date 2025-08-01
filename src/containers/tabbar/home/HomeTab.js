@@ -33,6 +33,7 @@ import ListSkeleton from '../../../components/common/ListSkeleton';
 import EtfSkeleton from '../../../components/common/EtfSkeleton';
 import { getAllStocks, getCashBalance } from '../../../api/stocks';
 import { formatCurrency } from '../../../api';
+import { useAccount } from '../../../providers/AccountProvider';
 
 const renderFirstItem = ({ item, index }) => <StockDetailComponent item={item} />;
 
@@ -49,6 +50,10 @@ export default HomeTab = ({ navigation }) => {
   const [stocksData, setStocksData] = useState(null);
   const [topStockData, setTopStockData] = useState(null);
   const [cashBalance, setCashBalance] = useState("-");
+
+  const { currentAccount } = useAccount();
+  const pubkey = currentAccount?.pubkey;
+
   useEffect(() => {
     const test = async () => {
       try {
@@ -72,12 +77,12 @@ export default HomeTab = ({ navigation }) => {
 
   useEffect(() => {
     const loadCashBalance = async () => {
-      const myCashBalance = await getCashBalance();
+      const myCashBalance = await getCashBalance(pubkey);
       const formattedBalance = formatCurrency(myCashBalance);
       setCashBalance(formattedBalance);
     };
     loadCashBalance();
-  }, []);
+  }, [pubkey]);
 
   {/*const onPressWishList = () => navigation.navigate(StackNav.MyWishlist);*/ }
   const onPressNotification = () => navigation.navigate(StackNav.Notification);
@@ -186,18 +191,18 @@ export default HomeTab = ({ navigation }) => {
           <CText type={'b20'}>{"ETFs"}</CText>
         </View>
         {topStockData == null ? (
-        <EtfSkeleton count={4} />
+          <EtfSkeleton count={4} />
         ) : (
-        <FlashList
-          removeClippedSubviews={false}
-          data={topStockData}
-          renderItem={renderFirstItem}
-          horizontal
-          keyExtractor={(item) => item.id.toString()}
-          estimatedItemSize={1}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.pt5}
-        />
+          <FlashList
+            removeClippedSubviews={false}
+            data={topStockData}
+            renderItem={renderFirstItem}
+            horizontal
+            keyExtractor={(item) => item.id.toString()}
+            estimatedItemSize={1}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.pt5}
+          />
         )}
 
         {/* COMMENTAIRE POUR CACHER LA WISHLIST */}

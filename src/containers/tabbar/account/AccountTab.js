@@ -101,11 +101,6 @@ export default AccountTab = ({ navigation }) => {
   const onPressCopyWallet = () => {
     if (pubkey) {
       Clipboard.setString(pubkey.toString());
-      Alert.alert(
-        'Copied!',
-        'Wallet address copied to clipboard',
-        [{ text: 'OK' }]
-      );
     }
   };
 

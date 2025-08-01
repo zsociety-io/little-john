@@ -13,7 +13,7 @@ import { moderateScale } from '../common/constants';
 import { styles } from '../themes';
 import { StackNav } from '../navigation/NavigationKeys';
 
-export default function DiscoverStockComponent({ item }) {
+export default function DiscoverStockComponent({ item, fromPortfolio }) {
   const colors = useSelector(state => state.theme.theme);
   const navigation = useNavigation();
 
@@ -76,7 +76,7 @@ export default function DiscoverStockComponent({ item }) {
         />
       </Chart>
       <View style={styles.itemsEnd}>
-        <CText type="b18">{item?.currentValue}</CText>
+        <CText type="b18">{fromPortfolio ? item?.currentValue : item?.currentPrice}</CText>
         <CText
           type="s14"
           color={item?.status ? colors.primary : colors.redColor}

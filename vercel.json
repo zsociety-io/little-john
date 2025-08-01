@@ -1,0 +1,31 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  async headers() {
+    return [
+      {
+        // Match all SVG files in /asset_icons/
+        source: "/asset_icons/:path*.svg",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*", // You can restrict this to your mobile app domain if needed
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, OPTIONS",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "Origin, X-Requested-With, Content-Type, Accept",
+          },
+          {
+            key: "Content-Type",
+            value: "image/svg+xml",
+          },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;
