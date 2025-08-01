@@ -1,6 +1,8 @@
-import {Image, StyleSheet, View} from 'react-native';
-import React from 'react';
-import {useSelector} from 'react-redux';
+import { Image, StyleSheet, View, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { SvgUri } from 'react-native-svg';
 
 // Custom components
 import CSafeAreaView from '../../../components/common/CSafeAreaView';
@@ -8,20 +10,56 @@ import CHeader from '../../../components/common/CHeader';
 import KeyBoardAvoidWrapper from '../../../components/common/KeyBoardAvoidWrapper';
 import CText from '../../../components/common/CText';
 import CDivider from '../../../components/common/CDivider';
-import {styles} from '../../../themes';
-import {getHeight, moderateScale} from '../../../common/constants';
+import { styles } from '../../../themes';
+import { getHeight, moderateScale } from '../../../common/constants';
 import strings from '../../../i18n/strings';
 import CButton from '../../../components/common/CButton';
-import {StackNav} from '../../../navigation/NavigationKeys';
+import { StackNav } from '../../../navigation/NavigationKeys';
+import SwapService from '../../../services/SwapService';
+import { useAccount } from '../../../providers/AccountProvider';
 
-export default function BuySellPreview({navigation, route}) {
-  const {item} = route?.params;
+export default function BuySellPreview({ navigation, route }) {
+  const { item, amount, quoteData } = route?.params;
   const colors = useSelector(state => state.theme.theme);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const onPressBtn = () =>
-    navigation.navigate(StackNav.BuySellSuccessful, {item});
+  const { currentAccount } = useAccount();
 
-  const DescriptionLine = ({title, desc, color = null}) => {
+  console.log("tok", item?.tokenAddress);
+
+  const onPressBtn = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      // In a real app, you would get the user's public key from their wallet
+      const userPublicKey = currentAccount?.pubkey; // This should come from wallet provider
+
+      const swapData = await SwapService.getSwapTransaction(
+        quoteData,
+        userPublicKey,
+        true,
+        10000
+      );
+
+      const { swapTransaction } = swapData;
+
+      navigation.navigate(StackNav.BuySellSuccessful, {
+        item,
+        amount,
+        swapData,
+        quoteData,
+      });
+    } catch (err) {
+      console.error('Error preparing swap:', err);
+      setError('Failed to prepare swap. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const DescriptionLine = ({ title, desc, color = null }) => {
     return (
       <View style={styles.rowSpaceBetween}>
         <CText
@@ -42,7 +80,12 @@ export default function BuySellPreview({navigation, route}) {
       <KeyBoardAvoidWrapper contentContainerStyle={styles.rootContainer}>
         <View style={localStyles.settingsContainer}>
           <View style={localStyles.leftContainer}>
-            <Image source={item?.image} style={localStyles.imageStyle} />
+            <View style={[localStyles.roundLogoWrapper]}>
+              {String(item?.image).endsWith("svg") && (<SvgUri uri={item?.image}
+                width={localStyles.imageStyle?.width}
+                height={localStyles.imageStyle?.height} />)}
+              {!String(item?.image).endsWith("svg") && (<Image source={item?.image} style={localStyles.imageStyle} />)}
+            </View>
             <View style={localStyles.stockNameContainer}>
               <CText type="b18" numberOfLines={1}>
                 {item?.companyName}
@@ -73,25 +116,44 @@ export default function BuySellPreview({navigation, route}) {
             },
           ]}>
           <DescriptionLine
-            title={'Market Price SPOT'}
+            title={'Market Price'}
             desc={item?.currentValue}
           />
-          <DescriptionLine title={'Number of Shares'} desc={'0.026487494'} />
+          <DescriptionLine
+            title={'Output Amount'}
+            desc={quoteData ? `${(parseFloat(quoteData.outAmount) / Math.pow(10, quoteData.decimals || 8)).toFixed(6)}` : '0'}
+          />
           <CDivider />
-          <DescriptionLine title={'Amount'} desc={'$10,000.00'} />
-          <DescriptionLine title={'Exchange Fee'} desc={'$25.00'} />
+          <DescriptionLine title={'Input Amount'} desc={`$${amount}`} />
+          <DescriptionLine
+            title={'Price Impact'}
+            desc={quoteData ? `${parseFloat(quoteData.priceImpactPct || 0).toFixed(4)}%` : '0%'}
+          />
           <CDivider />
           <DescriptionLine
-            title={'Total Proceeds'}
-            desc={'$10,025.00'}
+            title={'Total'}
+            desc={`$${amount}`}
             color={colors.primary}
           />
         </View>
+        {error && (
+          <CText
+            type="m14"
+            color={colors.error || colors.red}
+            align={'center'}
+            style={styles.mt10}>
+            {error}
+          </CText>
+        )}
       </KeyBoardAvoidWrapper>
       <CButton
-        title={item?.isBuy ? strings.buyNow : strings.sellNow}
-        containerStyle={styles.bottomButton}
+        title={loading ? 'Processing...' : (item?.isBuy ? strings.buyNow : strings.sellNow)}
+        containerStyle={[
+          styles.bottomButton,
+          { opacity: loading ? 0.5 : 1 },
+        ]}
         onPress={onPressBtn}
+        disabled={loading}
       />
     </CSafeAreaView>
   );
@@ -113,9 +175,23 @@ const localStyles = StyleSheet.create({
     ...styles.itemsStart,
   },
   imageStyle: {
-    height: getHeight(60),
-    width: moderateScale(60),
+    height: moderateScale(55),
+    width: moderateScale(55),
     resizeMode: 'contain',
+  },
+  roundLogoWrapper: {
+    width: moderateScale(55),
+    height: moderateScale(55),
+    borderRadius: moderateScale(55) / 2,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ccc', // placeholder background
+    borderRadius: 50, // half of width/height
+    overflow: 'hidden', // clips anything outside the round boundary
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#eee', // optional placeholder background
   },
   descContainer: {
     ...styles.p15,

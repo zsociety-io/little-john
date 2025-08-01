@@ -23,6 +23,8 @@ const SIGN_IN_PAYLOAD = {
   uri: 'https://google.com',
 };
 
+const NETWORK = "mainnet-beta";
+
 
 export const AccountContext = createContext();
 
@@ -32,7 +34,7 @@ export const AccountProvider = ({ children }) => {
   const connect = useCallback(async () => {
     const authorizationResult = await transact(async (wallet) => {
       const authorizationResult = await wallet.authorize({
-        cluster: 'mainnet-beta',
+        cluster: NETWORK,
         identity: APP_IDENTITY,
       });
       return authorizationResult;
@@ -68,6 +70,22 @@ export const AccountProvider = ({ children }) => {
     });
   }, [currentAccount]);
 
+  const signAndSendTransactions = useCallback(async (args) => {
+    return await transact(async (wallet) => {
+      if (currentAccount == null) {
+        throw new Error('There is no current account to deauthorize');
+      }
+      console.log("authed1", currentAccount.authToken)
+      await wallet.authorize({
+        identity: APP_IDENTITY,
+        cluster: NETWORK,
+        auth_token: currentAccount.authToken,
+      });
+      console.log("authed2", args)
+      return await wallet.signAndSendTransactions(args);
+    });
+  }, [currentAccount]);
+
   useEffect(() => {
     (async () => {
       const [cachedAuthToken, cachedBase64Address] = await Promise.all([
@@ -90,7 +108,7 @@ export const AccountProvider = ({ children }) => {
   }, [currentAccount]);
 
   return (
-    <AccountContext.Provider value={{ currentAccount, connect, disconnect }}>
+    <AccountContext.Provider value={{ currentAccount, connect, disconnect, signAndSendTransactions }}>
       {children}
     </AccountContext.Provider>
   );
