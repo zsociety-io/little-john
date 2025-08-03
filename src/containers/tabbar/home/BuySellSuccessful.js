@@ -19,7 +19,7 @@ import { useAccount } from '../../../providers/AccountProvider';
 export default function BuySellSuccessful({ navigation, route }) {
   const { item, amount, swapData, quoteData } = route?.params;
   const colors = useSelector(state => state.theme.theme);
-  const { currentAccount, signAndSendTransactions } = useAccount();
+  const { currentAccount, signTransactions } = useAccount();
   const [executing, setExecuting] = useState(true);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
@@ -47,7 +47,7 @@ export default function BuySellSuccessful({ navigation, route }) {
       // Execute the swap using mobile wallet adapter
       const result = await SwapService.signAndSendSwapTransaction(
         swapData.swapTransaction,
-        signAndSendTransactions
+        signTransactions
       );
 
       setSuccess(true);

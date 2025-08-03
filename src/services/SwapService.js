@@ -86,6 +86,18 @@ class SwapService {
     }
 
     try {
+      //curl--location 'https://swap-v2.solanatracker.io/swap?from=So11111111111111111111111111111111111111112&to=4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R&fromAmount=1&slippage=10&payer=PAYER_ADDRESS'
+      const response = await fetch(
+        `https://swap-v2.solanatracker.io/swap?from=${inputToken}&to=${outputToken}&fromAmount=${amountInSmallestUnit}&fromAmount=1&slippageBps=10&userPublicKey=${userPublicKey}`
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to get quote');
+      }
+
+      const quoteData = await response.json();
+
+      /*
       const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
       const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
 
@@ -120,6 +132,7 @@ class SwapService {
         signature,
         explorerUrl: `https://solscan.io/tx/${signature}`,
       };
+      */
     } catch (error) {
       console.error('Error executing swap:', error);
       throw error;
@@ -147,7 +160,7 @@ class SwapService {
     return quoteResponse.routePlan;
   }
 
-  async signAndSendSwapTransaction(swapTransaction, signAndSendTransactions) {
+  async signAndSendSwapTransaction(swapTransaction, signTransactions) {
     if (!this.connection) {
       this.connection = new Connection('https://api.mainnet-beta.solana.com');
     }
@@ -159,14 +172,22 @@ class SwapService {
       console.log({ swapTransactionBuf });
 
       // Use mobile wallet adapter to sign and send
-      const signatures = await signAndSendTransactions({
+      const signedTransactions = await signTransactions({
         transactions: [swapTx]
       });
 
-      const signature = signatures[0];
+      // 4. Send the signed transaction
+      const signedTx = signedTransactions[0]; // grab the signed versioned transaction
+
+      console.log({ sig: signedTx })
+      // Serialize and send
+      const signature = await this.connection.sendRawTransaction(signedTx.serialize());
+
+      console.log({ sent: true })
 
       // Wait for confirmation
       const confirmation = await this.connection.confirmTransaction(signature, 'finalized');
+      console.log({ confirmed: true })
 
       if (confirmation.value.err) {
         throw new Error('Transaction failed: ' + confirmation.value.err);

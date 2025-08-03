@@ -1,3 +1,16 @@
+import 'react-native-get-random-values';
+import 'react-native-url-polyfill/auto';
+// Buffer and process polyfills
+import { Buffer } from 'buffer';
+global.Buffer = Buffer;
+
+import process from 'process';
+global.process = process;
+import { TextEncoder, TextDecoder } from 'text-encoding';
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
+
 import { StatusBar } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';

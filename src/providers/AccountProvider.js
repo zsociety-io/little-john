@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const APP_IDENTITY = {
   name: 'Little John',
   uri: 'https://littlejohn.fi',
-  icon: "favicon.ico",
+  icon: "/favicon.ico",
 };
 
 const SIGN_IN_PAYLOAD = {
@@ -70,19 +70,26 @@ export const AccountProvider = ({ children }) => {
     });
   }, [currentAccount]);
 
-  const signAndSendTransactions = useCallback(async (args) => {
+  const signTransactions = useCallback(async (args) => {
     return await transact(async (wallet) => {
       if (currentAccount == null) {
         throw new Error('There is no current account to deauthorize');
       }
       console.log("authed1", currentAccount.authToken)
-      await wallet.authorize({
-        identity: APP_IDENTITY,
-        cluster: NETWORK,
-        auth_token: currentAccount.authToken,
-      });
-      console.log("authed2", args)
-      return await wallet.signAndSendTransactions(args);
+
+      try {
+        await wallet.reauthorize({
+          identity: APP_IDENTITY,
+          auth_token: currentAccount.authToken,
+        });
+      } catch (e) {
+        console.log(e);
+        await connect();
+      }
+      console.log("authed2", args);
+      // return await wallet.signAndSendTransactions(args);
+      return await wallet.signTransactions(args);
+
     });
   }, [currentAccount]);
 
@@ -103,12 +110,8 @@ export const AccountProvider = ({ children }) => {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log("cur account:", currentAccount)
-  }, [currentAccount]);
-
   return (
-    <AccountContext.Provider value={{ currentAccount, connect, disconnect, signAndSendTransactions }}>
+    <AccountContext.Provider value={{ currentAccount, connect, disconnect, signTransactions }}>
       {children}
     </AccountContext.Provider>
   );

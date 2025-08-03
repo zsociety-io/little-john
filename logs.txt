@@ -1,0 +1,16 @@
+ (NOBRIDGE) LOG  User public key: 83uNFHSp4QjKohvSW1GWVd1e6UgqXG18K4HmHr7kBUe7
+ (NOBRIDGE) LOG  Quote data: {"aggregatorVersion": null, "contextSlot": 357169902, "inAmount": "1000000", "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "mostReliableAmmsQuoteReport": {"info": {"2uF4Xh61rDwxnG9woyxsVQP7zuA6kLFpb3NvnRQeoiSd": "348329161", "4KqQN6u1pFKroFE2jVEhoepAMRKPcuAzWVDCgm9zRBYN": "571562", "BZtgQEyS6eXUXicYPHecYQ7PybqodXQMvkjUbP4R8mUU": "1000006", "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE": "5925596"}}, "otherAmountThreshold": "570486", "otherRoutePlans": null, "outAmount": "573352", "outputMint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh", "platformFee": null, "priceImpactPct": "0", "routePlan": [{"bps": 10000, "percent": 100, "swapInfo": [Object]}, {"bps": 10000, "percent": 100, "swapInfo": [Object]}, {"bps": 10000, "percent": 100, "swapInfo": [Object]}], "simplerRouteUsed": false, "slippageBps": 50, "swapMode": "ExactIn", "swapUsdValue": "1", "timeTaken": 0.002686334, "useIncurredSlippageForQuoting": null}
+ (NOBRIDGE) LOG  Getting swap transaction with params: {"prioritizationFeeLamports": 10000, "quoteResponseKeys": ["inputMint", "inAmount", "outputMint", "outAmount", "otherAmountThreshold", "swapMode", "slippageBps", "platformFee", "priceImpactPct", "routePlan", "contextSlot", "timeTaken", "swapUsdValue", "simplerRouteUsed", "mostReliableAmmsQuoteReport", "useIncurredSlippageForQuoting", "otherRoutePlans", "aggregatorVersion"], "userPublicKey": "83uNFHSp4QjKohvSW1GWVd1e6UgqXG18K4HmHr7kBUe7", "wrapAndUnwrapSol": true}
+ (NOBRIDGE) LOG  tok Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh
+ (NOBRIDGE) LOG  Swap API response: {"hasSwapTransaction": true, "otherKeys": ["lastValidBlockHeight", "prioritizationFeeLamports", "computeUnitLimit", "prioritizationType", "simulationSlot", "dynamicSlippageReport", "simulationError", "addressesByLookupTableAddress"], "swapTransactionLength": 1148}
+ (NOBRIDGE) LOG  Got swap transaction, executing...
+ (NOBRIDGE) LOG  Raw swap transaction base64 length: 1148
+ (NOBRIDGE) LOG  Transaction buffer length: 860
+ (NOBRIDGE) LOG  Successfully deserialized transaction: {"message": {"accountKeysLength": 15, "header": {"numReadonlySignedAccounts": 0, "numReadonlyUnsignedAccounts": 6, "numRequiredSignatures": 1}, "instructionsLength": 4, "recentBlockhash": "Ecz2nY3NseuSAogfVW5tjSCid3LZqQD2frwgG8EdM7GF"}, "signatures": 1, "version": 0}
+ (NOBRIDGE) LOG  Calling signAndSendTransactions...
+ (NOBRIDGE) LOG  signAndSendTransactions called with args: {"firstTxType": "VersionedTransaction", "minContextSlot": undefined, "transactionsCount": 1}
+ (NOBRIDGE) LOG  Current account pubkey: 83uNFHSp4QjKohvSW1GWVd1e6UgqXG18K4HmHr7kBUe7
+ (NOBRIDGE) LOG  Reauthorizing with token: eyJ0eXAiOiJwaGFudG9tLXdhbGxldC1hdXRoLXRva2VuIiwiaWlkIjoiMSIsInRpZCI6IjcifchPYNxx+hJbRoLGCkl/e9eZ+sZZq+g3BiR4E6ItS0ap
+ (NOBRIDGE) LOG  Reauthorization result: {"accounts": 1, "authToken": "present", "walletUriBase": undefined}
+ (NOBRIDGE) LOG  Calling wallet.signAndSendTransactions with: {"transactionType": "VersionedTransaction", "transactionVersions": [0], "transactionsCount": 1}
+
