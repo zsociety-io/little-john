@@ -194,8 +194,8 @@ class SwapService {
       }
 
       return {
-        signature: bs58.encode(signature),
-        explorerUrl: `https://solscan.io/tx/${bs58.encode(signature)}`,
+        signature: signature,
+        explorerUrl: `https://solscan.io/tx/${signature}`,
       };
     } catch (error) {
       console.error('Error signing and sending swap:', error);
