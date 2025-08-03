@@ -44,6 +44,8 @@ export default function BuySellSuccessful({ navigation, route }) {
         throw new Error('No swap transaction data');
       }
 
+      console.log({ quoteData })
+
       // Execute the swap using mobile wallet adapter
       const result = await SwapService.signAndSendSwapTransaction(
         swapData.swapTransaction,
@@ -113,14 +115,16 @@ export default function BuySellSuccessful({ navigation, route }) {
               {`$${amount}`}
             </CText>
             <CText type={'B20'} align={'center'} style={styles.mv10}>
-              {'Swap Successful!'}
+              {item?.isBuy ? 'Buy Successful!' : 'Sell Successful!'}
             </CText>
             <CText
               type={'m18'}
               align={'center'}
               color={colors.dark ? colors.grayScale3 : colors.grayScale6}
               style={styles.mb30}>
-              {'Your swap has been executed successfully'}
+              {item?.isBuy
+                ? 'Your buy order has been executed successfully'
+                : 'Your sell order has been executed successfully'}
             </CText>
             {txSignature && (
               <View style={styles.mt20}>

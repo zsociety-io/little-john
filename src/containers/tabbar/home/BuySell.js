@@ -26,15 +26,58 @@ import KeyBoardAvoidWrapper from '../../../components/common/KeyBoardAvoidWrappe
 import typography from '../../../themes/typography';
 import { StackNav } from '../../../navigation/NavigationKeys';
 import SwapService from '../../../services/SwapService';
+import { useAccount } from '../../../providers/AccountProvider';
 
 export default function BuySell({ navigation, route }) {
   const { item } = route?.params;
   const colors = useSelector(state => state.theme.theme);
+  const { currentAccount } = useAccount();
   const [amount, setAmount] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [loading, setLoading] = useState(false);
   const [quoteData, setQuoteData] = useState(null);
   const [error, setError] = useState(null);
+  const [tokenBalance, setTokenBalance] = useState(null);
+  const [balanceUSD, setBalanceUSD] = useState(null);
+
+  useEffect(() => {
+    // Check token balance when in sell mode
+    const checkBalance = async () => {
+      if (!item?.isBuy && currentAccount?.pubkey && item?.tokenAddress) {
+        try {
+          const balance = await SwapService.checkTokenBalance(
+            currentAccount.pubkey,
+            item.tokenAddress
+          );
+          setTokenBalance(balance);
+          console.log('Token balance:', balance);
+          
+          // Get USD value of the balance
+          if (balance && balance.balance !== '0') {
+            try {
+              const quote = await SwapService.getQuote(
+                item.tokenAddress,
+                SwapService.getTokenMint('USDC'),
+                balance.balance,
+                50
+              );
+              const usdValue = parseFloat(quote.outAmount) / 1000000; // USDC has 6 decimals
+              setBalanceUSD(usdValue);
+            } catch (err) {
+              console.log('Could not get USD value');
+            }
+          } else {
+            setBalanceUSD(0);
+          }
+        } catch (err) {
+          console.error('Error checking balance:', err);
+          setTokenBalance({ balance: '0', decimals: 9, uiAmount: 0 });
+          setBalanceUSD(0);
+        }
+      }
+    };
+    checkBalance();
+  }, [item?.isBuy, currentAccount?.pubkey, item?.tokenAddress]);
 
   const onFocusTextInput = () => setIsFocused(true);
   const onBlurTextInput = () => setIsFocused(false);
@@ -53,12 +96,71 @@ export default function BuySell({ navigation, route }) {
     setError(null);
 
     try {
-      console.log({ amount })
-      // For this example, we'll assume buying with USDC
-      const inputMint = SwapService.getTokenMint('USDC');
-      const outputMint = item?.tokenAddress;
-      console.log({ outputMint })
-      const amountInLamports = parseFloat(amount) * 1000000; // USDC has 6 decimals
+      console.log({ amount, item })
+
+      // Validate token address
+      if (!item?.tokenAddress) {
+        throw new Error('Token address not found');
+      }
+
+      let inputMint, outputMint, amountInLamports;
+
+      if (item?.isBuy) {
+        // For buy: USDC -> Token
+        inputMint = SwapService.getTokenMint('USDC');
+        outputMint = item?.tokenAddress;
+        amountInLamports = parseFloat(amount) * 1000000; // USDC has 6 decimals
+      } else {
+        // For sell: Token -> USDC
+        inputMint = item?.tokenAddress;
+        outputMint = SwapService.getTokenMint('USDC');
+
+        // Check if user has any tokens
+        if (!tokenBalance || tokenBalance.balance === '0' || tokenBalance.uiAmount === 0) {
+          throw new Error(`You don't have any ${item?.stockName} tokens to sell`);
+        }
+
+        // For selling, we'll use a different approach
+        // First, let's try to get a quote for a reasonable amount of tokens
+        const decimals = tokenBalance?.decimals || 9;
+        const testAmount = Math.pow(10, decimals); // 1 token
+        
+        try {
+          const priceCheckQuote = await SwapService.getQuote(
+            inputMint,
+            outputMint,
+            testAmount.toString(),
+            50
+          );
+          
+          // Calculate how many tokens we need to sell
+          const usdcPerToken = parseFloat(priceCheckQuote.outAmount) / testAmount;
+          const desiredUSDC = parseFloat(amount) * 1000000; // Convert dollars to USDC with 6 decimals
+          const tokensToSell = desiredUSDC / usdcPerToken;
+          
+          // Round up to ensure we get at least the desired amount
+          amountInLamports = Math.ceil(tokensToSell);
+          
+          // Check if user has enough tokens
+          if (amountInLamports > parseFloat(tokenBalance.balance)) {
+            const maxUSDC = (parseFloat(tokenBalance.balance) * usdcPerToken) / 1000000;
+            throw new Error(`Insufficient balance. You can sell up to $${maxUSDC.toFixed(2)} worth of ${item?.stockName}`);
+          }
+          
+          // Ensure we have a minimum amount
+          if (amountInLamports < 1) {
+            amountInLamports = 1;
+          }
+        } catch (priceError) {
+          if (priceError.message && priceError.message.includes('Insufficient balance')) {
+            throw priceError;
+          }
+          console.error('Error getting price quote:', priceError);
+          throw new Error('Failed to get current price. Please try again.');
+        }
+      }
+
+      console.log({ inputMint, outputMint, amountInLamports })
 
       const quote = await SwapService.getQuote(
         inputMint,
@@ -67,15 +169,29 @@ export default function BuySell({ navigation, route }) {
         50 // 0.5% slippage
       );
 
-      setQuoteData(quote);
+      // Get the decimals from the quote response
+      const inputDecimals = item?.isBuy ? 6 : (quote.inputDecimals || 8); // USDC has 6, tokens usually 9
+      const outputDecimals = item?.isBuy ? (quote.outputDecimals || 8) : 6;
+
+      setQuoteData({
+        ...quote,
+        inputDecimals,
+        outputDecimals,
+      });
+
       navigation.navigate(StackNav.BuySellPreview, {
         item,
         amount,
-        quoteData: quote,
+        quoteData: {
+          ...quote,
+          inputDecimals,
+          outputDecimals,
+        },
       });
     } catch (err) {
       console.error('Error getting quote:', err);
-      setError('Failed to get quote. Please try again.');
+      // Show the actual error message to the user
+      setError(err.message || 'Failed to get quote. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -182,7 +298,11 @@ export default function BuySell({ navigation, route }) {
           color={colors.dark ? colors.grayScale3 : colors.grayScale7}
           align={'center'}
           style={styles.mt5}>
-          {'Balance equity/stock available: $22,935.46'}
+          {item?.isBuy
+            ? 'Balance available: $22,935.46'
+            : balanceUSD !== null 
+              ? `${item?.stockName} balance: $${balanceUSD.toFixed(2)}`
+              : 'Loading balance...'}
         </CText>
         {error && (
           <CText

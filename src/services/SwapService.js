@@ -1,4 +1,4 @@
-import { Connection, Keypair, VersionedTransaction, Transaction } from '@solana/web3.js';
+import { Connection, Keypair, VersionedTransaction, Transaction, PublicKey } from '@solana/web3.js';
 import bs58 from 'bs58';
 import { toByteArray } from 'base64-js';
 import { Buffer } from 'buffer';
@@ -39,10 +39,19 @@ class SwapService {
         slippageBps: slippageBps.toString(),
       });
 
+      console.log('Quote request params:', {
+        inputMint,
+        outputMint,
+        amount: amount.toString(),
+        slippageBps: slippageBps.toString(),
+      });
+
       const response = await fetch(`${JUPITER_QUOTE_API}?${params}`);
 
       if (!response.ok) {
-        throw new Error(`Quote API error: ${response.status}`);
+        const errorText = await response.text();
+        console.error('Quote API error response:', errorText);
+        throw new Error(`Quote API error: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
@@ -87,9 +96,6 @@ class SwapService {
 
     try {
       //curl--location 'https://swap-v2.solanatracker.io/swap?from=So11111111111111111111111111111111111111112&to=4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R&fromAmount=1&slippage=10&payer=PAYER_ADDRESS'
-      const response = await fetch(
-        `https://swap-v2.solanatracker.io/swap?from=${inputToken}&to=${outputToken}&fromAmount=${amountInSmallestUnit}&fromAmount=1&slippageBps=10&userPublicKey=${userPublicKey}`
-      );
 
       if (!response.ok) {
         throw new Error('Failed to get quote');
@@ -158,6 +164,39 @@ class SwapService {
       return [];
     }
     return quoteResponse.routePlan;
+  }
+
+  async checkTokenBalance(walletAddress, tokenMint) {
+    if (!this.connection) {
+      this.connection = new Connection('https://api.mainnet-beta.solana.com');
+    }
+
+    try {
+      const wallet = new PublicKey(walletAddress);
+      const mint = new PublicKey(tokenMint);
+
+      // Get token accounts for this wallet and mint
+      const response = await this.connection.getParsedTokenAccountsByOwner(wallet, {
+        mint: mint
+      });
+
+      if (response.value.length === 0) {
+        return 0; // No token account found
+      }
+
+      const tokenAccount = response.value[0];
+      const balance = tokenAccount.account.data.parsed.info.tokenAmount.amount;
+      const decimals = tokenAccount.account.data.parsed.info.tokenAmount.decimals;
+
+      return {
+        balance: balance,
+        decimals: decimals,
+        uiAmount: tokenAccount.account.data.parsed.info.tokenAmount.uiAmount
+      };
+    } catch (error) {
+      console.error('Error checking token balance:', error);
+      return { balance: '0', decimals: 8, uiAmount: 0 };
+    }
   }
 
   async signAndSendSwapTransaction(swapTransaction, signTransactions) {

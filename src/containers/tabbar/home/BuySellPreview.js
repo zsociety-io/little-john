@@ -36,6 +36,7 @@ export default function BuySellPreview({ navigation, route }) {
       // In a real app, you would get the user's public key from their wallet
       const userPublicKey = currentAccount?.pubkey; // This should come from wallet provider
 
+      console.log({ userPublicKey })
       const swapData = await SwapService.getSwapTransaction(
         quoteData,
         userPublicKey,
@@ -120,11 +121,18 @@ export default function BuySellPreview({ navigation, route }) {
             desc={item?.currentValue}
           />
           <DescriptionLine
-            title={'Output Amount'}
-            desc={quoteData ? `${(parseFloat(quoteData.outAmount) / Math.pow(10, quoteData.decimals || 8)).toFixed(6)}` : '0'}
+            title={item?.isBuy ? 'Tokens to Receive' : 'USDC to Receive'}
+            desc={item?.isBuy
+              ? (quoteData ? `${(parseFloat(quoteData.outAmount) / Math.pow(10, quoteData.outputDecimals || 9)).toFixed(6)} ${item?.stockName}` : '0')
+              : (quoteData ? `$${(parseFloat(quoteData.outAmount) / Math.pow(10, quoteData.outputDecimals || 6)).toFixed(2)}` : '$0')}
           />
           <CDivider />
-          <DescriptionLine title={'Input Amount'} desc={`$${amount}`} />
+          <DescriptionLine
+            title={item?.isBuy ? 'USDC Amount' : 'Tokens to Sell'}
+            desc={item?.isBuy
+              ? `$${amount}`
+              : (quoteData ? `${(parseFloat(quoteData.inAmount) / Math.pow(10, quoteData.inputDecimals || 9)).toFixed(6)} ${item?.stockName}` : '0')}
+          />
           <DescriptionLine
             title={'Price Impact'}
             desc={quoteData ? `${parseFloat(quoteData.priceImpactPct || 0).toFixed(4)}%` : '0%'}
@@ -132,7 +140,9 @@ export default function BuySellPreview({ navigation, route }) {
           <CDivider />
           <DescriptionLine
             title={'Total'}
-            desc={`$${amount}`}
+            desc={item?.isBuy
+              ? `$${amount}`
+              : (quoteData ? `$${(parseFloat(quoteData.outAmount) / Math.pow(10, 6)).toFixed(2)}` : '$0')}
             color={colors.primary}
           />
         </View>
