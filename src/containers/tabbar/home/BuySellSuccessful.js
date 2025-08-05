@@ -35,28 +35,54 @@ export default function BuySellSuccessful({ navigation, route }) {
   }, []);
 
   const executeSwap = async () => {
+    console.log('=== Starting executeSwap ===');
     try {
       if (!currentAccount) {
+        console.error('No wallet connected');
         throw new Error('No wallet connected');
       }
+      console.log('Wallet connected:', currentAccount);
 
       if (!swapData?.swapTransaction) {
+        console.error('No swap transaction data');
         throw new Error('No swap transaction data');
       }
+      console.log('Swap data present:', { swapData });
 
       console.log({ quoteData })
 
-      // Execute the swap using mobile wallet adapter
+      // Execute the swap using mobile wallet adapter with retry logic
+      console.log('Calling SwapService.signAndSendSwapTransaction...');
       const result = await SwapService.signAndSendSwapTransaction(
         swapData.swapTransaction,
-        signTransactions
+        signTransactions,
+        3, // maxRetries
+        2000 // retryDelay
       );
 
+      console.log('Swap successful:', result);
       setSuccess(true);
       setTxSignature(result.signature);
+      
+      // Show warning if transaction confirmation timed out
+      if (result.warning) {
+        setError(result.warning);
+      }
     } catch (err) {
-      console.error('Swap execution error:', err);
-      setError(err.message || 'Transaction failed');
+      console.error('=== SWAP EXECUTION ERROR ===');
+      console.error('Error type:', err.name);
+      console.error('Error message:', err.message);
+      console.error('Error stack:', err.stack);
+      console.error('Full error object:', err);
+      
+      // Check for specific error types
+      if (err.message?.includes('Network request failed')) {
+        setError('Network connection failed. Please check your internet connection.');
+      } else if (err.message?.includes('User rejected')) {
+        setError('Transaction cancelled by user.');
+      } else {
+        setError(err.message || 'Transaction failed');
+      }
     } finally {
       setExecuting(false);
     }

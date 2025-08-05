@@ -71,8 +71,12 @@ export const AccountProvider = ({ children }) => {
   }, [currentAccount]);
 
   const signTransactions = useCallback(async (args) => {
+    console.log('=== AccountProvider signTransactions called ===');
+    console.log('Args:', args);
+    
     return await transact(async (wallet) => {
       if (currentAccount == null) {
+        console.error('No current account');
         throw new Error('There is no current account to deauthorize');
       }
       console.log("authed1", currentAccount.authToken)
@@ -82,14 +86,26 @@ export const AccountProvider = ({ children }) => {
           identity: APP_IDENTITY,
           auth_token: currentAccount.authToken,
         });
+        console.log('Reauthorization successful');
       } catch (e) {
-        console.log(e);
+        console.error('Reauthorization failed:', e);
+        console.log('Attempting to reconnect...');
         await connect();
       }
       console.log("authed2", args);
-      // return await wallet.signAndSendTransactions(args);
-      return await wallet.signTransactions(args);
-
+      
+      try {
+        console.log('Calling wallet.signTransactions...');
+        const result = await wallet.signTransactions(args);
+        console.log('Wallet signing successful, result:', result);
+        return result;
+      } catch (signError) {
+        console.error('=== WALLET SIGNING ERROR ===');
+        console.error('Error:', signError);
+        console.error('Error message:', signError.message);
+        console.error('Error type:', signError.name);
+        throw signError;
+      }
     });
   }, [currentAccount]);
 

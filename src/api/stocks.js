@@ -1,4 +1,4 @@
-import { callApiGet, formatCurrency } from "./index"
+import { callApiGet, formatCurrency, formatShares } from "./index"
 
 
 
@@ -16,6 +16,7 @@ import {
   //mainChartData,
 
 } from './constant';
+
 
 
 
@@ -126,8 +127,7 @@ export const getPortfolioAsset = async (pubkey, tokenAddress, selectedTime) => {
     yMin = yMin - padding;
     yMax = yMax + padding;
   }
-
-  //const currentValue = formatCurrency(assetData.portfolioData.value);
+  const variation = assetData?.portfolioData?.unrealizedPnl / assetData?.portfolioData?.value;
 
   return {
     xMin,
@@ -136,7 +136,12 @@ export const getPortfolioAsset = async (pubkey, tokenAddress, selectedTime) => {
     yMax,
     portfolioData: {
       currentValue: formatCurrency(assetData?.portfolioData?.value),
-      balance: assetData?.portfolioData?.balance.toFixed(2),
+      pnl: formatCurrency(assetData?.portfolioData?.unrealizedPnl + assetData?.portfolioData?.realizedPnl),
+      performance: formatCurrency(assetData?.portfolioData?.unrealizedPnl),
+      status: assetData?.portfolioData?.unrealizedPnl > 0,
+      balance: formatShares(assetData?.portfolioData?.balance),
+      costBasis: formatCurrency(assetData?.portfolioData?.costBasis),
+      percentage: isFinite(variation) ? `${Math.abs(variation.toFixed(2))}%` : "100%"
     },
     data: chart,
     assetData
@@ -293,6 +298,7 @@ export const getAllStocks = async () => {
 
       return {
         id: i,
+        description: asset.asset_description,
         categories: asset.asset_categories,
         image: asset.asset_icon,
         companyName: asset.asset_name,

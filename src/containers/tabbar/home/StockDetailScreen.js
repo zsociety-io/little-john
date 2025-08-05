@@ -359,6 +359,17 @@ const HeaderComponent = memo(props => {
     }).start();
   };
 
+  const performance = itemPortfolioData != null ?
+    itemPortfolioData?.performance :
+    "-";
+  const status = itemPortfolioData != null ?
+    itemPortfolioData?.status :
+    false;
+  const stakingApy = '2%';
+  const percentage = itemPortfolioData != null ?
+    '2%' :
+    "- %";
+
   return (
     <View>
       <ImageBackground
@@ -497,17 +508,17 @@ const HeaderComponent = memo(props => {
           }
         </CText>
         <View style={localStyles.priceInnerContainer}>
-          {item?.status ? <UpIcon /> : <DownIcon />}
+          {status ? <UpIcon /> : <DownIcon />}
           <CText
             type="s14"
-            color={!item?.status ? colors.downColor1 : colors.upColor1}>
-            {'  $5.96' + '  (' + item?.percentage + ')'}
+            color={!status ? colors.downColor1 : colors.upColor1}>
+            {`  ${performance}` + '  (' + percentage + ')'}
           </CText>
           <CText
             type="s14"
             color={colors.dark ? colors.grayScale3 : colors.grayScale5}
             style={styles.mh10}>
-            {strings.lastClose}
+            { }
           </CText>
         </View>
       </View>
@@ -536,21 +547,28 @@ const HeaderComponent = memo(props => {
           item?.balance == null ?
             itemPortfolioData == null ?
               "-" :
-              console.log("this") || itemPortfolioData?.balance :
-            console.log("that") || item?.balance.toFixed(2)
+              itemPortfolioData?.balance :
+            item?.balance.toFixed(2)
         }
         title2={'Avg. Cost'}
-        value2={'$73.86'}
+        value2={
+          itemPortfolioData == null ?
+            "-" :
+            itemPortfolioData?.costBasis
+        }
         icon1={<SharesIcon />}
         icon2={<AvgCostIcon />}
         colors={colorValue}
         subTextColor={subTextColor}
       />
       <SubCategory
-        title1={'Equity'}
-        value1={'$22,935.46'}
+        title1={'Staking APY'}
+        value1={stakingApy}
         title2={'Total Returns'}
-        value2={'$1,946.75'}
+        value2={
+          itemPortfolioData == null ?
+            "-" :
+            itemPortfolioData?.pnl}
         icon1={<EquityIcon />}
         icon2={<TotalReturnsIcon />}
         colors={colorValue}
@@ -790,11 +808,8 @@ export default function StockDetailScreen({ navigation, route }) {
 
   useEffect(() => {
     const loadChart = async () => {
-      console.log("All portfolio data")
       const newChartData = await getPortfolioAsset(pubkey, item.tokenAddress, selectedTime);
-      console.log({ newChartData })
       setChartData(newChartData);
-      console.log({ it: newChartData.portfolioData })
       setItemPortfolioData(newChartData.portfolioData);
     };
     loadChart();

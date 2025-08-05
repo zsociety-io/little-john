@@ -199,37 +199,115 @@ class SwapService {
     }
   }
 
-  async signAndSendSwapTransaction(swapTransaction, signTransactions) {
+  async signAndSendSwapTransaction(swapTransaction, signTransactions, maxRetries = 3, retryDelay = 2000) {
+    console.log('=== Starting signAndSendSwapTransaction ===');
+    
     if (!this.connection) {
+      console.log('Creating new connection to Solana RPC');
       this.connection = new Connection('https://api.mainnet-beta.solana.com');
     }
 
     try {
+      console.log('Step 1: Deserializing transaction');
       const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
+      console.log('Transaction buffer length:', swapTransactionBuf.length);
 
       const swapTx = VersionedTransaction.deserialize(swapTransactionBuf);
-      console.log({ swapTransactionBuf });
+      console.log('Transaction deserialized successfully', { swapTx });
 
+      console.log('Step 2: Requesting signature from wallet');
       // Use mobile wallet adapter to sign and send
-      const signedTransactions = await signTransactions({
-        transactions: [swapTx]
-      });
+      let signedTransactions;
+      try {
+        signedTransactions = await signTransactions({
+          transactions: [swapTx]
+        });
+        console.log('Wallet signature received successfully');
+      } catch (signError) {
+        console.error('ERROR during wallet signing:', signError);
+        console.error('Sign error details:', {
+          message: signError.message,
+          stack: signError.stack,
+          name: signError.name
+        });
+        throw signError;
+      }
 
       // 4. Send the signed transaction
       const signedTx = signedTransactions[0]; // grab the signed versioned transaction
+      console.log('Step 3: Got signed transaction', { signedTx })
+      
+      // Retry logic for transaction broadcast
+      let signature;
+      let lastError;
+      
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          // Serialize and send
+          signature = await this.connection.sendRawTransaction(signedTx.serialize());
+          console.log({ sent: true, attempt })
+          break; // Success, exit retry loop
+        } catch (error) {
+          lastError = error;
+          console.error(`Transaction broadcast failed (attempt ${attempt}/${maxRetries}):`, error);
+          
+          // Check if it's a network error
+          if (this.isNetworkError(error)) {
+            console.log('Network error detected, will retry with exponential backoff');
+            if (attempt < maxRetries) {
+              const backoffDelay = retryDelay * Math.pow(2, attempt - 1); // Exponential backoff
+              console.log(`Retrying in ${backoffDelay}ms...`);
+              await new Promise(resolve => setTimeout(resolve, backoffDelay));
+              
+              // Try to reconnect to RPC
+              try {
+                this.connection = new Connection('https://api.mainnet-beta.solana.com');
+                console.log('Reconnected to RPC');
+              } catch (reconnectError) {
+                console.error('Failed to reconnect:', reconnectError);
+              }
+            }
+          } else if (attempt < maxRetries) {
+            console.log(`Retrying in ${retryDelay}ms...`);
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
+          }
+        }
+      }
+      
+      if (!signature) {
+        const errorMessage = this.isNetworkError(lastError) 
+          ? 'Network connection failed. Please check your internet connection and try again.'
+          : `Failed to broadcast transaction after ${maxRetries} attempts: ${lastError?.message || 'Unknown error'}`;
+        throw new Error(errorMessage);
+      }
 
-      console.log({ sig: signedTx })
-      // Serialize and send
-      const signature = await this.connection.sendRawTransaction(signedTx.serialize());
+      // Wait for confirmation with timeout
+      try {
+        const confirmationTimeout = 30000; // 30 seconds
+        const confirmation = await Promise.race([
+          this.connection.confirmTransaction(signature, 'finalized'),
+          new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Transaction confirmation timeout')), confirmationTimeout)
+          )
+        ]);
+        
+        console.log({ confirmed: true })
 
-      console.log({ sent: true })
-
-      // Wait for confirmation
-      const confirmation = await this.connection.confirmTransaction(signature, 'finalized');
-      console.log({ confirmed: true })
-
-      if (confirmation.value.err) {
-        throw new Error('Transaction failed: ' + confirmation.value.err);
+        if (confirmation.value.err) {
+          throw new Error('Transaction failed: ' + confirmation.value.err);
+        }
+      } catch (confirmError) {
+        // If confirmation times out, still return the signature so user can check later
+        console.error('Confirmation error:', confirmError);
+        if (confirmError.message === 'Transaction confirmation timeout') {
+          console.log('Transaction sent but confirmation timed out. Transaction may still succeed.');
+          return {
+            signature: signature,
+            explorerUrl: `https://solscan.io/tx/${signature}`,
+            warning: 'Transaction sent but confirmation timed out. Please check the explorer for status.'
+          };
+        }
+        throw confirmError;
       }
 
       return {
@@ -238,8 +316,35 @@ class SwapService {
       };
     } catch (error) {
       console.error('Error signing and sending swap:', error);
+      
+      // Provide more user-friendly error messages
+      if (this.isNetworkError(error)) {
+        throw new Error('Network connection failed. Please check your internet connection and try again.');
+      } else if (error.message?.includes('User rejected')) {
+        throw new Error('Transaction was cancelled by user.');
+      } else if (error.message?.includes('insufficient')) {
+        throw new Error('Insufficient balance for transaction.');
+      }
+      
       throw error;
     }
+  }
+
+  isNetworkError(error) {
+    const networkErrorPatterns = [
+      'network request failed',
+      'failed to fetch',
+      'network error',
+      'ECONNREFUSED',
+      'ETIMEDOUT',
+      'ENOTFOUND',
+      'fetch failed',
+      'ERR_NETWORK',
+      'ERR_INTERNET_DISCONNECTED'
+    ];
+    
+    const errorMessage = error?.message?.toLowerCase() || '';
+    return networkErrorPatterns.some(pattern => errorMessage.includes(pattern.toLowerCase()));
   }
 }
 

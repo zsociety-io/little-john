@@ -246,7 +246,7 @@ export default {
   closeYourAccount: 'Close Your Account',
   getFreeStock: 'Farm points  💰',
   farmDesc: 'Complete quests, earn points, and boost your chances to win exclusive rewards!',
-  questsGetStock: 'Complete Quests.\nGet Free Stock!',
+  questsGetStock: 'Complete Quests.\nGet Stocks!',
   inviteFriendsGetStock: 'Invite Friends.\nGet Free Stock!',
   tradingStocks: 'Trading stocks 1$ = 1 point',
   tradingStocksDesc: 'Each dollar traded gives you 1 point for quests.',

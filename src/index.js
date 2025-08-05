@@ -23,6 +23,12 @@ import { enableScreens } from 'react-native-screens';
 
 enableScreens(true); // This improves performance and stability
 
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs();
+
+console.disableYellowBox = true;
+
 
 const App = () => {
   const colors = useSelector(state => state.theme.theme);
