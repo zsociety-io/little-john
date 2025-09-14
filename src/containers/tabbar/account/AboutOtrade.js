@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View, Linking } from 'react-native';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,9 +17,32 @@ import { aboutOtradeData } from '../../../api/constant';
 export default function AboutOtrade() {
   const colors = useSelector(state => state.theme.theme);
 
+  const handleItemPress = (item) => {
+    switch (item) {
+      case 'Contact Us':
+        // Ouvrir l'application mail avec l'adresse email
+        Linking.openURL('mailto:contact@littlejohn.fi');
+        break;
+      case 'Visit Our Website':
+        // Ouvrir le site web dans le navigateur
+        Linking.openURL('https://www.littlejohn.fi/');
+        break;
+      default:
+        // Pour les autres éléments, ne rien faire pour l'instant
+        console.log(`Clicked on: ${item}`);
+        break;
+    }
+  };
+
   const RenderData = ({ item }) => {
+    const isClickable = item === 'Contact Us' || item === 'Visit Our Website';
+    
     return (
-      <TouchableOpacity style={localStyles.settingsContainer}>
+      <TouchableOpacity 
+        style={localStyles.settingsContainer}
+        onPress={() => handleItemPress(item)}
+        disabled={!isClickable}
+      >
         <CText type="s18">{item}</CText>
         <Ionicons
           name="chevron-forward-outline"

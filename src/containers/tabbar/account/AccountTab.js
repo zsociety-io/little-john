@@ -9,7 +9,7 @@ import {
   Clipboard,
   Alert,
 } from 'react-native';
-import React, { createRef, useState } from 'react';
+import React, { createRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -32,6 +32,7 @@ import CDivider from '../../../components/common/CDivider';
 import LogOut from '../../../components/models/LogOut';
 
 import { useAccount } from '../../../providers/AccountProvider';
+import { getSeekerVerificationStatus } from '../../../api/campaign';
 
 
 export default AccountTab = ({ navigation }) => {
@@ -45,6 +46,26 @@ export default AccountTab = ({ navigation }) => {
   const { disconnect } = useAccount();
 
   const [isEnabled, setIsEnabled] = useState(!!color.dark);
+  const [seekerVerified, setSeekerVerified] = useState(false);
+  const [loadingSeeker, setLoadingSeeker] = useState(true);
+
+  // Vérifier le statut de vérification au chargement
+  useEffect(() => {
+    const checkSeekerStatus = async () => {
+      if (pubkey) {
+        try {
+          const status = await getSeekerVerificationStatus(pubkey);
+          setSeekerVerified(status.isVerified);
+        } catch (error) {
+          console.error('Erreur vérification statut:', error);
+        } finally {
+          setLoadingSeeker(false);
+        }
+      }
+    };
+    
+    checkSeekerStatus();
+  }, [pubkey]);
 
   const onPressLightTheme = () => {
     setAsyncStorageData(THEME, 'light');
@@ -66,7 +87,13 @@ export default AccountTab = ({ navigation }) => {
   };
 
   const onPressPremium = () => {
-    navigation.navigate(StackNav.Quest);
+    if (seekerVerified) {
+      // Utilisateur déjà vérifié, accès direct à Quest
+      navigation.navigate(StackNav.Quest);
+    } else {
+      // Rediriger vers l'écran de vérification
+      navigation.navigate(StackNav.SeekerPhoneVerification);
+    }
   };
 
   const onPressEditProfile = () => { };
@@ -189,7 +216,9 @@ export default AccountTab = ({ navigation }) => {
             localStyles.premiumContainer,
             {
               borderColor: color.dark ? color.dark3 : color.grayScale2,
-              backgroundColor: color.dark ? color.dark2 : color.grayScale1,
+              backgroundColor: seekerVerified 
+                ? color.primary 
+                : (color.dark ? color.dark2 : color.grayScale1),
             },
           ]}>
           <Image

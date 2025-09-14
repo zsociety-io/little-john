@@ -193,6 +193,12 @@ export default function StackNavigation() {
         component={StackRoute.AssetSelectorScreen}
       />
       
+      {/* Campaign Screens */}
+      <Stack.Screen
+        name={StackNav.SeekerPhoneVerification}
+        component={StackRoute.SeekerPhoneVerification}
+      />
+      
       {/* Common Screens */}
       <Stack.Screen
         name={StackNav.IncommingFeature}

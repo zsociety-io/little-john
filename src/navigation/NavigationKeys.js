@@ -80,6 +80,8 @@ export const StackNav = {
   TransferResult: 'TransferResult',
   TransferHistory: 'TransferHistory',
   AssetSelector: 'AssetSelector',
+  // Campaign routes
+  SeekerPhoneVerification: 'SeekerPhoneVerification',
   // Common pages
   IncommingFeature: 'IncommingFeature',
 };

@@ -77,6 +77,8 @@ import TransferConfirmScreen from '../containers/tabbar/transfer/TransferConfirm
 import TransferResultScreen from '../containers/tabbar/transfer/TransferResultScreen';
 import TransferHistoryScreen from '../containers/tabbar/transfer/TransferHistoryScreen';
 import AssetSelectorScreen from '../containers/tabbar/transfer/AssetSelectorScreen';
+// Campaign screens
+import SeekerPhoneVerification from '../containers/auth/SeekerPhoneVerification';
 // Common screens
 import IncommingFeature from '../containers/common/IncommingFeature';
 
@@ -160,6 +162,8 @@ export const StackRoute = {
   TransferResultScreen,
   TransferHistoryScreen,
   AssetSelectorScreen,
+  // Campaign screens
+  SeekerPhoneVerification,
   // Common screens
   IncommingFeature,
 };
