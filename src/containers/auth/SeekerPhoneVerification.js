@@ -7,7 +7,7 @@ import CHeader from '../../components/common/CHeader';
 import CText from '../../components/common/CText';
 import CButton from '../../components/common/CButton';
 import { StackNav } from '../../navigation/NavigationKeys';
-import { verifySeekerPhone } from '../../api/campaign';
+import { verifySeekerGenesisToken } from '../../api/campaign';
 import { moderateScale } from '../../common/constants';
 import strings from '../../i18n/strings';
 import { styles } from '../../themes';
@@ -28,25 +28,39 @@ export default function SeekerPhoneVerification({ navigation }) {
     setIsVerifying(true);
     
     try {
-      const result = await verifySeekerPhone(pubkey);
+      const result = await verifySeekerGenesisToken(pubkey);
       
       if (result.success) {
-        // Succès - utilisateur a un Seeker Phone
-        Alert.alert(
-          'Félicitations ! 🎉',
-          `Seeker Phone vérifié avec succès !\nVous avez gagné ${result.points} points.`,
-          [
-            {
-              text: 'Continuer',
-              onPress: () => navigation.navigate(StackNav.Quest, { verified: true })
-            }
-          ]
-        );
+        if (result.isAlreadyVerified) {
+          // Déjà vérifié
+          Alert.alert(
+            'Déjà vérifié ✅',
+            'Vous avez déjà été vérifié pour le Seeker Genesis Token !',
+            [
+              {
+                text: 'Continuer',
+                onPress: () => navigation.navigate(StackNav.Quest, { verified: true })
+              }
+            ]
+          );
+        } else {
+          // Nouvelle vérification réussie
+          Alert.alert(
+            'Félicitations ! 🎉',
+            `Seeker Genesis Token vérifié avec succès !\nVous avez gagné ${result.points} points.`,
+            [
+              {
+                text: 'Continuer',
+                onPress: () => navigation.navigate(StackNav.Quest, { verified: true })
+              }
+            ]
+          );
+        }
       } else {
-        // Échec - pas de Seeker Phone
+        // Échec - pas de Seeker Genesis Token
         Alert.alert(
           'Accès refusé 😞',
-          'Cette campagne est réservée aux détenteurs de Seeker Phone Solana.',
+          'Cette campagne est réservée aux détenteurs de Seeker Genesis Token NFT.',
           [
             {
               text: 'Retour',
@@ -57,7 +71,7 @@ export default function SeekerPhoneVerification({ navigation }) {
       }
     } catch (error) {
       console.error('Erreur vérification:', error);
-      Alert.alert('Erreur', 'Impossible de vérifier le Seeker Phone. Réessayez plus tard.');
+      Alert.alert('Erreur', 'Impossible de vérifier le Seeker Genesis Token. Réessayez plus tard.');
     } finally {
       setIsVerifying(false);
     }
@@ -66,27 +80,27 @@ export default function SeekerPhoneVerification({ navigation }) {
   return (
     <CSafeAreaView style={[{ backgroundColor: colors.backgroundColor }, localStyles.safeArea]}>
       <CHeader
-        title="Seeker Phone Verification"
+        title="Seeker Genesis Token Verification"
         onPressBack={() => navigation.goBack()}
       />
       
       <View style={[localStyles.container, { backgroundColor: colors.backgroundColor }]}>
         <View style={localStyles.content}>
           <CText type="b24" style={localStyles.title}>
-            📱 Seeker Phone Required
+            🏆 Seeker Genesis Token Required
           </CText>
           
           <CText type="r16" style={localStyles.description}>
-            This referral campaign is exclusive to Seeker Phone Solana owners.
+            This rewards campaign is exclusive to Seeker Genesis Token NFT holders.
           </CText>
           
           <CText type="r14" style={localStyles.rewards}>
-            🎁 Rewards: 100 points + Access to exclusive campaign
+            🎁 Rewards: 500 points + Access to exclusive rewards
           </CText>
           
           <View style={localStyles.buttonContainer}>
             <CButton
-              title={isVerifying ? "Vérification..." : "Check my Seeker Phone"}
+              title={isVerifying ? "Checking NFT..." : "Verify my Seeker Genesis Token"}
               onPress={handleVerifyPhone}
               disabled={isVerifying}
               loading={isVerifying}

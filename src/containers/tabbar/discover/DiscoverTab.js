@@ -31,6 +31,7 @@ import { StackNav } from '../../../navigation/NavigationKeys';
 import ChipsComponent from '../../../components/ChipsComponent';
 import DiscoverStockComponent from '../../../components/DiscoverStockComponent';
 import ListSkeleton from '../../../components/common/ListSkeleton';
+import AutoRefreshSettings from '../../../components/AutoRefreshSettings';
 
 import { getDiscoverStocks } from '../../../api/stocks';
 
@@ -49,6 +50,14 @@ const DiscoverTab = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
   const searchInputRef = React.useRef(null);
+  
+  // Auto-refresh state (daily refresh)
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [refreshInterval, setRefreshInterval] = useState(86400); // 24 hours in seconds
+  const refreshTimerRef = React.useRef(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showRefreshSettings, setShowRefreshSettings] = useState(false);
+  const [lastRefreshTime, setLastRefreshTime] = useState(null);
 
   const onSearchInput = val => setSearch(val);
   const onSearchFocus = () => setSearchFocus(true);
@@ -96,6 +105,68 @@ const DiscoverTab = ({ navigation }) => {
     };
     
     loadAllData();
+  }, []);
+
+  // Auto-refresh functionality (daily)
+  useEffect(() => {
+    if (!autoRefresh) return;
+
+    const checkAndRefresh = async () => {
+      const now = new Date();
+      const lastRefresh = lastRefreshTime ? new Date(lastRefreshTime) : null;
+      
+      // Check if we need to refresh (24 hours have passed or first time)
+      const shouldRefresh = !lastRefresh || 
+        (now.getTime() - lastRefresh.getTime()) >= (24 * 60 * 60 * 1000);
+      
+      if (shouldRefresh) {
+        try {
+          setIsRefreshing(true);
+          console.log('🔄 Daily auto-refresh: updating stock prices...');
+          const [allStocks, topStocks] = await getDiscoverStocks();
+          
+          setAllStocks(allStocks);
+          setTopMovers(topStocks);
+          setLastRefreshTime(now.toISOString());
+          
+          // Re-apply current filters
+          if (search.trim() || selectedFilters.length > 0) {
+            filterDataList();
+          } else {
+            setFilterData(allStocks);
+          }
+          
+          console.log('✅ Daily refresh completed successfully');
+        } catch (error) {
+          console.error('❌ Error during daily refresh:', error);
+        } finally {
+          setIsRefreshing(false);
+        }
+      }
+    };
+
+    // Check immediately on mount
+    checkAndRefresh();
+
+    // Set up daily check (every hour to be safe)
+    refreshTimerRef.current = setInterval(checkAndRefresh, 60 * 60 * 1000); // Check every hour
+
+    // Cleanup function
+    return () => {
+      if (refreshTimerRef.current) {
+        clearInterval(refreshTimerRef.current);
+        refreshTimerRef.current = null;
+      }
+    };
+  }, [autoRefresh, search, selectedFilters, lastRefreshTime]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (refreshTimerRef.current) {
+        clearInterval(refreshTimerRef.current);
+      }
+    };
   }, []);
 
   // Fonction de filtrage optimisée
@@ -153,7 +224,21 @@ const DiscoverTab = ({ navigation }) => {
             color={colors.textColor}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ph10}>
+        
+        {/* Auto-refresh toggle button */}
+        <TouchableOpacity 
+          style={[styles.ph10, { opacity: autoRefresh ? 1 : 0.5 }]} 
+          onPress={() => setAutoRefresh(!autoRefresh)}>
+          <Ionicons
+            name={autoRefresh ? "sync" : "sync-outline"}
+            size={moderateScale(26)}
+            color={autoRefresh ? colors.primary : colors.textColor}
+          />
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={styles.ph10} 
+          onPress={() => setShowRefreshSettings(true)}>
           <Ionicons
             name="ellipsis-horizontal-circle"
             size={moderateScale(26)}
@@ -339,7 +424,33 @@ const DiscoverTab = ({ navigation }) => {
 
         {/* STOCKS SECTION HEADER */}
         <View style={{ marginTop: moderateScale(10) }}>
-          <SubHeader title="All Assets" onPress={onPressAllStocks} />
+          <View style={[localStyles.subHeaderStyle, { alignItems: 'center' }]}>
+            <View style={styles.flexRow}>
+              <CText type={'b20'}>All Assets</CText>
+              {/* Auto-refresh status indicator */}
+              {autoRefresh && (
+                <View style={[styles.flexRow, styles.itemsCenter, styles.ml10]}>
+                  <View style={[
+                    localStyles.refreshIndicator,
+                    { backgroundColor: isRefreshing ? colors.primary : colors.primary + '40' }
+                  ]} />
+                  <CText 
+                    type={'m12'} 
+                    color={colors.grayScale6}
+                    style={styles.ml5}>
+                    {isRefreshing ? 'Refreshing...' : 'Daily refresh'}
+                  </CText>
+                </View>
+              )}
+            </View>
+            <TouchableOpacity onPress={onPressAllStocks}>
+              <Ionicons
+                name="arrow-forward"
+                size={moderateScale(26)}
+                color={colors.primary}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -372,6 +483,16 @@ const DiscoverTab = ({ navigation }) => {
           />
         )}
       </KeyBoardAvoidWrapper>
+      
+      {/* Auto-refresh settings modal */}
+      <AutoRefreshSettings
+        visible={showRefreshSettings}
+        onClose={() => setShowRefreshSettings(false)}
+        autoRefresh={autoRefresh}
+        setAutoRefresh={setAutoRefresh}
+        refreshInterval={refreshInterval}
+        setRefreshInterval={setRefreshInterval}
+      />
     </CSafeAreaView>
   );
 };
@@ -497,5 +618,11 @@ const localStyles = StyleSheet.create({
     width: moderateScale(60),
     ...styles.mv5,
     ...styles.flex,
+  },
+  refreshIndicator: {
+    width: moderateScale(8),
+    height: moderateScale(8),
+    borderRadius: moderateScale(4),
+    backgroundColor: commonColor.primary,
   },
 });
