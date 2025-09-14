@@ -112,12 +112,15 @@ export default HomeTab = ({ navigation }) => {
           <LikeIcon height={moderateScale(26)} width={moderateScale(26)} />
         </TouchableOpacity>
         */}
+        {/* BOUTON NOTIFICATION Pareil */}
+        {/*
         <TouchableOpacity onPress={onPressNotification}>
           <NotificationHomeIcon
             height={moderateScale(26)}
             width={moderateScale(26)}
           />
         </TouchableOpacity>
+        */}
       </View>
     );
   };

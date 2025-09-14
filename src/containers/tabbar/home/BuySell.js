@@ -27,6 +27,8 @@ import typography from '../../../themes/typography';
 import { StackNav } from '../../../navigation/NavigationKeys';
 import SwapService from '../../../services/SwapService';
 import { useAccount } from '../../../providers/AccountProvider';
+import { getCashBalance } from '../../../api/stocks';
+import { formatCurrency } from '../../../api';
 
 export default function BuySell({ navigation, route }) {
   const { item } = route?.params;
@@ -39,6 +41,7 @@ export default function BuySell({ navigation, route }) {
   const [error, setError] = useState(null);
   const [tokenBalance, setTokenBalance] = useState(null);
   const [balanceUSD, setBalanceUSD] = useState(null);
+  const [cashBalance, setCashBalance] = useState(null);
 
   useEffect(() => {
     // Check token balance when in sell mode
@@ -78,6 +81,23 @@ export default function BuySell({ navigation, route }) {
     };
     checkBalance();
   }, [item?.isBuy, currentAccount?.pubkey, item?.tokenAddress]);
+
+  // Load cash balance for buy mode
+  useEffect(() => {
+    const loadCashBalance = async () => {
+      if (item?.isBuy && currentAccount?.pubkey) {
+        try {
+          const myCashBalance = await getCashBalance(currentAccount.pubkey);
+          const formattedBalance = formatCurrency(myCashBalance);
+          setCashBalance(formattedBalance);
+        } catch (err) {
+          console.error('Error loading cash balance:', err);
+          setCashBalance('$0.00');
+        }
+      }
+    };
+    loadCashBalance();
+  }, [item?.isBuy, currentAccount?.pubkey]);
 
   const onFocusTextInput = () => setIsFocused(true);
   const onBlurTextInput = () => setIsFocused(false);
@@ -299,7 +319,9 @@ export default function BuySell({ navigation, route }) {
           align={'center'}
           style={styles.mt5}>
           {item?.isBuy
-            ? 'Balance available: $22,935.46'
+            ? cashBalance 
+              ? `Balance available: ${cashBalance}`
+              : 'Loading balance...'
             : balanceUSD !== null 
               ? `${item?.stockName} balance: $${balanceUSD.toFixed(2)}`
               : 'Loading balance...'}
