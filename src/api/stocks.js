@@ -264,6 +264,8 @@ export const getAllStocks = async () => {
         yMin: 6,
         yMax: 18
       });
+       // Ajout du log des catégories
+      console.log(`Stock ${i} – ${asset.asset_ticker} categories:`, asset.asset_categories);
       return {
         id: i,
         description: asset.asset_description,
