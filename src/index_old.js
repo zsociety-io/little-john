@@ -35,14 +35,11 @@ LogBox.ignoreAllLogs();
 console.disableYellowBox = true;
 
 
-const AppContent = () => {
+const App = () => {
   const dispatch = useDispatch();
   const colors = useSelector(state => state.theme.theme);
   const leaderboardIntervalRef = useRef(null);
-  const userScoreIntervalRef = useRef(null);
-  const { currentAccount } = React.useContext(AccountContext);
 
-  // Gérer le leaderboard (toujours actif)
   useEffect(() => {
     console.log('🚀 App démarré - Initialisation du leaderboard...');
     
@@ -51,7 +48,7 @@ const AppContent = () => {
     
     // 2. Faire le premier call API après 1 seconde (pour ne pas bloquer le démarrage)
     const initialTimeout = setTimeout(() => {
-      console.log('🔄 Premier chargement API du leaderboard');
+      console.log('� Premier chargement API du leaderboard');
       dispatch(fetchAndSaveLeaderboard(10));
     }, 1000);
     
@@ -71,53 +68,14 @@ const AppContent = () => {
     };
   }, [dispatch]);
 
-  // Gérer le score utilisateur (uniquement si connecté)
-  useEffect(() => {
-    if (!currentAccount?.pubkey) {
-      console.log('⏸️ Pas de compte connecté, skip user score');
-      return;
-    }
-
-    const publicKey = currentAccount.pubkey.toString();
-    console.log('👤 Utilisateur connecté:', publicKey);
-    console.log('👤 Initialisation du score utilisateur...');
-
-    // Premier call après 1.5 secondes
-    const initialUserTimeout = setTimeout(() => {
-      console.log('🔄 Premier chargement du score utilisateur');
-      dispatch(fetchAndSaveUserScore(publicKey));
-    }, 1500);
-
-    // Refresh toutes les 10 minutes
-    userScoreIntervalRef.current = setInterval(() => {
-      console.log('⏰ Auto-refresh du score utilisateur (10 min)');
-      dispatch(fetchAndSaveUserScore(publicKey));
-    }, 600000); // 10 minutes
-
-    // Nettoyage
-    return () => {
-      clearTimeout(initialUserTimeout);
-      if (userScoreIntervalRef.current) {
-        clearInterval(userScoreIntervalRef.current);
-        console.log('🧹 User score interval nettoyé');
-      }
-    };
-  }, [dispatch, currentAccount]);
-
-  return (
-    <CSafeAreaView style={styles.flex}>
-      <StatusBar
-        barStyle={colors.dark == 'dark' ? 'light-content' : 'dark-content'}
-      />
-      <AppNavigator />
-    </CSafeAreaView>
-  );
-};
-
-const App = () => {
   return (
     <AccountProvider>
-      <AppContent />
+      <CSafeAreaView style={styles.flex}>
+        <StatusBar
+          barStyle={colors.dark == 'dark' ? 'light-content' : 'dark-content'}
+        />
+        <AppNavigator />
+      </CSafeAreaView>
     </AccountProvider>
   );
 };

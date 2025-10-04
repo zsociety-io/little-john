@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -12,19 +13,19 @@ import CHeader from '../../../components/common/CHeader';
 import strings from '../../../i18n/strings';
 import { styles } from '../../../themes';
 import CText from '../../../components/common/CText';
-import { leaderboardData } from '../../../api/constant';
 import { moderateScale } from '../../../common/constants';
 import { useSelector } from 'react-redux';
 
 export default function MyRewards() {
   const colors = useSelector(state => state.theme.theme);
   
-  // Données simulées pour l'utilisateur actuel
-  const currentUser = {
-    position: 23,
-    points: 1250,
-    name: "You"
-  };
+  // Récupérer les données depuis Redux (déjà chargées au niveau de l'App)
+  const { data: leaderboard, loading, error, lastUpdate, userStats } = useSelector(
+    state => state.leaderboard
+  );
+  
+  // Pas de useEffect ici ! Les données viennent directement de Redux
+  // Le refresh automatique est géré au niveau de l'App (index.js)
 
   const RightIcon = () => {
     return (
@@ -81,19 +82,32 @@ const renderItem = ({ item, index }) => {
 };
 
   const RenderHeader = () => {
+    const lastUpdateDate = lastUpdate ? new Date(lastUpdate) : null;
+    
     return (
       <View>
         <View style={localStyles.pointsContainer}>
           <CText type={'b32'} color={colors.primary} align={'center'}>
-            {currentUser.points} {strings.points}
+            {userStats.points} {strings.points}
           </CText>
           <CText type={'r16'} align={'center'} style={styles.mt5}>
-            {strings.yourCurrentPosition} #{currentUser.position}
+            {strings.yourCurrentPosition} #{userStats.position}
           </CText>
+          {lastUpdateDate && (
+            <CText type={'m12'} color={colors.grayScale5} align={'center'} style={styles.mt10}>
+              Last updated: {lastUpdateDate.toLocaleTimeString()}
+            </CText>
+          )}
+          {error && (
+            <CText type={'m12'} color={colors.error || colors.red} align={'center'} style={styles.mt5}>
+              ⚠️ {error}
+            </CText>
+          )}
         </View>
 
         <CText type={'b24'} style={[styles.mt20, styles.mb10]}>
-          🏆 {strings.top10Leaderboard}</CText>
+          🏆 {strings.top10Leaderboard}
+        </CText>
       </View>
     );
   };
@@ -112,15 +126,24 @@ const renderItem = ({ item, index }) => {
     <CSafeAreaView>
       <CHeader title={strings.leaderboard} rightIcon={<RightIcon />} />
       <View style={styles.flex}>
-        <FlatList
-          removeClippedSubviews={false} 
-          data={leaderboardData}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.ph20}
-          ListHeaderComponent={<RenderHeader />}
-        />
+        {loading ? (
+          <View style={[styles.flex, styles.center]}>
+            <ActivityIndicator size="large" color={colors.primary} />
+            <CText type={'m16'} color={colors.grayScale5} style={styles.mt10}>
+              Loading leaderboard...
+            </CText>
+          </View>
+        ) : (
+          <FlatList
+            removeClippedSubviews={false} 
+            data={leaderboard}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.ph20}
+            ListHeaderComponent={<RenderHeader />}
+          />
+        )}
       </View>
     </CSafeAreaView>
   );
